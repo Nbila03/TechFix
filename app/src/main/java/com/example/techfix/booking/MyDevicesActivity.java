@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.techfix.R;
 import com.example.techfix.adapter.DeviceAdapter;
+import com.example.techfix.database.TechFixDBHelper;
 import com.example.techfix.model.Device;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class MyDevicesActivity extends AppCompatActivity {
     private List<Device> deviceList;
     private DeviceAdapter deviceAdapter;
 
+    private TechFixDBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,32 +35,10 @@ public class MyDevicesActivity extends AppCompatActivity {
         recyclerDevices = findViewById(R.id.recyclerDevices);
         btnAddDevice = findViewById(R.id.btnAddDevice);
 
+        // Initialize local SQLite helper
+        dbHelper = new TechFixDBHelper(this);
+
         deviceList = new ArrayList<>();
-
-        // Temporary test data
-        deviceList.add(
-                new Device(
-                        1,
-                        1,
-                        1,
-                        "My Phone",
-                        "Apple",
-                        "iPhone 13",
-                        "SN001"
-                )
-        );
-
-        deviceList.add(
-                new Device(
-                        2,
-                        1,
-                        2,
-                        "My Laptop",
-                        "Dell",
-                        "Inspiron 15",
-                        "SN002"
-                )
-        );
 
         deviceAdapter = new DeviceAdapter(
                 deviceList,
@@ -107,5 +88,29 @@ public class MyDevicesActivity extends AppCompatActivity {
 
             startActivity(intent);
         });
+
+        loadDevices();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        /*
+         Reload devices whenever we return from Add Device.
+         This makes a newly saved device appear immediately.
+        */
+        loadDevices();
+    }
+
+    private void loadDevices() {
+
+        List<Device> savedDevices =
+                dbHelper.getAllDevices();
+
+        deviceList.clear();
+        deviceList.addAll(savedDevices);
+
+        deviceAdapter.notifyDataSetChanged();
     }
 }
