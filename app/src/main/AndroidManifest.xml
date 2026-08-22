@@ -30,6 +30,10 @@
             android:name=".booking.RepairDetailsActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".booking.AppointmentConfirmationActivity"
+            android:exported="false" />
+
         <!-- Main Launcher Activity -->
 
         <activity
