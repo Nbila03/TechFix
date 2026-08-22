@@ -1,6 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/techfix_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CONFIRM APPOINTMENT"
+            android:textColor="@color/techfix_white"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Review your repair request before submitting"
+            android:textColor="@color/techfix_text_secondary"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:text="DEVICE"
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvConfirmDevice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:padding="14dp"
+            android:text="Apple iPhone 13"
+            android:textColor="@color/techfix_white" />
+
+        <TextView
+            android:text="SERVICE"
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold"
+            android:layout_marginTop="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvConfirmService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:padding="14dp"
+            android:text="Screen Replacement"
+            android:textColor="@color/techfix_white" />
+
+        <TextView
+            android:text="PROBLEM"
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold"
+            android:layout_marginTop="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvConfirmProblem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:padding="14dp"
+            android:text="Cracked screen"
+            android:textColor="@color/techfix_white" />
+
+        <TextView
+            android:text="APPOINTMENT"
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold"
+            android:layout_marginTop="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvConfirmAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:padding="14dp"
+            android:text="2026-08-25 • 10:30"
+            android:textColor="@color/techfix_white" />
+
+        <TextView
+            android:text="DAMAGE PHOTO"
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold"
+            android:layout_marginTop="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/imgConfirmPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:scaleType="centerCrop"
+            android:contentDescription="Damage photo" />
+
+        <Button
+            android:id="@+id/btnConfirmBooking"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="28dp"
+            android:backgroundTint="@color/techfix_gold"
+            android:text="CONFIRM BOOKING"
+            android:textColor="@color/techfix_background"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</ScrollView>
