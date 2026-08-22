@@ -2,6 +2,7 @@ package com.example.techfix.booking;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.Button;
@@ -358,25 +359,56 @@ public class RepairDetailsActivity extends AppCompatActivity {
             return;
         }
 
-        Toast.makeText(
-                this,
-                "Repair details are valid",
-                Toast.LENGTH_SHORT
-        ).show();
+        Intent intent = new Intent(
+                RepairDetailsActivity.this,
+                AppointmentConfirmationActivity.class
+        );
 
-        /*
-         Next step:
-         Send all these values to AppointmentConfirmationActivity:
+        intent.putExtra(
+                "DEVICE_ID",
+                deviceId
+        );
 
-         deviceId
-         deviceName
-         deviceBrand
-         deviceModel
-         serviceName
-         problemDescription
-         selectedDate
-         selectedTime
-         damageImagePath
-        */
+        intent.putExtra(
+                "DEVICE_NAME",
+                deviceName
+        );
+
+        intent.putExtra(
+                "DEVICE_BRAND",
+                deviceBrand
+        );
+
+        intent.putExtra(
+                "DEVICE_MODEL",
+                deviceModel
+        );
+
+        intent.putExtra(
+                "SERVICE_NAME",
+                serviceName
+        );
+
+        intent.putExtra(
+                "PROBLEM_DESCRIPTION",
+                problemDescription
+        );
+
+        intent.putExtra(
+                "APPOINTMENT_DATE",
+                selectedDate
+        );
+
+        intent.putExtra(
+                "APPOINTMENT_TIME",
+                selectedTime
+        );
+
+        intent.putExtra(
+                "IMAGE_PATH",
+                damageImagePath
+        );
+
+        startActivity(intent);
     }
 }
