@@ -26,6 +26,10 @@
             android:name=".booking.MyDevicesActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".booking.RepairDetailsActivity"
+            android:exported="false" />
+
         <!-- Main Launcher Activity -->
 
         <activity
