@@ -19,6 +19,8 @@ public class AppointmentConfirmationActivity extends AppCompatActivity {
     private TextView tvConfirmAppointment;
 
     private ImageView imgConfirmPhoto;
+
+    private Button btnBackConfirmation;
     private Button btnConfirmBooking;
 
     @Override
@@ -27,50 +29,105 @@ public class AppointmentConfirmationActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_appointment_confirmation);
 
-        tvConfirmDevice = findViewById(R.id.tvConfirmDevice);
-        tvConfirmService = findViewById(R.id.tvConfirmService);
-        tvConfirmProblem = findViewById(R.id.tvConfirmProblem);
-        tvConfirmAppointment = findViewById(R.id.tvConfirmAppointment);
+        tvConfirmDevice =
+                findViewById(R.id.tvConfirmDevice);
 
-        imgConfirmPhoto = findViewById(R.id.imgConfirmPhoto);
-        btnConfirmBooking = findViewById(R.id.btnConfirmBooking);
+        tvConfirmService =
+                findViewById(R.id.tvConfirmService);
 
-        String deviceName = getIntent().getStringExtra("DEVICE_NAME");
-        String deviceBrand = getIntent().getStringExtra("DEVICE_BRAND");
-        String deviceModel = getIntent().getStringExtra("DEVICE_MODEL");
+        tvConfirmProblem =
+                findViewById(R.id.tvConfirmProblem);
 
-        String serviceName = getIntent().getStringExtra("SERVICE_NAME");
+        tvConfirmAppointment =
+                findViewById(R.id.tvConfirmAppointment);
+
+        imgConfirmPhoto =
+                findViewById(R.id.imgConfirmPhoto);
+
+        btnBackConfirmation =
+                findViewById(R.id.btnBackConfirmation);
+
+        btnConfirmBooking =
+                findViewById(R.id.btnConfirmBooking);
+
+        String deviceName =
+                getIntent().getStringExtra(
+                        "DEVICE_NAME"
+                );
+
+        String deviceBrand =
+                getIntent().getStringExtra(
+                        "DEVICE_BRAND"
+                );
+
+        String deviceModel =
+                getIntent().getStringExtra(
+                        "DEVICE_MODEL"
+                );
+
+        String serviceName =
+                getIntent().getStringExtra(
+                        "SERVICE_NAME"
+                );
+
         String problemDescription =
-                getIntent().getStringExtra("PROBLEM_DESCRIPTION");
+                getIntent().getStringExtra(
+                        "PROBLEM_DESCRIPTION"
+                );
 
         String appointmentDate =
-                getIntent().getStringExtra("APPOINTMENT_DATE");
+                getIntent().getStringExtra(
+                        "APPOINTMENT_DATE"
+                );
 
         String appointmentTime =
-                getIntent().getStringExtra("APPOINTMENT_TIME");
+                getIntent().getStringExtra(
+                        "APPOINTMENT_TIME"
+                );
 
         String imagePath =
-                getIntent().getStringExtra("IMAGE_PATH");
+                getIntent().getStringExtra(
+                        "IMAGE_PATH"
+                );
 
         tvConfirmDevice.setText(
-                deviceName + "\n"
-                        + deviceBrand + " • " + deviceModel
+                deviceName
+                        + "\n"
+                        + deviceBrand
+                        + " • "
+                        + deviceModel
         );
 
-        tvConfirmService.setText(serviceName);
+        tvConfirmService.setText(
+                serviceName
+        );
 
-        tvConfirmProblem.setText(problemDescription);
+        tvConfirmProblem.setText(
+                problemDescription
+        );
 
         tvConfirmAppointment.setText(
-                appointmentDate + " • " + appointmentTime
+                appointmentDate
+                        + " • "
+                        + appointmentTime
         );
 
-        if (imagePath != null && !imagePath.isEmpty()) {
+        if (imagePath != null
+                && !imagePath.isEmpty()) {
+
             imgConfirmPhoto.setImageBitmap(
-                    BitmapFactory.decodeFile(imagePath)
+                    BitmapFactory.decodeFile(
+                            imagePath
+                    )
             );
         }
 
+        // Return to Repair Details
+        btnBackConfirmation.setOnClickListener(v ->
+                finish()
+        );
+
+        // Confirm booking
         btnConfirmBooking.setOnClickListener(v -> {
 
             Toast.makeText(
@@ -78,6 +135,7 @@ public class AppointmentConfirmationActivity extends AppCompatActivity {
                     "Repair booking confirmed",
                     Toast.LENGTH_SHORT
             ).show();
+
         });
     }
 }

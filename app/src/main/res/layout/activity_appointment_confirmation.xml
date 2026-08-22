@@ -13,6 +13,17 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- Back button -->
+        <Button
+            android:id="@+id/btnBackConfirmation"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="@color/techfix_surface"
+            android:text="← BACK"
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,6 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="28dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="@color/techfix_gold"
             android:text="CONFIRM BOOKING"
             android:textColor="@color/techfix_background"
