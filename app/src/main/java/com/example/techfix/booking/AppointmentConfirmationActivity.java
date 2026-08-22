@@ -40,19 +40,25 @@ public class AppointmentConfirmationActivity extends AppCompatActivity {
         String deviceModel = getIntent().getStringExtra("DEVICE_MODEL");
 
         String serviceName = getIntent().getStringExtra("SERVICE_NAME");
-        String problemDescription = getIntent().getStringExtra("PROBLEM_DESCRIPTION");
+        String problemDescription =
+                getIntent().getStringExtra("PROBLEM_DESCRIPTION");
 
-        String appointmentDate = getIntent().getStringExtra("APPOINTMENT_DATE");
-        String appointmentTime = getIntent().getStringExtra("APPOINTMENT_TIME");
+        String appointmentDate =
+                getIntent().getStringExtra("APPOINTMENT_DATE");
 
-        String imagePath = getIntent().getStringExtra("IMAGE_PATH");
+        String appointmentTime =
+                getIntent().getStringExtra("APPOINTMENT_TIME");
+
+        String imagePath =
+                getIntent().getStringExtra("IMAGE_PATH");
 
         tvConfirmDevice.setText(
-                deviceName + "\n" +
-                        deviceBrand + " • " + deviceModel
+                deviceName + "\n"
+                        + deviceBrand + " • " + deviceModel
         );
 
         tvConfirmService.setText(serviceName);
+
         tvConfirmProblem.setText(problemDescription);
 
         tvConfirmAppointment.setText(
@@ -72,8 +78,6 @@ public class AppointmentConfirmationActivity extends AppCompatActivity {
                     "Repair booking confirmed",
                     Toast.LENGTH_SHORT
             ).show();
-
-            // Database/API saving will be added later.
         });
     }
 }
