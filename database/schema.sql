@@ -1,8 +1,11 @@
-CREATE DATABASE IF NOT EXISTS techfix_db;
+CREATE DATABASE techfix_db;
+
 USE techfix_db;
--- =====================================================
+
+
+-- =========================================================
 -- 1. USERS
--- =====================================================
+-- =========================================================
 
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -15,9 +18,9 @@ CREATE TABLE users (
 );
 
 
--- =====================================================
+-- =========================================================
 -- 2. DEVICE CATEGORIES
--- =====================================================
+-- =========================================================
 
 CREATE TABLE device_categories (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,9 +29,9 @@ CREATE TABLE device_categories (
 );
 
 
--- =====================================================
+-- =========================================================
 -- 3. DEVICES
--- =====================================================
+-- =========================================================
 
 CREATE TABLE devices (
     device_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -41,39 +44,40 @@ CREATE TABLE devices (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (user_id)
-        REFERENCES users(user_id),
-
-    FOREIGN KEY (category_id)
-        REFERENCES device_categories(category_id)
+        REFERENCES users(user_id)
 );
 
 
--- =====================================================
+-- =========================================================
 -- 4. BRANCHES
--- =====================================================
+-- =========================================================
 
 CREATE TABLE branches (
     branch_id INT AUTO_INCREMENT PRIMARY KEY,
     branch_name VARCHAR(100) NOT NULL,
     address VARCHAR(255) NOT NULL,
     city VARCHAR(50) NOT NULL,
+
     latitude DECIMAL(10,7) NOT NULL,
     longitude DECIMAL(10,7) NOT NULL,
+
     phone VARCHAR(20),
     is_active BOOLEAN DEFAULT TRUE
 );
 
 
--- =====================================================
+-- =========================================================
 -- 5. TECHNICIANS
--- =====================================================
+-- =========================================================
 
 CREATE TABLE technicians (
     technician_id INT AUTO_INCREMENT PRIMARY KEY,
     branch_id INT NOT NULL,
+
     technician_name VARCHAR(100) NOT NULL,
     specialization VARCHAR(100),
     phone VARCHAR(20),
+
     is_available BOOLEAN DEFAULT TRUE,
 
     FOREIGN KEY (branch_id)
@@ -81,17 +85,20 @@ CREATE TABLE technicians (
 );
 
 
--- =====================================================
+-- =========================================================
 -- 6. REPAIR SERVICES
--- =====================================================
+-- =========================================================
 
 CREATE TABLE repair_services (
     service_id INT AUTO_INCREMENT PRIMARY KEY,
     category_id INT NOT NULL,
+
     service_name VARCHAR(100) NOT NULL,
     description TEXT,
+
     base_price DECIMAL(10,2) NOT NULL,
     estimated_days INT DEFAULT 1,
+
     is_active BOOLEAN DEFAULT TRUE,
 
     FOREIGN KEY (category_id)
@@ -99,13 +106,14 @@ CREATE TABLE repair_services (
 );
 
 
--- =====================================================
+-- =========================================================
 -- 7. SERVICE SAMPLE IMAGES
--- =====================================================
+-- =========================================================
 
 CREATE TABLE service_sample_images (
     image_id INT AUTO_INCREMENT PRIMARY KEY,
     service_id INT NOT NULL,
+
     image_path VARCHAR(255) NOT NULL,
     caption VARCHAR(255),
 
@@ -114,17 +122,20 @@ CREATE TABLE service_sample_images (
 );
 
 
--- =====================================================
+-- =========================================================
 -- 8. SPARE PARTS
--- =====================================================
+-- =========================================================
 
 CREATE TABLE spare_parts (
     part_id INT AUTO_INCREMENT PRIMARY KEY,
     branch_id INT NOT NULL,
+
     part_name VARCHAR(100) NOT NULL,
     compatible_device VARCHAR(100),
+
     quantity INT DEFAULT 0,
     unit_price DECIMAL(10,2) NOT NULL,
+
     is_available BOOLEAN DEFAULT TRUE,
 
     FOREIGN KEY (branch_id)
@@ -132,9 +143,33 @@ CREATE TABLE spare_parts (
 );
 
 
--- =====================================================
--- 9. REPAIR REQUESTS
--- =====================================================
+-- =========================================================
+-- 9. SERVICE REQUIRED PARTS
+-- =========================================================
+-- Defines which parts are required for each repair service.
+-- This is used when finding a suitable branch.
+
+CREATE TABLE service_required_parts (
+    service_part_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    service_id INT NOT NULL,
+    part_id INT NOT NULL,
+
+    required_quantity INT DEFAULT 1,
+
+    FOREIGN KEY (service_id)
+        REFERENCES repair_services(service_id),
+
+    FOREIGN KEY (part_id)
+        REFERENCES spare_parts(part_id),
+
+    UNIQUE (service_id, part_id)
+);
+
+
+-- =========================================================
+-- 10. REPAIR REQUESTS
+-- =========================================================
 
 CREATE TABLE repair_requests (
     repair_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -175,29 +210,36 @@ CREATE TABLE repair_requests (
 );
 
 
--- =====================================================
--- 10. REPAIR IMAGES
--- =====================================================
+-- =========================================================
+-- 11. REPAIR IMAGES
+-- =========================================================
 
 CREATE TABLE repair_images (
     repair_image_id INT AUTO_INCREMENT PRIMARY KEY,
-    repair_id INT NOT NULL UNIQUE,
+
+    repair_id INT NOT NULL,
+
     image_path VARCHAR(255) NOT NULL,
+
     uploaded_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (repair_id)
         REFERENCES repair_requests(repair_id)
 );
 
--- =====================================================
--- 11. REPAIR STATUS HISTORY
--- =====================================================
+
+-- =========================================================
+-- 12. REPAIR STATUS HISTORY
+-- =========================================================
 
 CREATE TABLE repair_status_history (
     status_history_id INT AUTO_INCREMENT PRIMARY KEY,
+
     repair_id INT NOT NULL,
+
     status VARCHAR(30) NOT NULL,
     remarks TEXT,
+
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (repair_id)
@@ -205,14 +247,17 @@ CREATE TABLE repair_status_history (
 );
 
 
--- =====================================================
--- 12. REPAIR REQUEST PARTS
--- =====================================================
+-- =========================================================
+-- 13. REPAIR REQUEST PARTS
+-- =========================================================
+-- Records the actual spare parts used for a repair.
 
 CREATE TABLE repair_request_parts (
     repair_part_id INT AUTO_INCREMENT PRIMARY KEY,
+
     repair_id INT NOT NULL,
     part_id INT NOT NULL,
+
     quantity INT NOT NULL DEFAULT 1,
 
     FOREIGN KEY (repair_id)
@@ -223,17 +268,22 @@ CREATE TABLE repair_request_parts (
 );
 
 
--- =====================================================
--- 13. PAYMENTS
--- =====================================================
+-- =========================================================
+-- 14. PAYMENTS
+-- =========================================================
 
 CREATE TABLE payments (
     payment_id INT AUTO_INCREMENT PRIMARY KEY,
+
     repair_id INT NOT NULL,
+
     amount DECIMAL(10,2) NOT NULL,
+
     payment_method VARCHAR(30),
     transaction_id VARCHAR(100),
+
     payment_status VARCHAR(30) DEFAULT 'PENDING',
+
     paid_at DATETIME,
 
     FOREIGN KEY (repair_id)
