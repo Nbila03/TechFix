@@ -13,6 +13,17 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- Back button -->
+        <Button
+            android:id="@+id/btnBackAddDevice"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="← BACK"
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold"
+            android:backgroundTint="@color/techfix_surface"
+            android:layout_marginBottom="12dp" />
+
         <!-- Page title -->
         <TextView
             android:layout_width="wrap_content"
@@ -21,7 +32,7 @@
             android:textColor="@color/techfix_white"
             android:textSize="26sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="4dp"/>
 
         <TextView
             android:layout_width="wrap_content"
