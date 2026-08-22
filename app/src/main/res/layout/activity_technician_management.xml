@@ -13,11 +13,12 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Header -->
+        <!-- HEADER -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Spare Parts"
+            android:text="Technician Management"
             android:textColor="@color/techfix_white"
             android:textSize="26sp"
             android:textStyle="bold" />
@@ -26,20 +27,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Manage inventory and stock levels"
+            android:text="Manage technicians and repair assignments"
             android:textColor="@color/techfix_text_secondary"
             android:textSize="14sp" />
 
-        <!-- Summary Cards -->
+        <!-- SUMMARY CARDS -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
             android:orientation="horizontal">
 
+            <!-- TOTAL TECHNICIANS -->
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:layout_height="110dp"
+                android:layout_height="105dp"
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
                 app:cardBackgroundColor="@color/techfix_surface"
@@ -50,13 +54,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:padding="14dp">
+                    android:padding="15dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="56"
+                        android:text="08"
                         android:textColor="@color/techfix_gold"
                         android:textSize="25sp"
                         android:textStyle="bold" />
@@ -64,8 +69,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Total Parts"
+                        android:layout_marginTop="3dp"
+                        android:text="Total Technicians"
                         android:textColor="@color/techfix_text_secondary"
                         android:textSize="12sp" />
 
@@ -73,9 +78,11 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- AVAILABLE -->
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
-                android:layout_height="110dp"
+                android:layout_height="105dp"
                 android:layout_weight="1"
                 android:layout_marginStart="6dp"
                 app:cardBackgroundColor="@color/techfix_surface"
@@ -86,22 +93,23 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:padding="14dp">
+                    android:padding="15dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="04"
-                        android:textColor="@color/techfix_error"
+                        android:text="05"
+                        android:textColor="@color/techfix_success"
                         android:textSize="25sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Low Stock"
+                        android:layout_marginTop="3dp"
+                        android:text="Available"
                         android:textColor="@color/techfix_text_secondary"
                         android:textSize="12sp" />
 
@@ -111,16 +119,17 @@
 
         </LinearLayout>
 
-        <!-- Search -->
+        <!-- SEARCH -->
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/searchPartsLayout"
+            android:id="@+id/searchTechnicianLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Search spare parts">
+            android:hint="Search technician">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSearchParts"
+                android:id="@+id/etSearchTechnician"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -129,31 +138,36 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Add Part -->
+        <!-- ADD TECHNICIAN -->
+
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAddPart"
+            android:id="@+id/btnAddTechnician"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_marginTop="14dp"
-            android:text="+  Add Spare Part"
+            android:background="@drawable/bg_techfix_button"
+            android:text="+  Add Technician"
             android:textColor="@color/techfix_background"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:background="@drawable/bg_techfix_button" />
+            android:textStyle="bold" />
 
-        <!-- Section -->
+        <!-- SECTION TITLE -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
-            android:text="Inventory"
+            android:text="Technicians"
             android:textColor="@color/techfix_white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!-- Part 1 -->
+
+        <!-- TECHNICIAN 1 -->
+
+
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardBrakePads"
+            android:id="@+id/cardTechnicianKasun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
@@ -173,16 +187,32 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical">
 
+                    <!-- INITIAL -->
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/bg_techfix_circle"
+                        android:gravity="center"
+                        android:text="K"
+                        android:textColor="@color/techfix_background"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <!-- NAME -->
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="14dp"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvTechnicianKasun"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Brake Pads"
+                            android:text="Kasun Perera"
                             android:textColor="@color/techfix_white"
                             android:textSize="17sp"
                             android:textStyle="bold" />
@@ -190,19 +220,26 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="BP-001  •  Toyota"
+                            android:layout_marginTop="3dp"
+                            android:text="Senior Vehicle Technician"
                             android:textColor="@color/techfix_text_secondary"
                             android:textSize="12sp" />
 
                     </LinearLayout>
 
+                    <!-- STATUS -->
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="24 units"
+                        android:background="@drawable/bg_techfix_input"
+                        android:paddingStart="9dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="5dp"
+                        android:text="AVAILABLE"
                         android:textColor="@color/techfix_success"
-                        android:textSize="13sp"
+                        android:textSize="9sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -210,28 +247,44 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginBottom="14dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@color/techfix_border" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Specialization"
+                    android:textColor="@color/techfix_text_secondary"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Engine • Diagnostics • Toyota"
+                    android:textColor="@color/techfix_white"
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Price per unit"
+                        android:text="Active Repairs: 2"
                         android:textColor="@color/techfix_text_secondary"
                         android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="LKR 8,500"
+                        android:text="EDIT"
                         android:textColor="@color/techfix_gold"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -240,15 +293,16 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Part 2 - Low Stock -->
+        <!-- TECHNICIAN 2 -->
+
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardEngineOil"
+            android:id="@+id/cardTechnicianNimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             app:cardBackgroundColor="@color/techfix_surface"
             app:cardCornerRadius="16dp"
-            app:strokeColor="@color/techfix_error"
+            app:strokeColor="@color/techfix_border"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -262,16 +316,28 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical">
 
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/bg_techfix_circle"
+                        android:gravity="center"
+                        android:text="N"
+                        android:textColor="@color/techfix_background"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="14dp"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvTechnicianNimal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Engine Oil 5W-30"
+                            android:text="Nimal Silva"
                             android:textColor="@color/techfix_white"
                             android:textSize="17sp"
                             android:textStyle="bold" />
@@ -279,8 +345,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="EO-014  •  Universal"
+                            android:layout_marginTop="3dp"
+                            android:text="Vehicle Technician"
                             android:textColor="@color/techfix_text_secondary"
                             android:textSize="12sp" />
 
@@ -289,9 +355,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="04 units"
-                        android:textColor="@color/techfix_error"
-                        android:textSize="13sp"
+                        android:background="@drawable/bg_techfix_input"
+                        android:paddingStart="9dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="5dp"
+                        android:text="BUSY"
+                        android:textColor="@color/techfix_warning"
+                        android:textSize="9sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -299,28 +370,44 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginBottom="14dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@color/techfix_border" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Specialization"
+                    android:textColor="@color/techfix_text_secondary"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Electrical • Diagnostics • Honda"
+                    android:textColor="@color/techfix_white"
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="⚠ Low stock — reorder soon"
-                        android:textColor="@color/techfix_error"
+                        android:text="Active Repairs: 4"
+                        android:textColor="@color/techfix_text_secondary"
                         android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="LKR 12,000"
+                        android:text="EDIT"
                         android:textColor="@color/techfix_gold"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -329,9 +416,11 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Part 3 -->
+
+        <!-- TECHNICIAN 3 -->
+
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardAirFilter"
+            android:id="@+id/cardTechnicianAhamed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -352,16 +441,28 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical">
 
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/bg_techfix_circle"
+                        android:gravity="center"
+                        android:text="A"
+                        android:textColor="@color/techfix_background"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="14dp"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvTechnicianAhamed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Air Filter"
+                            android:text="Ahamed Rizvi"
                             android:textColor="@color/techfix_white"
                             android:textSize="17sp"
                             android:textStyle="bold" />
@@ -369,8 +470,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="AF-023  •  Honda"
+                            android:layout_marginTop="3dp"
+                            android:text="Junior Technician"
                             android:textColor="@color/techfix_text_secondary"
                             android:textSize="12sp" />
 
@@ -379,9 +480,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="18 units"
+                        android:background="@drawable/bg_techfix_input"
+                        android:paddingStart="9dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="5dp"
+                        android:text="AVAILABLE"
                         android:textColor="@color/techfix_success"
-                        android:textSize="13sp"
+                        android:textSize="9sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -389,28 +495,44 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginBottom="14dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@color/techfix_border" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Specialization"
+                    android:textColor="@color/techfix_text_secondary"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="General Service • Maintenance"
+                    android:textColor="@color/techfix_white"
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Price per unit"
+                        android:text="Active Repairs: 1"
                         android:textColor="@color/techfix_text_secondary"
                         android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="LKR 4,500"
+                        android:text="EDIT"
                         android:textColor="@color/techfix_gold"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>

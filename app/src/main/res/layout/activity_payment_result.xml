@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/techfix_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
+
+        <!-- SUCCESS ICON -->
+
+        <TextView
+            android:id="@+id/tvPaymentStatusIcon"
+            android:layout_width="82dp"
+            android:layout_height="82dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_techfix_circle"
+            android:gravity="center"
+            android:text="✓"
+            android:textColor="@color/techfix_background"
+            android:textSize="42sp"
+            android:textStyle="bold" />
+
+        <!-- STATUS -->
+
+        <TextView
+            android:id="@+id/tvPaymentStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="PAYMENT SUCCESSFUL"
+            android:textColor="@color/techfix_gold"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPaymentMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Your payment has been completed successfully."
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="14sp" />
+
+        <!-- RECEIPT CARD -->
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardReceipt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:cardBackgroundColor="@color/techfix_surface"
+            app:cardCornerRadius="18dp"
+            app:strokeColor="@color/techfix_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- RECEIPT TITLE -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TECHFIX"
+                    android:textColor="@color/techfix_gold"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="PAYMENT RECEIPT"
+                    android:textColor="@color/techfix_text_secondary"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"
+                    android:background="@color/techfix_border" />
+
+                <!-- REPAIR ID -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Repair ID"
+                    android:textColor="@color/techfix_text_secondary"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tvReceiptRepairId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="REPAIR #1024"
+                    android:textColor="@color/techfix_white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!-- SERVICE -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Service"
+                    android:textColor="@color/techfix_text_secondary"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tvReceiptService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Full Vehicle Service"
+                    android:textColor="@color/techfix_white"
+                    android:textSize="14sp" />
+
+                <!-- DATE -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Payment Date"
+                    android:textColor="@color/techfix_text_secondary"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tvReceiptDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="22 August 2026"
+                    android:textColor="@color/techfix_white"
+                    android:textSize="14sp" />
+
+                <!-- TRANSACTION ID -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Transaction ID"
+                    android:textColor="@color/techfix_text_secondary"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tvTransactionId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="TXN-20260822-1024"
+                    android:textColor="@color/techfix_white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="18dp"
+                    android:background="@color/techfix_border" />
+
+                <!-- TOTAL -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TOTAL PAID"
+                        android:textColor="@color/techfix_white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvReceiptAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="LKR 25,000.00"
+                        android:textColor="@color/techfix_gold"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- PAYMENT METHOD -->
+
+        <TextView
+            android:id="@+id/tvReceiptPaymentMethod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Paid via Credit / Debit Card"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="12sp" />
+
+        <!-- DOWNLOAD / SAVE RECEIPT -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveReceipt"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/bg_techfix_button"
+            android:text="SAVE RECEIPT"
+            android:textColor="@color/techfix_background"
+            android:textStyle="bold" />
+
+        <!-- DONE -->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPaymentDone"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="25dp"
+            android:backgroundTint="@color/techfix_surface"
+            android:text="DONE"
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</ScrollView>
