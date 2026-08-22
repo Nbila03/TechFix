@@ -1,9 +1,28 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.TechFix" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.TechFix"
+        parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="android:fontFamily">sans</item>
+
+        <item name="android:windowBackground">@color/techfix_background</item>
+
+        <item name="colorPrimary">@color/techfix_gold</item>
+        <item name="colorOnPrimary">@color/techfix_background</item>
+
+        <item name="colorSecondary">@color/techfix_gold_light</item>
+        <item name="colorOnSecondary">@color/techfix_background</item>
+
+        <item name="android:colorAccent">@color/techfix_gold</item>
+
+        <item name="android:navigationBarColor">@color/techfix_background</item>
+        <item name="android:statusBarColor">@color/techfix_background</item>
+
+        <item name="android:windowLightStatusBar">false</item>
+
     </style>
 
     <style name="Theme.TechFix" parent="Base.Theme.TechFix" />
+
 </resources>
