@@ -13,6 +13,10 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- =============================== -->
+        <!-- PAGE TITLE -->
+        <!-- =============================== -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,11 +29,16 @@
             android:id="@+id/tvRepairSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="24dp"
             android:text="Device • Service"
             android:textColor="@color/techfix_text_secondary"
-            android:textSize="14sp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="24dp" />
+            android:textSize="14sp" />
+
+
+        <!-- =============================== -->
+        <!-- PROBLEM DESCRIPTION -->
+        <!-- =============================== -->
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,71 +56,129 @@
             android:background="@color/techfix_surface"
             android:gravity="top|start"
             android:hint="Describe the issue with your device"
+            android:inputType="textMultiLine"
             android:padding="12dp"
             android:textColor="@color/techfix_white"
             android:textColorHint="@color/techfix_text_secondary" />
 
+
+        <!-- =============================== -->
+        <!-- DAMAGE PHOTO -->
+        <!-- =============================== -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="DAMAGE PHOTO"
+            android:textColor="@color/techfix_white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Take a clear photo of the damaged area"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/imgDamagePhoto"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/techfix_surface"
+            android:contentDescription="Damage photo preview"
+            android:scaleType="centerCrop" />
+
+        <Button
+            android:id="@+id/btnTakePhoto"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/techfix_gold"
+            android:text="TAKE DAMAGE PHOTO"
+            android:textColor="@color/techfix_background"
+            android:textStyle="bold" />
+
+
+        <!-- =============================== -->
+        <!-- APPOINTMENT DATE -->
+        <!-- =============================== -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
             android:text="APPOINTMENT DATE"
             android:textColor="@color/techfix_white"
             android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_marginTop="22dp" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnSelectDate"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginTop="8dp"
+            android:backgroundTint="@color/techfix_surface"
             android:text="SELECT DATE"
-            android:textColor="@color/techfix_white"
-            android:backgroundTint="@color/techfix_surface" />
+            android:textColor="@color/techfix_white" />
 
         <TextView
             android:id="@+id/tvSelectedDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
             android:text="No date selected"
-            android:textColor="@color/techfix_text_secondary"
-            android:layout_marginTop="6dp" />
+            android:textColor="@color/techfix_text_secondary" />
+
+
+        <!-- =============================== -->
+        <!-- APPOINTMENT TIME -->
+        <!-- =============================== -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="APPOINTMENT TIME"
             android:textColor="@color/techfix_white"
             android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnSelectTime"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginTop="8dp"
+            android:backgroundTint="@color/techfix_surface"
             android:text="SELECT TIME"
-            android:textColor="@color/techfix_white"
-            android:backgroundTint="@color/techfix_surface" />
+            android:textColor="@color/techfix_white" />
 
         <TextView
             android:id="@+id/tvSelectedTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
             android:text="No time selected"
-            android:textColor="@color/techfix_text_secondary"
-            android:layout_marginTop="6dp" />
+            android:textColor="@color/techfix_text_secondary" />
+
+
+        <!-- =============================== -->
+        <!-- CONTINUE -->
+        <!-- =============================== -->
 
         <Button
             android:id="@+id/btnContinueRepair"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="32dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/techfix_gold"
             android:text="CONTINUE"
             android:textColor="@color/techfix_background"
-            android:textStyle="bold"
-            android:backgroundTint="@color/techfix_gold" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 

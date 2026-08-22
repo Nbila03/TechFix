@@ -2,17 +2,23 @@ package com.example.techfix.booking;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.techfix.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 
 public class RepairDetailsActivity extends AppCompatActivity {
@@ -23,18 +29,26 @@ public class RepairDetailsActivity extends AppCompatActivity {
 
     private EditText editProblemDescription;
 
+    private ImageView imgDamagePhoto;
+
+    private Button btnTakePhoto;
     private Button btnSelectDate;
     private Button btnSelectTime;
     private Button btnContinueRepair;
 
     private String selectedDate = "";
     private String selectedTime = "";
+    private String damageImagePath = "";
+
+    private Bitmap damageBitmap;
 
     private int deviceId;
     private String deviceName;
     private String deviceBrand;
     private String deviceModel;
     private String serviceName;
+
+    private ActivityResultLauncher<Void> cameraLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +63,28 @@ public class RepairDetailsActivity extends AppCompatActivity {
         editProblemDescription =
                 findViewById(R.id.editProblemDescription);
 
-        btnSelectDate = findViewById(R.id.btnSelectDate);
-        btnSelectTime = findViewById(R.id.btnSelectTime);
-        btnContinueRepair = findViewById(R.id.btnContinueRepair);
+        imgDamagePhoto =
+                findViewById(R.id.imgDamagePhoto);
+
+        btnTakePhoto =
+                findViewById(R.id.btnTakePhoto);
+
+        btnSelectDate =
+                findViewById(R.id.btnSelectDate);
+
+        btnSelectTime =
+                findViewById(R.id.btnSelectTime);
+
+        btnContinueRepair =
+                findViewById(R.id.btnContinueRepair);
 
         readBookingData();
+
+        setupCamera();
+
+        btnTakePhoto.setOnClickListener(v ->
+                cameraLauncher.launch(null)
+        );
 
         btnSelectDate.setOnClickListener(v ->
                 showDatePicker()
@@ -107,6 +138,81 @@ public class RepairDetailsActivity extends AppCompatActivity {
         );
     }
 
+    private void setupCamera() {
+
+        cameraLauncher =
+                registerForActivityResult(
+                        new ActivityResultContracts.TakePicturePreview(),
+                        bitmap -> {
+
+                            if (bitmap != null) {
+
+                                damageBitmap = bitmap;
+
+                                imgDamagePhoto.setImageBitmap(bitmap);
+
+                                damageImagePath =
+                                        saveImageToInternalStorage(bitmap);
+
+                                Toast.makeText(
+                                        this,
+                                        "Damage photo captured",
+                                        Toast.LENGTH_SHORT
+                                ).show();
+
+                            } else {
+
+                                Toast.makeText(
+                                        this,
+                                        "Photo capture cancelled",
+                                        Toast.LENGTH_SHORT
+                                ).show();
+                            }
+                        }
+                );
+    }
+
+    private String saveImageToInternalStorage(Bitmap bitmap) {
+
+        String fileName =
+                "repair_" + System.currentTimeMillis() + ".jpg";
+
+        File file =
+                new File(
+                        getFilesDir(),
+                        fileName
+                );
+
+        try {
+
+            FileOutputStream outputStream =
+                    new FileOutputStream(file);
+
+            bitmap.compress(
+                    Bitmap.CompressFormat.JPEG,
+                    90,
+                    outputStream
+            );
+
+            outputStream.flush();
+            outputStream.close();
+
+            return file.getAbsolutePath();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+            Toast.makeText(
+                    this,
+                    "Unable to save image",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return "";
+        }
+    }
+
     private void showDatePicker() {
 
         Calendar calendar =
@@ -124,7 +230,8 @@ public class RepairDetailsActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog =
                 new DatePickerDialog(
                         this,
-                        (view, selectedYear,
+                        (view,
+                         selectedYear,
                          selectedMonth,
                          selectedDay) -> {
 
@@ -218,6 +325,17 @@ public class RepairDetailsActivity extends AppCompatActivity {
             return;
         }
 
+        if (damageBitmap == null || damageImagePath.isEmpty()) {
+
+            Toast.makeText(
+                    this,
+                    "Please take a damage photo",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
         if (selectedDate.isEmpty()) {
 
             Toast.makeText(
@@ -246,6 +364,19 @@ public class RepairDetailsActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT
         ).show();
 
-        // Confirmation navigation will be added next.
+        /*
+         Next step:
+         Send all these values to AppointmentConfirmationActivity:
+
+         deviceId
+         deviceName
+         deviceBrand
+         deviceModel
+         serviceName
+         problemDescription
+         selectedDate
+         selectedTime
+         damageImagePath
+        */
     }
 }
