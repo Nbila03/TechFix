@@ -21,6 +21,7 @@ public class AddDeviceActivity extends AppCompatActivity {
     private EditText editModel;
     private EditText editSerialNumber;
 
+    private Button btnBackAddDevice;
     private Button btnSaveDevice;
 
     @Override
@@ -29,6 +30,7 @@ public class AddDeviceActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_add_device);
 
+        // Connect UI components
         spinnerCategory = findViewById(R.id.spinnerCategory);
 
         editDeviceName = findViewById(R.id.editDeviceName);
@@ -36,10 +38,16 @@ public class AddDeviceActivity extends AppCompatActivity {
         editModel = findViewById(R.id.editModel);
         editSerialNumber = findViewById(R.id.editSerialNumber);
 
+        btnBackAddDevice = findViewById(R.id.btnBackAddDevice);
         btnSaveDevice = findViewById(R.id.btnSaveDevice);
 
+        // Setup device category spinner
         setupCategorySpinner();
 
+        // Back button
+        btnBackAddDevice.setOnClickListener(v -> finish());
+
+        // Save device button
         btnSaveDevice.setOnClickListener(v -> saveDevice());
     }
 
@@ -69,49 +77,104 @@ public class AddDeviceActivity extends AppCompatActivity {
     private void saveDevice() {
 
         String deviceName =
-                editDeviceName.getText().toString().trim();
+                editDeviceName
+                        .getText()
+                        .toString()
+                        .trim();
 
         String brand =
-                editBrand.getText().toString().trim();
+                editBrand
+                        .getText()
+                        .toString()
+                        .trim();
 
         String model =
-                editModel.getText().toString().trim();
+                editModel
+                        .getText()
+                        .toString()
+                        .trim();
 
         String serialNumber =
-                editSerialNumber.getText().toString().trim();
+                editSerialNumber
+                        .getText()
+                        .toString()
+                        .trim();
 
         String category =
-                spinnerCategory.getSelectedItem().toString();
+                spinnerCategory
+                        .getSelectedItem()
+                        .toString();
 
+        // Validate device name
         if (deviceName.isEmpty()) {
-            editDeviceName.setError("Device name is required");
+
+            editDeviceName.setError(
+                    "Device name is required"
+            );
+
             editDeviceName.requestFocus();
             return;
         }
 
+        // Validate brand
         if (brand.isEmpty()) {
-            editBrand.setError("Brand is required");
+
+            editBrand.setError(
+                    "Brand is required"
+            );
+
             editBrand.requestFocus();
             return;
         }
 
+        // Validate model
         if (model.isEmpty()) {
-            editModel.setError("Model is required");
+
+            editModel.setError(
+                    "Model is required"
+            );
+
             editModel.requestFocus();
             return;
         }
 
-        int categoryId = getCategoryId(category);
+        int categoryId =
+                getCategoryId(category);
 
-        Intent resultIntent = new Intent();
+        // Send new device information
+        // back to MyDevicesActivity
+        Intent resultIntent =
+                new Intent();
 
-        resultIntent.putExtra("CATEGORY_ID", categoryId);
-        resultIntent.putExtra("DEVICE_NAME", deviceName);
-        resultIntent.putExtra("BRAND", brand);
-        resultIntent.putExtra("MODEL", model);
-        resultIntent.putExtra("SERIAL_NUMBER", serialNumber);
+        resultIntent.putExtra(
+                "CATEGORY_ID",
+                categoryId
+        );
 
-        setResult(RESULT_OK, resultIntent);
+        resultIntent.putExtra(
+                "DEVICE_NAME",
+                deviceName
+        );
+
+        resultIntent.putExtra(
+                "BRAND",
+                brand
+        );
+
+        resultIntent.putExtra(
+                "MODEL",
+                model
+        );
+
+        resultIntent.putExtra(
+                "SERIAL_NUMBER",
+                serialNumber
+        );
+
+        setResult(
+                RESULT_OK,
+                resultIntent
+        );
 
         Toast.makeText(
                 this,
