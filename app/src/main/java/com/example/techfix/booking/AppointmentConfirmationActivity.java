@@ -1,0 +1,4 @@
+package com.example.techfix.booking;
+
+public class AppointmentConfirmationActivity {
+}
