@@ -62,7 +62,33 @@ public class MyDevicesActivity extends AppCompatActivity {
         deviceAdapter = new DeviceAdapter(
                 deviceList,
                 device -> {
-                    // We will connect Book Repair later
+
+                    Intent intent = new Intent(
+                            MyDevicesActivity.this,
+                            BookRepairActivity.class
+                    );
+
+                    intent.putExtra(
+                            "DEVICE_ID",
+                            device.getDeviceId()
+                    );
+
+                    intent.putExtra(
+                            "DEVICE_NAME",
+                            device.getDeviceName()
+                    );
+
+                    intent.putExtra(
+                            "DEVICE_BRAND",
+                            device.getBrand()
+                    );
+
+                    intent.putExtra(
+                            "DEVICE_MODEL",
+                            device.getModel()
+                    );
+
+                    startActivity(intent);
                 }
         );
 
