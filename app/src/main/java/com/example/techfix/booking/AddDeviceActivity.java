@@ -1,6 +1,5 @@
 package com.example.techfix.booking;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,6 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.techfix.R;
+import com.example.techfix.database.TechFixDBHelper;
+import com.example.techfix.model.Device;
 
 public class AddDeviceActivity extends AppCompatActivity {
 
@@ -24,13 +25,14 @@ public class AddDeviceActivity extends AppCompatActivity {
     private Button btnBackAddDevice;
     private Button btnSaveDevice;
 
+    private TechFixDBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_add_device);
 
-        // Connect UI components
         spinnerCategory = findViewById(R.id.spinnerCategory);
 
         editDeviceName = findViewById(R.id.editDeviceName);
@@ -41,14 +43,20 @@ public class AddDeviceActivity extends AppCompatActivity {
         btnBackAddDevice = findViewById(R.id.btnBackAddDevice);
         btnSaveDevice = findViewById(R.id.btnSaveDevice);
 
-        // Setup device category spinner
+        // Create local SQLite helper
+        dbHelper = new TechFixDBHelper(this);
+
         setupCategorySpinner();
 
         // Back button
-        btnBackAddDevice.setOnClickListener(v -> finish());
+        btnBackAddDevice.setOnClickListener(v ->
+                finish()
+        );
 
-        // Save device button
-        btnSaveDevice.setOnClickListener(v -> saveDevice());
+        // Save device
+        btnSaveDevice.setOnClickListener(v ->
+                saveDevice()
+        );
     }
 
     private void setupCategorySpinner() {
@@ -141,48 +149,46 @@ public class AddDeviceActivity extends AppCompatActivity {
         int categoryId =
                 getCategoryId(category);
 
-        // Send new device information
-        // back to MyDevicesActivity
-        Intent resultIntent =
-                new Intent();
+        /*
+         Temporary user ID = 1.
 
-        resultIntent.putExtra(
-                "CATEGORY_ID",
-                categoryId
-        );
+         Later, when login is connected,
+         replace this with the actual logged-in user ID.
+        */
+        int userId = 1;
 
-        resultIntent.putExtra(
-                "DEVICE_NAME",
-                deviceName
-        );
+        Device device =
+                new Device(
+                        0,
+                        userId,
+                        categoryId,
+                        deviceName,
+                        brand,
+                        model,
+                        serialNumber
+                );
 
-        resultIntent.putExtra(
-                "BRAND",
-                brand
-        );
+        long result =
+                dbHelper.insertDevice(device);
 
-        resultIntent.putExtra(
-                "MODEL",
-                model
-        );
+        if (result != -1) {
 
-        resultIntent.putExtra(
-                "SERIAL_NUMBER",
-                serialNumber
-        );
+            Toast.makeText(
+                    this,
+                    "Device saved successfully",
+                    Toast.LENGTH_SHORT
+            ).show();
 
-        setResult(
-                RESULT_OK,
-                resultIntent
-        );
+            finish();
 
-        Toast.makeText(
-                this,
-                "Device added successfully",
-                Toast.LENGTH_SHORT
-        ).show();
+        } else {
 
-        finish();
+            Toast.makeText(
+                    this,
+                    "Failed to save device",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
     }
 
     private int getCategoryId(String category) {
