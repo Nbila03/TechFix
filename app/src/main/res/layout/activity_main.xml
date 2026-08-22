@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/techfix_background"
@@ -18,16 +22,15 @@
             android:id="@+id/tvConnectionStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
             android:background="@drawable/bg_techfix_pill"
             android:backgroundTint="@color/techfix_surface_light"
-            android:padding="12dp"
             android:gravity="center"
+            android:padding="12dp"
             android:textColor="@color/techfix_gold"
-            android:textStyle="bold"
             android:textSize="12sp"
-            android:layout_marginBottom="28dp"
-            tools:text="ONLINE - LIVE DATA FROM SERVER"
-            xmlns:tools="http://schemas.android.com/tools" />
+            android:textStyle="bold"
+            tools:text="ONLINE - LIVE DATA FROM SERVER" />
 
         <!-- TITLE -->
 
