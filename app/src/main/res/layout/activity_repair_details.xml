@@ -1,6 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/techfix_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REPAIR DETAILS"
+            android:textColor="@color/techfix_white"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvRepairSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Device • Service"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="14sp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DESCRIBE THE PROBLEM"
+            android:textColor="@color/techfix_white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editProblemDescription"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:gravity="top|start"
+            android:hint="Describe the issue with your device"
+            android:padding="12dp"
+            android:textColor="@color/techfix_white"
+            android:textColorHint="@color/techfix_text_secondary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="APPOINTMENT DATE"
+            android:textColor="@color/techfix_white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="22dp" />
+
+        <Button
+            android:id="@+id/btnSelectDate"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:text="SELECT DATE"
+            android:textColor="@color/techfix_white"
+            android:backgroundTint="@color/techfix_surface" />
+
+        <TextView
+            android:id="@+id/tvSelectedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No date selected"
+            android:textColor="@color/techfix_text_secondary"
+            android:layout_marginTop="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="APPOINTMENT TIME"
+            android:textColor="@color/techfix_white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp" />
+
+        <Button
+            android:id="@+id/btnSelectTime"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:text="SELECT TIME"
+            android:textColor="@color/techfix_white"
+            android:backgroundTint="@color/techfix_surface" />
+
+        <TextView
+            android:id="@+id/tvSelectedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No time selected"
+            android:textColor="@color/techfix_text_secondary"
+            android:layout_marginTop="6dp" />
+
+        <Button
+            android:id="@+id/btnContinueRepair"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="32dp"
+            android:text="CONTINUE"
+            android:textColor="@color/techfix_background"
+            android:textStyle="bold"
+            android:backgroundTint="@color/techfix_gold" />
+
+    </LinearLayout>
+
+</ScrollView>
