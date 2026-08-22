@@ -4,7 +4,7 @@
     <style name="Base.Theme.TechFix"
         parent="Theme.Material3.DayNight.NoActionBar">
 
-        <item name="android:fontFamily">sans</item>
+        <item name="android:fontFamily">sans-serif</item>
 
         <item name="android:windowBackground">@color/techfix_background</item>
 
