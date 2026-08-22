@@ -1,4 +1,4 @@
 package com.example.techfix.database;
 
-public class TechFixDBHelper {
+public class ContentProvider {
 }
