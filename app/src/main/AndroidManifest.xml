@@ -11,15 +11,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TechFix">
+
+        <!-- Person 2-hiruni Activities -->
+
+        <activity
+            android:name=".booking.BookRepairActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".booking.AddDeviceActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".booking.MyDevicesActivity"
+            android:exported="false" />
+
+        <!-- Main Launcher Activity -->
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
+
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+
         </activity>
+
     </application>
 
 </manifest>
