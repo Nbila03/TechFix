@@ -32,6 +32,7 @@ public class RepairDetailsActivity extends AppCompatActivity {
 
     private ImageView imgDamagePhoto;
 
+    private Button btnBackRepairDetails;
     private Button btnTakePhoto;
     private Button btnSelectDate;
     private Button btnSelectTime;
@@ -57,15 +58,24 @@ public class RepairDetailsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_repair_details);
 
-        tvRepairSummary = findViewById(R.id.tvRepairSummary);
-        tvSelectedDate = findViewById(R.id.tvSelectedDate);
-        tvSelectedTime = findViewById(R.id.tvSelectedTime);
+        // Connect UI components
+        tvRepairSummary =
+                findViewById(R.id.tvRepairSummary);
+
+        tvSelectedDate =
+                findViewById(R.id.tvSelectedDate);
+
+        tvSelectedTime =
+                findViewById(R.id.tvSelectedTime);
 
         editProblemDescription =
                 findViewById(R.id.editProblemDescription);
 
         imgDamagePhoto =
                 findViewById(R.id.imgDamagePhoto);
+
+        btnBackRepairDetails =
+                findViewById(R.id.btnBackRepairDetails);
 
         btnTakePhoto =
                 findViewById(R.id.btnTakePhoto);
@@ -79,22 +89,33 @@ public class RepairDetailsActivity extends AppCompatActivity {
         btnContinueRepair =
                 findViewById(R.id.btnContinueRepair);
 
+        // Read selected device and service
         readBookingData();
 
+        // Setup camera
         setupCamera();
 
+        // Back to Book Repair screen
+        btnBackRepairDetails.setOnClickListener(v ->
+                finish()
+        );
+
+        // Take damage photo
         btnTakePhoto.setOnClickListener(v ->
                 cameraLauncher.launch(null)
         );
 
+        // Select appointment date
         btnSelectDate.setOnClickListener(v ->
                 showDatePicker()
         );
 
+        // Select appointment time
         btnSelectTime.setOnClickListener(v ->
                 showTimePicker()
         );
 
+        // Validate and continue to confirmation
         btnContinueRepair.setOnClickListener(v ->
                 validateAndContinue()
         );
@@ -150,10 +171,14 @@ public class RepairDetailsActivity extends AppCompatActivity {
 
                                 damageBitmap = bitmap;
 
-                                imgDamagePhoto.setImageBitmap(bitmap);
+                                imgDamagePhoto.setImageBitmap(
+                                        bitmap
+                                );
 
                                 damageImagePath =
-                                        saveImageToInternalStorage(bitmap);
+                                        saveImageToInternalStorage(
+                                                bitmap
+                                        );
 
                                 Toast.makeText(
                                         this,
@@ -173,10 +198,14 @@ public class RepairDetailsActivity extends AppCompatActivity {
                 );
     }
 
-    private String saveImageToInternalStorage(Bitmap bitmap) {
+    private String saveImageToInternalStorage(
+            Bitmap bitmap
+    ) {
 
         String fileName =
-                "repair_" + System.currentTimeMillis() + ".jpg";
+                "repair_"
+                        + System.currentTimeMillis()
+                        + ".jpg";
 
         File file =
                 new File(
@@ -220,13 +249,19 @@ public class RepairDetailsActivity extends AppCompatActivity {
                 Calendar.getInstance();
 
         int year =
-                calendar.get(Calendar.YEAR);
+                calendar.get(
+                        Calendar.YEAR
+                );
 
         int month =
-                calendar.get(Calendar.MONTH);
+                calendar.get(
+                        Calendar.MONTH
+                );
 
         int day =
-                calendar.get(Calendar.DAY_OF_MONTH);
+                calendar.get(
+                        Calendar.DAY_OF_MONTH
+                );
 
         DatePickerDialog datePickerDialog =
                 new DatePickerDialog(
@@ -258,6 +293,7 @@ public class RepairDetailsActivity extends AppCompatActivity {
                         day
                 );
 
+        // Prevent selecting past dates
         datePickerDialog
                 .getDatePicker()
                 .setMinDate(
@@ -316,6 +352,7 @@ public class RepairDetailsActivity extends AppCompatActivity {
                         .toString()
                         .trim();
 
+        // Validate problem description
         if (problemDescription.isEmpty()) {
 
             editProblemDescription.setError(
@@ -323,10 +360,13 @@ public class RepairDetailsActivity extends AppCompatActivity {
             );
 
             editProblemDescription.requestFocus();
+
             return;
         }
 
-        if (damageBitmap == null || damageImagePath.isEmpty()) {
+        // Validate damage photo
+        if (damageBitmap == null
+                || damageImagePath.isEmpty()) {
 
             Toast.makeText(
                     this,
@@ -337,6 +377,7 @@ public class RepairDetailsActivity extends AppCompatActivity {
             return;
         }
 
+        // Validate appointment date
         if (selectedDate.isEmpty()) {
 
             Toast.makeText(
@@ -348,6 +389,7 @@ public class RepairDetailsActivity extends AppCompatActivity {
             return;
         }
 
+        // Validate appointment time
         if (selectedTime.isEmpty()) {
 
             Toast.makeText(
@@ -359,6 +401,7 @@ public class RepairDetailsActivity extends AppCompatActivity {
             return;
         }
 
+        // Continue to Appointment Confirmation
         Intent intent = new Intent(
                 RepairDetailsActivity.this,
                 AppointmentConfirmationActivity.class
