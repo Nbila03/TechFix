@@ -1,5 +1,6 @@
 package com.example.techfix.management;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -75,17 +76,26 @@ public class RepairManagementActivity extends AppCompatActivity {
                 repairList,
                 repair -> {
 
-                    Toast.makeText(
-                            this,
-                            "Selected Repair #" + repair.getRepairId(),
-                            Toast.LENGTH_SHORT
-                    ).show();
+                    // Open Repair Details Management screen
 
+                    Intent intent = new Intent(
+                            RepairManagementActivity.this,
+                            RepairDetailsManagementActivity.class
+                    );
+
+                    // Send selected repair ID
+                    intent.putExtra(
+                            "repairId",
+                            repair.getRepairId()
+                    );
+
+                    startActivity(intent);
                 }
         );
 
         recyclerRepairs.setAdapter(repairAdapter);
     }
+
 
     // LOAD REPAIRS FROM FIRESTORE
 
@@ -113,6 +123,7 @@ public class RepairManagementActivity extends AppCompatActivity {
         );
     }
 
+
     // SEARCH
 
     private void setupSearch() {
@@ -132,9 +143,8 @@ public class RepairManagementActivity extends AppCompatActivity {
         );
     }
 
-    // ==========================================
+
     // FILTER BUTTONS
-    // ==========================================
 
     private void setupFilters() {
 

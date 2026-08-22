@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/techfix_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- BACK -->
+
+        <Button
+            android:id="@+id/btnBackAdminRepair"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/techfix_surface"
+            android:text="← BACK"
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold" />
+
+        <!-- TITLE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REPAIR MANAGEMENT"
+            android:textColor="@color/techfix_gold"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAdminRepairId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="24dp"
+            android:text="Repair #1024"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="14sp" />
+
+        <!-- DEVICE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DEVICE"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAdminDevice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Device"
+            android:textColor="@color/techfix_white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- SERVICE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="SERVICE"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAdminService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Service"
+            android:textColor="@color/techfix_white"
+            android:textSize="16sp" />
+
+        <!-- PROBLEM -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="PROBLEM DESCRIPTION"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAdminProblem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/techfix_surface"
+            android:padding="14dp"
+            android:text="Problem description"
+            android:textColor="@color/techfix_white"
+            android:textSize="14sp" />
+
+        <!-- BRANCH -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="BRANCH"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAdminBranch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Not Assigned"
+            android:textColor="@color/techfix_white"
+            android:textSize="15sp" />
+
+        <!-- TECHNICIAN -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="TECHNICIAN"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAdminTechnician"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Not Assigned"
+            android:textColor="@color/techfix_white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btnAssignTechnician"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/techfix_surface"
+            android:text="ASSIGN TECHNICIAN"
+            android:textColor="@color/techfix_gold"
+            android:textStyle="bold" />
+
+        <!-- APPOINTMENT -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="APPOINTMENT"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAdminAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="No appointment"
+            android:textColor="@color/techfix_white"
+            android:textSize="15sp" />
+
+        <!-- STATUS -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="REPAIR STATUS"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerRepairStatus"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface" />
+
+        <Button
+            android:id="@+id/btnUpdateStatus"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/techfix_gold"
+            android:text="UPDATE STATUS"
+            android:textColor="@color/techfix_background"
+            android:textStyle="bold" />
+
+        <!-- COST -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="ESTIMATED COST"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etEstimatedCost"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:hint="Estimated cost"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:textColor="@color/techfix_white"
+            android:textColorHint="@color/techfix_text_secondary" />
+
+        <!-- FINAL COST -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="FINAL COST"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etFinalCost"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:hint="Final cost"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:textColor="@color/techfix_white"
+            android:textColorHint="@color/techfix_text_secondary" />
+
+        <!-- SAVE -->
+
+        <Button
+            android:id="@+id/btnSaveRepair"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="28dp"
+            android:backgroundTint="@color/techfix_gold"
+            android:text="SAVE REPAIR"
+            android:textColor="@color/techfix_background"
+            android:textStyle="bold" />
+
+        <!-- DELETE -->
+
+        <Button
+            android:id="@+id/btnDeleteRepair"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/techfix_surface"
+            android:text="DELETE REPAIR"
+            android:textColor="@color/techfix_warning"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</ScrollView>
