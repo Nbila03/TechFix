@@ -12,4 +12,11 @@
     <color name="techfix_text_secondary">#BDBDBD</color>
     <color name="techfix_error">#CF6679</color>
 
+    //Additional colors
+    <color name="techfix_success">#4CAF50</color>
+    <color name="techfix_warning">#FFB74D</color>
+    <color name="techfix_info">#64B5F6</color>
+    <color name="techfix_border">#505050</color>
+    <color name="techfix_transparent">#00000000</color>
+
 </resources>
