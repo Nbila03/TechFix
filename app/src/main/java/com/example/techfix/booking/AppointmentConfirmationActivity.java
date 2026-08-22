@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.techfix.R;
+import com.example.techfix.database.TechFixDBHelper;
 
 public class AppointmentConfirmationActivity extends AppCompatActivity {
 
@@ -22,6 +23,22 @@ public class AppointmentConfirmationActivity extends AppCompatActivity {
 
     private Button btnBackConfirmation;
     private Button btnConfirmBooking;
+
+    private TechFixDBHelper dbHelper;
+
+    private int deviceId;
+
+    private String deviceName;
+    private String deviceBrand;
+    private String deviceModel;
+
+    private String serviceName;
+    private String problemDescription;
+
+    private String appointmentDate;
+    private String appointmentTime;
+
+    private String imagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,45 +67,77 @@ public class AppointmentConfirmationActivity extends AppCompatActivity {
         btnConfirmBooking =
                 findViewById(R.id.btnConfirmBooking);
 
-        String deviceName =
+        // Local SQLite helper
+        dbHelper =
+                new TechFixDBHelper(this);
+
+        // Read all data received from RepairDetailsActivity
+        readBookingData();
+
+        // Display booking information
+        displayBookingData();
+
+        // Return to Repair Details
+        btnBackConfirmation.setOnClickListener(v ->
+                finish()
+        );
+
+        // Save booking into SQLite
+        btnConfirmBooking.setOnClickListener(v ->
+                saveRepairRequest()
+        );
+    }
+
+    private void readBookingData() {
+
+        deviceId =
+                getIntent().getIntExtra(
+                        "DEVICE_ID",
+                        -1
+                );
+
+        deviceName =
                 getIntent().getStringExtra(
                         "DEVICE_NAME"
                 );
 
-        String deviceBrand =
+        deviceBrand =
                 getIntent().getStringExtra(
                         "DEVICE_BRAND"
                 );
 
-        String deviceModel =
+        deviceModel =
                 getIntent().getStringExtra(
                         "DEVICE_MODEL"
                 );
 
-        String serviceName =
+        serviceName =
                 getIntent().getStringExtra(
                         "SERVICE_NAME"
                 );
 
-        String problemDescription =
+        problemDescription =
                 getIntent().getStringExtra(
                         "PROBLEM_DESCRIPTION"
                 );
 
-        String appointmentDate =
+        appointmentDate =
                 getIntent().getStringExtra(
                         "APPOINTMENT_DATE"
                 );
 
-        String appointmentTime =
+        appointmentTime =
                 getIntent().getStringExtra(
                         "APPOINTMENT_TIME"
                 );
 
-        String imagePath =
+        imagePath =
                 getIntent().getStringExtra(
                         "IMAGE_PATH"
                 );
+    }
+
+    private void displayBookingData() {
 
         tvConfirmDevice.setText(
                 deviceName
@@ -121,14 +170,32 @@ public class AppointmentConfirmationActivity extends AppCompatActivity {
                     )
             );
         }
+    }
 
-        // Return to Repair Details
-        btnBackConfirmation.setOnClickListener(v ->
-                finish()
-        );
+    private void saveRepairRequest() {
 
-        // Confirm booking
-        btnConfirmBooking.setOnClickListener(v -> {
+        if (deviceId == -1) {
+
+            Toast.makeText(
+                    this,
+                    "Invalid device selected",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
+        long result =
+                dbHelper.insertRepairRequest(
+                        deviceId,
+                        serviceName,
+                        problemDescription,
+                        appointmentDate,
+                        appointmentTime,
+                        imagePath
+                );
+
+        if (result != -1) {
 
             Toast.makeText(
                     this,
@@ -136,6 +203,16 @@ public class AppointmentConfirmationActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT
             ).show();
 
-        });
+            // Prevent repeated accidental inserts
+            btnConfirmBooking.setEnabled(false);
+
+        } else {
+
+            Toast.makeText(
+                    this,
+                    "Failed to save repair booking",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
     }
 }
