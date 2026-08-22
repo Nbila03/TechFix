@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/techfix_background"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BOOK REPAIR"
+        android:textColor="@color/techfix_white"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Device"
+        android:textColor="@color/techfix_text_secondary"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:id="@+id/tvSelectedDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apple • iPhone 13"
+        android:textColor="@color/techfix_white"
+        android:textSize="18sp"
+        android:background="@color/techfix_surface"
+        android:padding="16dp"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repair Service"
+        android:textColor="@color/techfix_text_secondary"
+        android:layout_marginTop="24dp" />
+
+    <Spinner
+        android:id="@+id/spinnerService"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@color/techfix_surface"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/tvServiceInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select a repair service to continue."
+        android:textColor="@color/techfix_text_secondary"
+        android:layout_marginTop="12dp" />
+
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="CONTINUE"
+        android:textColor="@color/techfix_background"
+        android:textStyle="bold"
+        android:backgroundTint="@color/techfix_gold"
+        android:layout_marginTop="32dp" />
+
+</LinearLayout>
