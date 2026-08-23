@@ -12,19 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.techfix.R;
 import com.example.techfix.adapter.BranchAdapter;
 import com.example.techfix.database.TechFixDBHelper;
+import com.example.techfix.firebase.BranchRepository;
 import com.example.techfix.location.BranchAssignmentHelper;
 import com.example.techfix.location.LocationHelper;
 import com.example.techfix.location.NetworkUtils;
 import com.example.techfix.model.Branch;
 import java.util.ArrayList;
 import java.util.List;
-public class BranchesActivity extends AppCompatActivity{
+public class BranchesActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TextView emptyView;
     private BranchAdapter adapter;
     private List<Branch> branchList = new ArrayList<>();
     private LocationHelper locationHelper;
     private TechFixDBHelper dbHelper;
+    private BranchRepository branchRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class BranchesActivity extends AppCompatActivity{
 
         dbHelper = new TechFixDBHelper(this);
         locationHelper = new LocationHelper(this);
+        branchRepository = new BranchRepository();
 
         adapter = new BranchAdapter(branchList, branch -> {
             Intent intent = new Intent(BranchesActivity.this, BranchDetailsActivity.class);
@@ -55,7 +58,24 @@ public class BranchesActivity extends AppCompatActivity{
     }
 
     private void loadBranches() {
-        List<Branch> branches = fetchBranches();
+        if (NetworkUtils.isOnline(this)) {
+            branchRepository.getAllBranches(
+                    branches -> {
+                        dbHelper.replaceCachedBranches(branches);
+                        onBranchesReady(branches);
+                    },
+                    error -> {
+                        Toast.makeText(this, "Failed to load branches: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        onBranchesReady(dbHelper.getCachedBranches());
+                    }
+            );
+        } else {
+            Toast.makeText(this, "Offline - showing last saved branches.", Toast.LENGTH_SHORT).show();
+            onBranchesReady(dbHelper.getCachedBranches());
+        }
+    }
+
+    private void onBranchesReady(List<Branch> branches) {
         branchList.clear();
         branchList.addAll(branches);
 
@@ -86,25 +106,6 @@ public class BranchesActivity extends AppCompatActivity{
             }
         });
     }
-    
-    private List<Branch> fetchBranches() {
-        if (NetworkUtils.isOnline(this)) {
-            return dbHelper.getCachedBranches().isEmpty() ? demoBranches() : dbHelper.getCachedBranches();
-        } else {
-            Toast.makeText(this, "Offline - showing last saved branches.", Toast.LENGTH_SHORT).show();
-            List<Branch> cached = dbHelper.getCachedBranches();
-            return cached.isEmpty() ? demoBranches() : cached;
-        }
-    }
-
-    private List<Branch> demoBranches() {
-        List<Branch> demo = new ArrayList<>();
-        demo.add(new Branch(1, "TechFix Colombo", "123 Galle Rd", "Colombo", 6.9271, 79.8612, "0112345678", true));
-        demo.add(new Branch(2, "TechFix Kandy", "45 Peradeniya Rd", "Kandy", 7.2906, 80.6337, "0812345678", true));
-        demo.add(new Branch(3, "TechFix Galle", "9 Matara Rd", "Galle", 6.0535, 80.2210, "0912345678", true));
-        dbHelper.replaceCachedBranches(demo);
-        return demo;
-    }
 
     private void toggleEmptyView() {
         emptyView.setVisibility(branchList.isEmpty() ? android.view.View.VISIBLE : android.view.View.GONE);
@@ -117,5 +118,4 @@ public class BranchesActivity extends AppCompatActivity{
             loadBranches();
         }
     }
-
 }
