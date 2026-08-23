@@ -20,11 +20,11 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/techfix_surface"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:text="← BACK"
             android:textColor="@color/techfix_white"
-            android:textStyle="bold"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp" />
+            android:textStyle="bold" />
 
         <!-- TITLE -->
         <TextView
@@ -35,6 +35,7 @@
             android:textSize="28sp"
             android:textStyle="bold" />
 
+        <!-- SERVICE NAME -->
         <TextView
             android:id="@+id/txtServiceName"
             android:layout_width="wrap_content"
@@ -45,6 +46,7 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
+        <!-- DESCRIPTION TITLE -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,6 +56,7 @@
             android:textSize="17sp"
             android:textStyle="bold" />
 
+        <!-- DESCRIPTION -->
         <TextView
             android:id="@+id/txtServiceDescription"
             android:layout_width="match_parent"
@@ -64,6 +67,27 @@
             android:textColor="@color/techfix_text_secondary"
             android:textSize="15sp" />
 
+        <!-- SAMPLE IMAGE TITLE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Sample Image"
+            android:textColor="@color/techfix_white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <!-- SAMPLE IMAGE -->
+        <ImageView
+            android:id="@+id/imgServiceSample"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="Service sample image"
+            android:scaleType="centerCrop" />
+
+        <!-- PRICE / ESTIMATED TIME CARD -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,6 +133,7 @@
 
         </LinearLayout>
 
+        <!-- NEXT STEPS -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,11 +147,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:lineSpacingExtra="6dp"
             android:text="1. Select your device&#10;2. Describe the problem&#10;3. Add a damage photo&#10;4. Choose your appointment&#10;5. TechFix will assign a suitable branch"
             android:textColor="@color/techfix_text_secondary"
-            android:textSize="15sp"
-            android:lineSpacingExtra="6dp" />
+            android:textSize="15sp" />
 
+        <!-- BOOK REPAIR -->
         <Button
             android:id="@+id/btnBookRepair"
             android:layout_width="match_parent"
