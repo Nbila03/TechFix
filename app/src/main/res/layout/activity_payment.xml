@@ -100,7 +100,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TOTAL AMOUNT"
+                    android:text="TOTAL"
                     android:textColor="@color/techfix_text_secondary"
                     android:textSize="11sp"
                     android:textStyle="bold" />
@@ -130,8 +130,6 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!-- CARD OPTION -->
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardPaymentMethod"
             android:layout_width="match_parent"
@@ -149,6 +147,8 @@
                 android:orientation="horizontal"
                 android:padding="17dp">
 
+                <!-- CARD ICON -->
+
                 <TextView
                     android:layout_width="46dp"
                     android:layout_height="46dp"
@@ -156,6 +156,8 @@
                     android:gravity="center"
                     android:text="💳"
                     android:textSize="21sp" />
+
+                <!-- PAYMENT INFORMATION -->
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -176,11 +178,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="Secure test payment"
+                        android:text="Secure payment via PayHere"
                         android:textColor="@color/techfix_text_secondary"
                         android:textSize="12sp" />
 
                 </LinearLayout>
+
+                <!-- SELECTED -->
 
                 <RadioButton
                     android:id="@+id/radioCard"
@@ -193,111 +197,50 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- CARD DETAILS -->
+        <!-- PAYHERE INFORMATION -->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Card Details"
-            android:textColor="@color/techfix_white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/cardNumberLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="Card Number">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etCardNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="16"
-                android:textColor="@color/techfix_white"
-                android:textColorHint="@color/techfix_text_secondary" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/cardNameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="Cardholder Name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etCardName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:textColor="@color/techfix_white"
-                android:textColorHint="@color/techfix_text_secondary" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- EXPIRY + CVV -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/cardExpiryLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="6dp"
-                android:hint="Expiry MM/YY">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etCardExpiry"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:maxLength="5"
-                    android:textColor="@color/techfix_white"
-                    android:textColorHint="@color/techfix_text_secondary" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/cardCvvLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="6dp"
-                android:hint="CVV">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etCardCvv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberPassword"
-                    android:maxLength="3"
-                    android:textColor="@color/techfix_white"
-                    android:textColorHint="@color/techfix_text_secondary" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <!-- SECURITY MESSAGE -->
-
-        <TextView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:background="@drawable/bg_techfix_input"
-            android:padding="14dp"
-            android:text="🔒  Your payment is processed securely. This is a test/sandbox payment."
-            android:textColor="@color/techfix_text_secondary"
-            android:textSize="12sp" />
+            app:cardBackgroundColor="@color/techfix_surface"
+            app:cardCornerRadius="14dp"
+            app:strokeColor="@color/techfix_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PAYHERE SANDBOX"
+                    android:textColor="@color/techfix_gold"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="You will be securely redirected to PayHere to complete your test payment."
+                    android:textColor="@color/techfix_text_secondary"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="🔒 Your card details are handled by PayHere Sandbox."
+                    android:textColor="@color/techfix_text_secondary"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- PAY BUTTON -->
 
