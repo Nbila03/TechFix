@@ -1,6 +1,7 @@
 package com.example.techfix.firebase;
 
 import com.example.techfix.model.Branch;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -22,18 +23,32 @@ public class BranchRepository {
         void onError(Exception e);
     }
 
-    // get every branch, active or not - caller decides what to do with is_active
-    public void getAllBranches(OnBranchesLoaded onLoaded, OnErrorCallback onError) {
+    // Gets every branch, active or not.
+    // The caller decides what to do with the active status.
+    public void getAllBranches(
+            OnBranchesLoaded onLoaded,
+            OnErrorCallback onError) {
+
         db.collection("branches")
                 .get()
                 .addOnSuccessListener(result -> {
+
                     List<Branch> branches = new ArrayList<>();
-                    for (var document : result) {
-                        Branch b = document.toObject(Branch.class);
-                        branches.add(b);
+
+                    for (DocumentSnapshot document : result) {
+
+                        Branch branch = document.toObject(Branch.class);
+
+                        branches.add(branch);
                     }
+
                     onLoaded.onLoaded(branches);
+
                 })
-                .addOnFailureListener(onError::onError);
+                .addOnFailureListener(error -> {
+
+                    onError.onError(error);
+
+                });
     }
 }
