@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,6 +15,7 @@
         android:padding="20dp">
 
         <!-- Header -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,11 +33,14 @@
             android:textSize="14sp" />
 
         <!-- Summary Cards -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
             android:orientation="horizontal">
+
+            <!-- Total Parts -->
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
@@ -54,9 +59,10 @@
                     android:padding="14dp">
 
                     <TextView
+                        android:id="@+id/tvTotalParts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="56"
+                        android:text="0"
                         android:textColor="@color/techfix_gold"
                         android:textSize="25sp"
                         android:textStyle="bold" />
@@ -72,6 +78,8 @@
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+            <!-- Low Stock -->
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
@@ -90,9 +98,10 @@
                     android:padding="14dp">
 
                     <TextView
+                        android:id="@+id/tvLowStock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="04"
+                        android:text="0"
                         android:textColor="@color/techfix_error"
                         android:textSize="25sp"
                         android:textStyle="bold" />
@@ -112,6 +121,7 @@
         </LinearLayout>
 
         <!-- Search -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/searchPartsLayout"
             android:layout_width="match_parent"
@@ -130,6 +140,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Add Part -->
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAddPart"
             android:layout_width="match_parent"
@@ -142,6 +153,7 @@
             android:background="@drawable/bg_techfix_button" />
 
         <!-- Section -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -151,274 +163,18 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!-- Part 1 -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardBrakePads"
+        <!-- Firebase Inventory -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerSpareParts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            app:cardBackgroundColor="@color/techfix_surface"
-            app:cardCornerRadius="16dp"
-            app:strokeColor="@color/techfix_border"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Brake Pads"
-                            android:textColor="@color/techfix_white"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="BP-001  •  Toyota"
-                            android:textColor="@color/techfix_text_secondary"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="24 units"
-                        android:textColor="@color/techfix_success"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="@color/techfix_border" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Price per unit"
-                        android:textColor="@color/techfix_text_secondary"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="LKR 8,500"
-                        android:textColor="@color/techfix_gold"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Part 2 - Low Stock -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardEngineOil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardBackgroundColor="@color/techfix_surface"
-            app:cardCornerRadius="16dp"
-            app:strokeColor="@color/techfix_error"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Engine Oil 5W-30"
-                            android:textColor="@color/techfix_white"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="EO-014  •  Universal"
-                            android:textColor="@color/techfix_text_secondary"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="04 units"
-                        android:textColor="@color/techfix_error"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="@color/techfix_border" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="⚠ Low stock — reorder soon"
-                        android:textColor="@color/techfix_error"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="LKR 12,000"
-                        android:textColor="@color/techfix_gold"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Part 3 -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardAirFilter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="20dp"
-            app:cardBackgroundColor="@color/techfix_surface"
-            app:cardCornerRadius="16dp"
-            app:strokeColor="@color/techfix_border"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Air Filter"
-                            android:textColor="@color/techfix_white"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="AF-023  •  Honda"
-                            android:textColor="@color/techfix_text_secondary"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="18 units"
-                        android:textColor="@color/techfix_success"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="@color/techfix_border" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Price per unit"
-                        android:textColor="@color/techfix_text_secondary"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="LKR 4,500"
-                        android:textColor="@color/techfix_gold"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+            android:nestedScrollingEnabled="false"
+            android:clipToPadding="false"
+            android:paddingBottom="20dp" />
 
     </LinearLayout>
 
 </ScrollView>
+

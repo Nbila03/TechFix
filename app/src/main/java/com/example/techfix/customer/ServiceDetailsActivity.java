@@ -17,29 +17,40 @@ public class ServiceDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_details);
 
+        // Connect views
         TextView txtServiceName = findViewById(R.id.txtServiceName);
         TextView txtServiceDescription = findViewById(R.id.txtServiceDescription);
         TextView txtServicePrice = findViewById(R.id.txtServicePrice);
         TextView txtServiceDays = findViewById(R.id.txtServiceDays);
-        Button btnBookRepair = findViewById(R.id.btnBookRepair);
 
+        Button btnBookRepair = findViewById(R.id.btnBookRepair);
+        Button btnBack = findViewById(R.id.btnBack);
+
+        // Get service details from previous activity
         String serviceName = getIntent().getStringExtra("service_name");
         String serviceDescription = getIntent().getStringExtra("service_description");
         String servicePrice = getIntent().getStringExtra("service_price");
         String serviceDays = getIntent().getStringExtra("service_days");
 
+        // Display service details
         txtServiceName.setText(serviceName);
         txtServiceDescription.setText(serviceDescription);
         txtServicePrice.setText(servicePrice);
         txtServiceDays.setText(serviceDays);
 
+        // Back button
+        btnBack.setOnClickListener(v -> finish());
+
+        // Book Repair button
         btnBookRepair.setOnClickListener(v -> {
+
             Intent intent = new Intent(
                     ServiceDetailsActivity.this,
                     BookRepairActivity.class
             );
 
             intent.putExtra("service_name", serviceName);
+
             startActivity(intent);
         });
     }

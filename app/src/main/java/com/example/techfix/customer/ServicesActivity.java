@@ -2,6 +2,7 @@ package com.example.techfix.customer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +16,19 @@ public class ServicesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services);
 
+        // Back button
+        Button btnBackServices = findViewById(R.id.btnBackServices);
+
+        // Service cards
         LinearLayout serviceScreen = findViewById(R.id.serviceScreen);
         LinearLayout serviceBattery = findViewById(R.id.serviceBattery);
         LinearLayout serviceLaptop = findViewById(R.id.serviceLaptop);
         LinearLayout serviceKeyboard = findViewById(R.id.serviceKeyboard);
 
+        // Back to previous page
+        btnBackServices.setOnClickListener(v -> finish());
+
+        // Screen Replacement
         serviceScreen.setOnClickListener(v ->
                 openServiceDetails(
                         "Screen Replacement",
@@ -29,6 +38,7 @@ public class ServicesActivity extends AppCompatActivity {
                 )
         );
 
+        // Battery Replacement
         serviceBattery.setOnClickListener(v ->
                 openServiceDetails(
                         "Battery Replacement",
@@ -38,6 +48,7 @@ public class ServicesActivity extends AppCompatActivity {
                 )
         );
 
+        // Laptop Repair
         serviceLaptop.setOnClickListener(v ->
                 openServiceDetails(
                         "Laptop Repair",
@@ -47,6 +58,7 @@ public class ServicesActivity extends AppCompatActivity {
                 )
         );
 
+        // Keyboard Replacement
         serviceKeyboard.setOnClickListener(v ->
                 openServiceDetails(
                         "Keyboard Replacement",
@@ -63,6 +75,7 @@ public class ServicesActivity extends AppCompatActivity {
             String price,
             String days
     ) {
+
         Intent intent = new Intent(
                 ServicesActivity.this,
                 ServiceDetailsActivity.class
