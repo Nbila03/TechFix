@@ -1,13 +1,13 @@
 package com.example.techfix.model;
-
 public class RepairRequest {
+
     private int repairId;
     private int userId;
     private int deviceId;
-    private String deviceName;      // convenience field for display (joined from dev)
+    private String deviceName;      // for display
     private int serviceId;
-    private String serviceName;     // convenience field for display (joined from repair service)
-    private Integer branchId;       // nullable until assigned
+    private String serviceName;     // for display
+    private Integer branchId;       // null until a branch is assigned
     private String branchName;
     private Integer technicianId;
     private String problemDescription;
@@ -15,7 +15,7 @@ public class RepairRequest {
     private String appointmentTime;
     private double estimatedCost;
     private double finalCost;
-    private String status;          // SUBMITTED, BRANCH_ASSIGNED, TECHNICIAN_ASSIGNED, IN_PROGRESS, READY_FOR_COLLECTION, COMPLETED processs
+    private String status;          // SUBMITTED, BRANCH_ASSIGNED, TECHNICIAN_ASSIGNED, IN_PROGRESS, READY_FOR_COLLECTION, COMPLETED processes
     private String createdAt;
 
     public RepairRequest() { }

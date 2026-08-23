@@ -1,6 +1,8 @@
 package com.example.techfix.model;
 
+// matches one row of the repair_status_history table
 public class RepairStatusHistory {
+
     private int statusHistoryId;
     private int repairId;
     private String status;      // one of RepairStatus.STAGE_ORDER

@@ -1,7 +1,6 @@
 package com.example.techfix.model;
 
 public class SparePart {
-
     private int partId;
     private int branchId;
     private String partName;

@@ -1,4 +1,6 @@
 package com.example.techfix.model;
+
+// helper methods
 public class RepairStatus {
 
     public static final String SUBMITTED = "SUBMITTED";
@@ -13,9 +15,7 @@ public class RepairStatus {
             IN_PROGRESS, READY_FOR_COLLECTION, COMPLETED
     };
 
-    private RepairStatus() {
-
-    }
+    private RepairStatus() { }
     public static int indexOf(String status) {
         for (int i = 0; i < STAGE_ORDER.length; i++) {
             if (STAGE_ORDER[i].equalsIgnoreCase(status)) return i;
@@ -23,7 +23,7 @@ public class RepairStatus {
         return -1;
     }
 
-    /** Friendly labeL*/
+    // display prpses
     public static String label(String status) {
         if (status == null) return "";
         String[] words = status.replace('_', ' ').toLowerCase().split(" ");
