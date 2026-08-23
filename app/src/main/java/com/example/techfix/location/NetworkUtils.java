@@ -6,7 +6,6 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 
-// used everywhere we need to decide: call the backend, or fall back to local data
 public class NetworkUtils {
 
     public static boolean isOnline(Context context) {
