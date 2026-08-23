@@ -1,17 +1,13 @@
 package com.example.techfix.adapter;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.techfix.R;
 import com.example.techfix.model.Branch;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -50,7 +46,7 @@ public class BranchAdapter extends RecyclerView.Adapter<BranchAdapter.BranchView
             holder.distance.setVisibility(View.GONE);
         }
 
-        // open/closed pill, colored using the app palette instead of hardcoded hex
+        // open/closed pill
         holder.status.setText(branch.isActive() ? "OPEN" : "CLOSED");
         holder.status.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),
                 branch.isActive() ? R.color.techfix_success : R.color.techfix_error));
