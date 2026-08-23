@@ -15,9 +15,16 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        // Connect buttons
         Button btnLogout = findViewById(R.id.btnLogout);
+        Button btnBackProfile = findViewById(R.id.btnBackProfile);
 
+        // Back button - return to previous page
+        btnBackProfile.setOnClickListener(v -> finish());
+
+        // Logout button
         btnLogout.setOnClickListener(v -> {
+
             Intent intent = new Intent(
                     ProfileActivity.this,
                     LoginActivity.class
