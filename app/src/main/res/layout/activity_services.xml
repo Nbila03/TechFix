@@ -12,10 +12,24 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- BACK BUTTON -->
+        <Button
+            android:id="@+id/btnBackServices"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/techfix_surface"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="← BACK"
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold" />
+
+        <!-- TITLE -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:text="Repair Services"
             android:textColor="@color/techfix_white"
             android:textSize="28sp"
@@ -29,6 +43,7 @@
             android:textColor="@color/techfix_text_secondary"
             android:textSize="15sp" />
 
+        <!-- SCREEN REPLACEMENT -->
         <LinearLayout
             android:id="@+id/serviceScreen"
             android:layout_width="match_parent"
@@ -65,6 +80,7 @@
 
         </LinearLayout>
 
+        <!-- BATTERY REPLACEMENT -->
         <LinearLayout
             android:id="@+id/serviceBattery"
             android:layout_width="match_parent"
@@ -101,6 +117,7 @@
 
         </LinearLayout>
 
+        <!-- LAPTOP REPAIR -->
         <LinearLayout
             android:id="@+id/serviceLaptop"
             android:layout_width="match_parent"
@@ -137,6 +154,7 @@
 
         </LinearLayout>
 
+        <!-- KEYBOARD REPLACEMENT -->
         <LinearLayout
             android:id="@+id/serviceKeyboard"
             android:layout_width="match_parent"
