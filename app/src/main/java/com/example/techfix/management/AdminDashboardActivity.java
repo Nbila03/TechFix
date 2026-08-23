@@ -18,42 +18,88 @@ public class AdminDashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_admin_dashboard);
+        setContentView(
+                R.layout.activity_admin_dashboard
+        );
 
-        // Find buttons
-        btnRepairManagement = findViewById(R.id.btnRepairManagement);
-        btnTechnicianManagement = findViewById(R.id.btnTechnicianManagement);
-        btnSparePartsManagement = findViewById(R.id.btnSparePartsManagement);
+        initializeViews();
 
-        // Repair Management
+        setupButtons();
+    }
+
+
+    // =========================================================
+    // INITIALIZE VIEWS
+    // =========================================================
+
+    private void initializeViews() {
+
+        btnRepairManagement =
+                findViewById(
+                        R.id.btnRepairManagement
+                );
+
+        btnTechnicianManagement =
+                findViewById(
+                        R.id.btnTechnicianManagement
+                );
+
+        btnSparePartsManagement =
+                findViewById(
+                        R.id.btnSparePartsManagement
+                );
+    }
+
+
+    // =========================================================
+    // BUTTONS
+    // =========================================================
+
+    private void setupButtons() {
+
+        // -----------------------------------------------------
+        // REPAIR MANAGEMENT
+        // -----------------------------------------------------
+
         btnRepairManagement.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    AdminDashboardActivity.this,
-                    RepairManagementActivity.class
-            );
+            Intent intent =
+                    new Intent(
+                            AdminDashboardActivity.this,
+                            RepairManagementActivity.class
+                    );
 
             startActivity(intent);
         });
 
-        // Technician Management
+
+        // -----------------------------------------------------
+        // TECHNICIAN MANAGEMENT
+        // -----------------------------------------------------
+
         btnTechnicianManagement.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    AdminDashboardActivity.this,
-                    TechnicianManagementActivity.class
-            );
+            Intent intent =
+                    new Intent(
+                            AdminDashboardActivity.this,
+                            TechnicianManagementActivity.class
+                    );
 
             startActivity(intent);
         });
 
-        // Spare Parts Management
+
+        // -----------------------------------------------------
+        // SPARE PARTS MANAGEMENT
+        // -----------------------------------------------------
+
         btnSparePartsManagement.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    AdminDashboardActivity.this,
-                    SparePartsManagementActivity.class
-            );
+            Intent intent =
+                    new Intent(
+                            AdminDashboardActivity.this,
+                            SparePartsManagementActivity.class
+                    );
 
             startActivity(intent);
         });
