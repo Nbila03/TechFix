@@ -53,17 +53,6 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
 
         db.execSQL(createDeviceTable);
     }
-    public void testDatabase() {
-
-        SQLiteDatabase db = getWritableDatabase();
-
-        android.util.Log.d(
-                "TECHFIX_DB",
-                "Database opened successfully: " + db.getPath()
-        );
-
-        db.close();
-    }
 
     @Override
     public void onUpgrade(
