@@ -12,10 +12,24 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- BACK BUTTON -->
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/techfix_surface"
+            android:text="← BACK"
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp" />
+
+        <!-- TITLE -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:text="Service Details"
             android:textColor="@color/techfix_white"
             android:textSize="28sp"
