@@ -7,7 +7,6 @@ public class Technician {
     private String phone;
     private boolean available;
     public Technician() { }
-
     public Technician(int technicianId, int branchId, String technicianName,
                       String specialization, String phone, boolean available) {
         this.technicianId = technicianId;
@@ -30,7 +29,4 @@ public class Technician {
     public void setPhone(String phone) { this.phone = phone; }
     public boolean isAvailable() { return available; }
     public void setAvailable(boolean available) { this.available = available; }
-
 }
-
-
