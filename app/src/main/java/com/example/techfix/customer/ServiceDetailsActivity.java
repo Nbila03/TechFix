@@ -3,6 +3,7 @@ package com.example.techfix.customer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,8 @@ public class ServiceDetailsActivity extends AppCompatActivity {
         TextView txtServicePrice = findViewById(R.id.txtServicePrice);
         TextView txtServiceDays = findViewById(R.id.txtServiceDays);
 
+        ImageView imgServiceSample = findViewById(R.id.imgServiceSample);
+
         Button btnBookRepair = findViewById(R.id.btnBookRepair);
         Button btnBack = findViewById(R.id.btnBack);
 
@@ -32,11 +35,30 @@ public class ServiceDetailsActivity extends AppCompatActivity {
         String servicePrice = getIntent().getStringExtra("service_price");
         String serviceDays = getIntent().getStringExtra("service_days");
 
+        int serviceImage = getIntent().getIntExtra(
+                "service_image",
+                R.drawable.ic_launcher_foreground
+        );
+
         // Display service details
-        txtServiceName.setText(serviceName);
-        txtServiceDescription.setText(serviceDescription);
-        txtServicePrice.setText(servicePrice);
-        txtServiceDays.setText(serviceDays);
+        if (serviceName != null) {
+            txtServiceName.setText(serviceName);
+        }
+
+        if (serviceDescription != null) {
+            txtServiceDescription.setText(serviceDescription);
+        }
+
+        if (servicePrice != null) {
+            txtServicePrice.setText(servicePrice);
+        }
+
+        if (serviceDays != null) {
+            txtServiceDays.setText(serviceDays);
+        }
+
+        // Display sample image
+        imgServiceSample.setImageResource(serviceImage);
 
         // Back button
         btnBack.setOnClickListener(v -> finish());
