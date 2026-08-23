@@ -17,45 +17,112 @@ public class PaymentSuccessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Connect Java code to the success XML
         setContentView(R.layout.activity_payment_result);
 
-        // Get information sent from PaymentActivity
-        String repairId = getIntent().getStringExtra("repairId");
-        String serviceName = getIntent().getStringExtra("serviceName");
+        // Get payment information from PaymentActivity
 
-        double amount = getIntent().getDoubleExtra(
-                "amount",
-                0.00
-        );
+        String repairId =
+                getIntent().getStringExtra("repairId");
+
+        String serviceName =
+                getIntent().getStringExtra("serviceName");
+
+        double amount =
+                getIntent().getDoubleExtra(
+                        "amount",
+                        0.00
+                );
+
+        String transactionId =
+                getIntent().getStringExtra(
+                        "transactionId"
+                );
+
+        String paymentDate =
+                getIntent().getStringExtra(
+                        "paymentDate"
+                );
 
         // Find TextViews
-        TextView tvRepairId = findViewById(R.id.tvReceiptRepairId);
-        TextView tvService = findViewById(R.id.tvReceiptService);
-        TextView tvDate = findViewById(R.id.tvReceiptDate);
-        TextView tvTransactionId = findViewById(R.id.tvTransactionId);
-        TextView tvAmount = findViewById(R.id.tvReceiptAmount);
+
+        TextView tvRepairId =
+                findViewById(
+                        R.id.tvReceiptRepairId
+                );
+
+        TextView tvService =
+                findViewById(
+                        R.id.tvReceiptService
+                );
+
+        TextView tvDate =
+                findViewById(
+                        R.id.tvReceiptDate
+                );
+
+        TextView tvTransactionId =
+                findViewById(
+                        R.id.tvTransactionId
+                );
+
+        TextView tvAmount =
+                findViewById(
+                        R.id.tvReceiptAmount
+                );
 
         // Display repair information
-        tvRepairId.setText("REPAIR #" + repairId);
-        tvService.setText(serviceName);
 
-        // Display current date
-        String currentDate = new SimpleDateFormat(
-                "dd MMMM yyyy",
-                Locale.getDefault()
-        ).format(new Date());
+        tvRepairId.setText(
+                "REPAIR #" + repairId
+        );
 
-        tvDate.setText(currentDate);
+        tvService.setText(
+                serviceName
+        );
 
-        // Create a simple transaction ID for now
-        String transactionId = "TXN-" + System.currentTimeMillis();
+        // Display payment date
 
-        tvTransactionId.setText(transactionId);
+        if (paymentDate != null &&
+                !paymentDate.isEmpty()) {
+
+            tvDate.setText(paymentDate);
+
+        } else {
+
+            String currentDate =
+                    new SimpleDateFormat(
+                            "dd MMMM yyyy",
+                            Locale.getDefault()
+                    ).format(new Date());
+
+            tvDate.setText(currentDate);
+        }
+
+        // Display REAL PayHere transaction ID
+
+        if (transactionId != null &&
+                !transactionId.isEmpty()) {
+
+            tvTransactionId.setText(
+                    transactionId
+            );
+
+        } else {
+
+            tvTransactionId.setText(
+                    "N/A"
+            );
+        }
 
         // Display amount
+
         tvAmount.setText(
-                "LKR " + String.format("%.2f", amount)
+                "LKR " +
+                        String.format(
+                                Locale.US,
+                                "%,.2f",
+                                amount
+                        )
         );
     }
 }

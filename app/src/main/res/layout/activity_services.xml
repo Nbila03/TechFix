@@ -1,197 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/techfix_background"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:padding="24dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- BACK BUTTON -->
+    <Button
+        android:id="@+id/btnBackServices"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/techfix_surface"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="← BACK"
+        android:textColor="@color/techfix_white"
+        android:textStyle="bold" />
+
+    <!-- TITLE -->
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:text="Repair Services"
+        android:textColor="@color/techfix_white"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
-        <!-- BACK BUTTON -->
-        <Button
-            android:id="@+id/btnBackServices"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/techfix_surface"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="← BACK"
-            android:textColor="@color/techfix_white"
-            android:textStyle="bold" />
+    <!-- SUBTITLE -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Choose the repair service you need"
+        android:textColor="@color/techfix_text_secondary"
+        android:textSize="15sp" />
 
-        <!-- TITLE -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Repair Services"
-            android:textColor="@color/techfix_white"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+    <!-- SERVICES LIST -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerServices"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="22dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="24dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Choose the repair service you need"
-            android:textColor="@color/techfix_text_secondary"
-            android:textSize="15sp" />
-
-        <!-- SCREEN REPLACEMENT -->
-        <LinearLayout
-            android:id="@+id/serviceScreen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:background="@color/techfix_surface"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Screen Replacement"
-                android:textColor="@color/techfix_white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Cracked or damaged screen repair"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Starting from Rs. 8,000"
-                android:textColor="@color/techfix_gold"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <!-- BATTERY REPLACEMENT -->
-        <LinearLayout
-            android:id="@+id/serviceBattery"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@color/techfix_surface"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Battery Replacement"
-                android:textColor="@color/techfix_white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Battery draining quickly or not charging"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Starting from Rs. 5,000"
-                android:textColor="@color/techfix_gold"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <!-- LAPTOP REPAIR -->
-        <LinearLayout
-            android:id="@+id/serviceLaptop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@color/techfix_surface"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Laptop Repair"
-                android:textColor="@color/techfix_white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Hardware diagnosis and laptop repair"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Starting from Rs. 6,000"
-                android:textColor="@color/techfix_gold"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <!-- KEYBOARD REPLACEMENT -->
-        <LinearLayout
-            android:id="@+id/serviceKeyboard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="30dp"
-            android:background="@color/techfix_surface"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Keyboard Replacement"
-                android:textColor="@color/techfix_white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Repair damaged or unresponsive keys"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Starting from Rs. 4,500"
-                android:textColor="@color/techfix_gold"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

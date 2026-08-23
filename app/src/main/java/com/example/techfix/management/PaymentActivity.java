@@ -11,7 +11,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.techfix.R;
+import com.example.techfix.firebase.PaymentRepository;
+import com.example.techfix.model.Payment;
 import com.google.android.material.button.MaterialButton;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import lk.payhere.androidsdk.PHConfigs;
 import lk.payhere.androidsdk.PHConstants;
@@ -26,20 +32,20 @@ public class PaymentActivity extends AppCompatActivity {
     private static final String TAG = "PAYHERE_DEBUG";
     private static final int PAYHERE_REQUEST = 11001;
 
-    /*
-     * Demo repair details.
-     *
-     * Later you can receive these values using Intent extras
-     * from your Repair Details page.
-     */
     private String repairId = "1024";
     private String serviceName = "Full Vehicle Service";
     private double amount = 25000.00;
 
+    private PaymentRepository paymentRepository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_payment);
+
+        // Initialize Payment Repository
+        paymentRepository = new PaymentRepository();
 
         /*
          * If another activity sends actual repair information,
@@ -90,34 +96,45 @@ public class PaymentActivity extends AppCompatActivity {
         MaterialButton payButton =
                 findViewById(R.id.btnPayNow);
 
+        // Display repair ID
+
         repairIdText.setText(
                 "Repair #" + repairId
         );
+
+        // Display service
 
         serviceText.setText(
                 serviceName
         );
 
+        // Display amount
+
         totalText.setText(
                 String.format(
-                        java.util.Locale.US,
+                        Locale.US,
                         "LKR %,.2f",
                         amount
                 )
         );
 
+        // Display amount on Pay button
+
         payButton.setText(
                 String.format(
-                        java.util.Locale.US,
+                        Locale.US,
                         "PAY LKR %,.2f",
                         amount
                 )
         );
 
+        // Start PayHere when button is clicked
+
         payButton.setOnClickListener(
                 view -> startPayHerePayment()
         );
     }
+
 
     /**
      * Starts PayHere Sandbox payment.
@@ -131,19 +148,18 @@ public class PaymentActivity extends AppCompatActivity {
         try {
 
             /*
-             * Merchant credentials
-             *
-             * Make sure the PayHere App is registered using:
-             *
-             * com.example.techfix
+             * Get PayHere Sandbox credentials
+             * from strings.xml.
              */
             String merchantId =
-                    getString(R.string.payhere_merchant_id)
-                            .trim();
+                    getString(
+                            R.string.payhere_merchant_id
+                    ).trim();
 
             String merchantSecret =
-                    getString(R.string.payhere_merchant_secret)
-                            .trim();
+                    getString(
+                            R.string.payhere_merchant_secret
+                    ).trim();
 
             if (merchantId.isEmpty() ||
                     merchantSecret.isEmpty()) {
@@ -163,7 +179,7 @@ public class PaymentActivity extends AppCompatActivity {
             }
 
             /*
-             * Every payment should have a unique order ID.
+             * Generate a unique PayHere order ID.
              */
             String orderId =
                     "REPAIR-" +
@@ -175,10 +191,8 @@ public class PaymentActivity extends AppCompatActivity {
                     new InitRequest();
 
             /*
-             * IMPORTANT:
-             *
-             * true = Sandbox
-             * false = Live PayHere
+             * TRUE = Sandbox
+             * FALSE = Live
              */
             request.setSandBox(true);
 
@@ -232,7 +246,7 @@ public class PaymentActivity extends AppCompatActivity {
             );
 
             /*
-             * PayHere customer address
+             * Customer address
              */
             customer.getAddress().setAddress(
                     "No. 1, Galle Road"
@@ -307,7 +321,7 @@ public class PaymentActivity extends AppCompatActivity {
             );
 
             /*
-             * Start PayHere Activity
+             * Start PayHere Activity.
              */
             Intent payHereIntent =
                     new Intent(
@@ -347,8 +361,9 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
+
     /**
-     * PayHere SDK v3.0.18 result handler.
+     * Receives PayHere SDK result.
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -374,7 +389,7 @@ public class PaymentActivity extends AppCompatActivity {
         Log.d(TAG, "====================================");
 
         /*
-         * PayHere should normally return an Intent.
+         * Check whether PayHere returned an Intent.
          */
         if (data == null) {
 
@@ -393,9 +408,7 @@ public class PaymentActivity extends AppCompatActivity {
         }
 
         /*
-         * PayHere SDK v3.x returns the result using:
-         *
-         * PHConstants.INTENT_EXTRA_RESULT
+         * Check for PayHere result.
          */
         if (!data.hasExtra(
                 PHConstants.INTENT_EXTRA_RESULT
@@ -441,8 +454,7 @@ public class PaymentActivity extends AppCompatActivity {
         try {
 
             /*
-             * getSerializableExtra(String) still works,
-             * but newer Android versions provide a typed method.
+             * Read PayHere response.
              */
             if (Build.VERSION.SDK_INT >=
                     Build.VERSION_CODES.TIRAMISU) {
@@ -499,7 +511,7 @@ public class PaymentActivity extends AppCompatActivity {
         }
 
         /*
-         * Very useful for Logcat debugging.
+         * Debug information.
          */
         Log.d(
                 TAG,
@@ -519,10 +531,11 @@ public class PaymentActivity extends AppCompatActivity {
                         response
         );
 
-        /*
-         * Android RESULT_OK means PayHere returned
-         * a completed SDK result.
-         */
+
+        // ==========================================
+        // PAYMENT SUCCESS
+        // ==========================================
+
         if (resultCode == Activity.RESULT_OK) {
 
             if (response.isSuccess()) {
@@ -546,6 +559,9 @@ public class PaymentActivity extends AppCompatActivity {
                     return;
                 }
 
+                /*
+                 * Get PayHere payment information.
+                 */
                 long paymentNumber =
                         paymentData.getPaymentNo();
 
@@ -555,7 +571,10 @@ public class PaymentActivity extends AppCompatActivity {
                 String paymentMessage =
                         paymentData.getMessage();
 
-                Log.d(TAG, "========== PAYMENT SUCCESS ==========");
+                Log.d(
+                        TAG,
+                        "========== PAYMENT SUCCESS =========="
+                );
 
                 Log.d(
                         TAG,
@@ -592,64 +611,194 @@ public class PaymentActivity extends AppCompatActivity {
                         "====================================="
                 );
 
-                Toast.makeText(
-                        this,
-                        "Payment Successful",
-                        Toast.LENGTH_SHORT
-                ).show();
+
+                // ==========================================
+                // CREATE PAYMENT RECORD
+                // ==========================================
 
                 /*
-                 * Continue to your existing
-                 * PaymentSuccessActivity.
+                 * Generate TechFix's own payment ID.
+                 *
+                 * PayHere payment number is stored separately
+                 * as the transaction ID.
                  */
-                Intent successIntent =
-                        new Intent(
-                                PaymentActivity.this,
-                                PaymentSuccessActivity.class
+                int paymentId =
+                        (int) (
+                                System.currentTimeMillis()
+                                        / 1000
                         );
 
-                successIntent.putExtra(
-                        "REPAIR_ID",
-                        repairId
-                );
+                /*
+                 * PayHere transaction/payment reference.
+                 */
+                String transactionId =
+                        String.valueOf(
+                                paymentNumber
+                        );
 
-                successIntent.putExtra(
-                        "PAYMENT_REFERENCE",
-                        paymentNumber
-                );
+                /*
+                 * Current payment date/time.
+                 */
+                String paymentDate =
+                        new SimpleDateFormat(
+                                "dd MMMM yyyy HH:mm:ss",
+                                Locale.getDefault()
+                        ).format(
+                                new Date()
+                        );
 
-                successIntent.putExtra(
-                        "PAYMENT_AMOUNT",
-                        amount
-                );
+                /*
+                 * Convert repair ID to integer because
+                 * Payment.repairId is an int.
+                 */
+                int repairIdNumber;
 
-                successIntent.putExtra(
-                        "PAYMENT_STATUS",
-                        paymentStatus
-                );
+                try {
 
-                if (paymentMessage != null) {
+                    repairIdNumber =
+                            Integer.parseInt(
+                                    repairId
+                            );
 
-                    successIntent.putExtra(
-                            "PAYMENT_MESSAGE",
-                            paymentMessage
+                } catch (NumberFormatException e) {
+
+                    Log.e(
+                            TAG,
+                            "Invalid repair ID: " +
+                                    repairId,
+                            e
                     );
+
+                    Toast.makeText(
+                            this,
+                            "Invalid repair ID",
+                            Toast.LENGTH_LONG
+                    ).show();
+
+                    return;
                 }
 
-                startActivity(
-                        successIntent
+
+                /*
+                 * Create Payment object.
+                 */
+                Payment payment =
+                        new Payment(
+                                paymentId,
+                                repairIdNumber,
+                                amount,
+                                "PayHere",
+                                "PAID",
+                                transactionId,
+                                paymentDate
+                        );
+
+
+                // ==========================================
+                // SAVE PAYMENT TO FIRESTORE
+                // ==========================================
+
+                Log.d(
+                        TAG,
+                        "Saving payment to Firestore..."
                 );
 
-                finish();
+                paymentRepository.addPayment(
+
+                        payment,
+
+                        // SUCCESS
+                        unused -> {
+
+                            Log.d(
+                                    TAG,
+                                    "Payment saved to Firestore successfully"
+                            );
+
+                            Toast.makeText(
+                                    PaymentActivity.this,
+                                    "Payment Successful",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+
+
+                            // ==================================
+                            // OPEN SUCCESS SCREEN
+                            // ==================================
+
+                            Intent successIntent =
+                                    new Intent(
+                                            PaymentActivity.this,
+                                            PaymentSuccessActivity.class
+                                    );
+
+                            /*
+                             * IMPORTANT:
+                             *
+                             * These names match the keys
+                             * expected by PaymentSuccessActivity.
+                             */
+
+                            successIntent.putExtra(
+                                    "repairId",
+                                    repairId
+                            );
+
+                            successIntent.putExtra(
+                                    "serviceName",
+                                    serviceName
+                            );
+
+                            successIntent.putExtra(
+                                    "amount",
+                                    amount
+                            );
+
+                            successIntent.putExtra(
+                                    "transactionId",
+                                    transactionId
+                            );
+
+                            successIntent.putExtra(
+                                    "paymentDate",
+                                    paymentDate
+                            );
+
+                            startActivity(
+                                    successIntent
+                            );
+
+                            finish();
+                        },
+
+                        // FAILURE
+                        error -> {
+
+                            Log.e(
+                                    TAG,
+                                    "Failed to save payment",
+                                    error
+                            );
+
+                            /*
+                             * PayHere succeeded but Firebase
+                             * saving failed.
+                             */
+                            Toast.makeText(
+                                    PaymentActivity.this,
+                                    "Payment successful, but failed to save payment record: "
+                                            + error.getMessage(),
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                );
 
             } else {
 
-                /*
-                 * PayHere returned an error.
-                 *
-                 * Showing response.toString() while testing is
-                 * useful because we can see the actual gateway error.
-                 */
+                // ==========================================
+                // PAYMENT FAILED
+                // ==========================================
+
                 String errorMessage =
                         response.toString();
 
@@ -672,17 +821,15 @@ public class PaymentActivity extends AppCompatActivity {
                 ).show();
             }
 
+
+            // ==========================================
+            // PAYMENT CANCELLED
+            // ==========================================
+
         } else if (
                 resultCode == Activity.RESULT_CANCELED
         ) {
 
-            /*
-             * RESULT_CANCELED doesn't necessarily mean
-             * your own code cancelled it.
-             *
-             * The response can contain the real PayHere
-             * rejection/cancellation reason.
-             */
             String cancelMessage =
                     response.toString();
 
@@ -703,6 +850,11 @@ public class PaymentActivity extends AppCompatActivity {
                             + cancelMessage,
                     Toast.LENGTH_LONG
             ).show();
+
+
+            // ==========================================
+            // UNKNOWN RESULT
+            // ==========================================
 
         } else {
 
