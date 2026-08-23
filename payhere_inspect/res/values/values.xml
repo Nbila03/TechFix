@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bottom_sheet_back">#77000000</color>
+    <color name="bottom_sheet_title_back">#f6f8f9</color>
+    <color name="color_red">#FF4043</color>
+    <color name="done_text_color">#0079FE</color>
+    <color name="payment_item_back">#eef1f4</color>
+    <color name="progress_color">#777777</color>
+    <color name="result_dialog_subtitle_color">#585E64</color>
+    <color name="result_payment_id_background_color">#EFF1F4</color>
+    <color name="text_bottom_sheet_methods">#333333</color>
+    <color name="text_bottom_sheet_secured">#c3c3c4</color>
+    <color name="text_bottom_sheet_sub_title">#999999</color>
+    <color name="text_bottom_sheet_title">#aaaaaa</color>
+    <color name="text_payment_important">#164df3</color>
+    <color name="title_text_color">#222222</color>
+    <color name="white">#ffffff</color>
+    <dimen name="bottom_sheet_item">60dp</dimen>
+    <dimen name="method_icon_size">35dp</dimen>
+    <dimen name="ph_activity_horizontal_margin">16dp</dimen>
+    <dimen name="ph_activity_vertical_margin">16dp</dimen>
+    <dimen name="subtitle_text_size">13sp</dimen>
+    <dimen name="text_bottom_sheet_sub_title">12sp</dimen>
+    <dimen name="text_bottom_sheet_title">14sp</dimen>
+    <dimen name="title_text_size">18sp</dimen>
+    <string name="app_name">PayHere AndroidSDK</string>
+    <string name="auto_reference">Reference ID #%s</string>
+    <string name="card_has_been_saved">Card saved</string>
+    <string name="credit_debit_card">Credit/Debit Card</string>
+    <string name="decline_description_label">Please try again with a different card or method</string>
+    <string name="hold_card_success_msg">You\'ll be charged once the merchant process this payment</string>
+    <string name="internet_banking">Internet banking</string>
+    <string name="label_declin_message">Your bank declined the payment</string>
+    <string name="label_declined">Declined</string>
+    <string name="label_paid">Paid</string>
+    <string name="label_payment_approved">Payment Approved</string>
+    <string name="label_save">Saved</string>
+    <string name="label_saved_message">Card Saved</string>
+    <string name="mobile_wallet">Mobile Wallet</string>
+    <string name="msg_no_internet">No Internet Connection!</string>
+    <string name="pay_with_card_text">Bank Card</string>
+    <string name="pay_with_other_text">Other</string>
+    <string name="pay_with_text">Pay with</string>
+    <string name="payment_approved">Payment Approved</string>
+    <string name="payment_message">You\'ll receive an email with above Payment ID for further reference.</string>
+    <string name="payment_method_title">SELECT A METHOD</string>
+    <string name="payment_reference">Payment ID #%s</string>
+    <string name="payment_result_title">THANK YOU!</string>
+    <string name="reference_message">You\’ll receive an email with above Reference ID for further reference.</string>
+    <string name="window_close_msg">This secure payment window is closing in %d seconds…</string>
+    <style name="ph_transparent.windowNoTitle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
+    <style name="ph_transparent.windowTitle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
+    <style name="phtransparent.windowTitle.fix" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
+</resources>
