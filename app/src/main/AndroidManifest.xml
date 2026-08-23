@@ -54,6 +54,14 @@
             android:exported="false" />
 
         <activity
+            android:name=".management.PaymentActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".management.PaymentSuccessActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
 
