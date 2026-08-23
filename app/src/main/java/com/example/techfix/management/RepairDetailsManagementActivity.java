@@ -458,13 +458,26 @@ public class RepairDetailsManagementActivity extends AppCompatActivity {
     private void updateStatus() {
 
         if (repair == null) {
+            Toast.makeText(
+                    this,
+                    "Repair data not loaded",
+                    Toast.LENGTH_SHORT
+            ).show();
             return;
         }
 
         String newStatus =
                 spinnerRepairStatus
                         .getSelectedItem()
-                        .toString();
+                        .toString()
+                        .trim();
+
+        Toast.makeText(
+                this,
+                "Updating Repair #" + repairId +
+                        " to " + newStatus,
+                Toast.LENGTH_SHORT
+        ).show();
 
         repairRepository.updateRepairStatus(
                 repairId,
@@ -475,19 +488,17 @@ public class RepairDetailsManagementActivity extends AppCompatActivity {
                     repair.setStatus(newStatus);
 
                     Toast.makeText(
-                            this,
-                            "Repair status updated",
-                            Toast.LENGTH_SHORT
+                            RepairDetailsManagementActivity.this,
+                            "SUCCESS: Status updated to " + newStatus,
+                            Toast.LENGTH_LONG
                     ).show();
-
                 },
 
                 error -> {
 
                     Toast.makeText(
-                            this,
-                            "Failed to update status: "
-                                    + error.getMessage(),
+                            RepairDetailsManagementActivity.this,
+                            "ERROR: " + error.getMessage(),
                             Toast.LENGTH_LONG
                     ).show();
                 }

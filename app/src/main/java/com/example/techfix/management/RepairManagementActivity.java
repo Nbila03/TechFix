@@ -2,6 +2,7 @@ package com.example.techfix.management;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,51 +21,151 @@ import java.util.List;
 
 public class RepairManagementActivity extends AppCompatActivity {
 
+    // =========================================================
+    // RECYCLER VIEW
+    // =========================================================
+
     private RecyclerView recyclerRepairs;
+
+    // =========================================================
+    // SEARCH
+    // =========================================================
+
     private TextInputEditText etSearchRepair;
+
+    // =========================================================
+    // FILTER BUTTONS
+    // =========================================================
 
     private MaterialButton btnFilterAll;
     private MaterialButton btnFilterPending;
     private MaterialButton btnFilterProgress;
     private MaterialButton btnFilterCompleted;
 
+    private MaterialButton btnBackRepairManagement;
+
+    // =========================================================
+    // SUMMARY TEXT VIEWS
+    // =========================================================
+
+    private TextView tvTotalRepairs;
+    private TextView tvPendingRepairs;
+    private TextView tvProgressRepairs;
+    private TextView tvRepairCount;
+
+    // =========================================================
+    // ADAPTER + REPOSITORY
+    // =========================================================
+
     private RepairAdapter repairAdapter;
     private RepairRepository repairRepository;
 
-    private final List<RepairRequest> repairList = new ArrayList<>();
+    // =========================================================
+    // REPAIR LIST
+    // =========================================================
+
+    private final List<RepairRequest> repairList =
+            new ArrayList<>();
+
+
+    // =========================================================
+    // ON CREATE
+    // =========================================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_repair_management);
+        setContentView(
+                R.layout.activity_repair_management
+        );
 
         initializeViews();
+
         setupRecyclerView();
+
         setupFilters();
+
         setupSearch();
 
-        repairRepository = new RepairRepository();
+        setupBackButton();
 
+        repairRepository =
+                new RepairRepository();
+
+        // Load repairs from Firebase
         loadRepairs();
     }
 
+
+    // =========================================================
     // INITIALIZE VIEWS
+    // =========================================================
 
     private void initializeViews() {
 
-        recyclerRepairs = findViewById(R.id.recyclerRepairs);
+        // RecyclerView
+        recyclerRepairs =
+                findViewById(
+                        R.id.recyclerRepairs
+                );
 
-        etSearchRepair = findViewById(R.id.etSearchRepair);
+        // Search
+        etSearchRepair =
+                findViewById(
+                        R.id.etSearchRepair
+                );
 
-        btnFilterAll = findViewById(R.id.btnFilterAll);
-        btnFilterPending = findViewById(R.id.btnFilterPending);
-        btnFilterProgress = findViewById(R.id.btnFilterProgress);
-        btnFilterCompleted = findViewById(R.id.btnFilterCompleted);
+        // Filter buttons
+        btnFilterAll =
+                findViewById(
+                        R.id.btnFilterAll
+                );
+
+        btnFilterPending =
+                findViewById(
+                        R.id.btnFilterPending
+                );
+
+        btnFilterProgress =
+                findViewById(
+                        R.id.btnFilterProgress
+                );
+
+        btnFilterCompleted =
+                findViewById(
+                        R.id.btnFilterCompleted
+                );
+
+        btnBackRepairManagement =
+                findViewById(R.id.btnBackRepairManagement);
+
+        // Summary cards
+        tvTotalRepairs =
+                findViewById(
+                        R.id.tvTotalRepairs
+                );
+
+        tvPendingRepairs =
+                findViewById(
+                        R.id.tvPendingRepairs
+                );
+
+        tvProgressRepairs =
+                findViewById(
+                        R.id.tvProgressRepairs
+                );
+
+        tvRepairCount =
+                findViewById(
+                        R.id.tvRepairCount
+                );
     }
 
 
+    // =========================================================
     // RECYCLER VIEW
+    // =========================================================
 
     private void setupRecyclerView() {
 
@@ -72,43 +173,70 @@ public class RepairManagementActivity extends AppCompatActivity {
                 new LinearLayoutManager(this)
         );
 
-        repairAdapter = new RepairAdapter(
-                repairList,
-                repair -> {
+        repairAdapter =
+                new RepairAdapter(
+                        repairList,
 
-                    // Open Repair Details Management screen
+                        repair -> {
 
-                    Intent intent = new Intent(
-                            RepairManagementActivity.this,
-                            RepairDetailsManagementActivity.class
-                    );
+                            // Open Repair Details Management screen
 
-                    // Send selected repair ID
-                    intent.putExtra(
-                            "repairId",
-                            repair.getRepairId()
-                    );
+                            Intent intent =
+                                    new Intent(
+                                            RepairManagementActivity.this,
+                                            RepairDetailsManagementActivity.class
+                                    );
 
-                    startActivity(intent);
-                }
+                            // Send selected repair ID
+                            intent.putExtra(
+                                    "repairId",
+                                    repair.getRepairId()
+                            );
+
+                            startActivity(intent);
+                        }
+                );
+
+        recyclerRepairs.setAdapter(
+                repairAdapter
         );
-
-        recyclerRepairs.setAdapter(repairAdapter);
     }
 
 
+    // =========================================================
     // LOAD REPAIRS FROM FIRESTORE
+    // =========================================================
 
     private void loadRepairs() {
+
+        if (repairRepository == null) {
+            return;
+        }
 
         repairRepository.getAllRepairs(
 
                 repairs -> {
 
+                    // Clear existing list
                     repairList.clear();
-                    repairList.addAll(repairs);
 
-                    repairAdapter.updateList(repairList);
+                    // Add latest Firebase data
+                    if (repairs != null) {
+
+                        repairList.addAll(
+                                repairs
+                        );
+                    }
+
+                    // Update summary cards
+                    updateSummary(
+                            repairList
+                    );
+
+                    // Update RecyclerView
+                    repairAdapter.updateList(
+                            repairList
+                    );
                 },
 
                 error -> {
@@ -124,7 +252,143 @@ public class RepairManagementActivity extends AppCompatActivity {
     }
 
 
+    // =========================================================
+    // UPDATE SUMMARY CARDS
+    // =========================================================
+
+    private void updateSummary(
+            List<RepairRequest> repairs) {
+
+        int total = 0;
+        int pending = 0;
+        int progress = 0;
+
+        // -----------------------------------------------------
+        // TOTAL REPAIRS
+        // -----------------------------------------------------
+
+        if (repairs != null) {
+
+            total = repairs.size();
+        }
+
+        // -----------------------------------------------------
+        // COUNT REPAIRS BY STATUS
+        // -----------------------------------------------------
+
+        if (repairs != null) {
+
+            for (RepairRequest repair : repairs) {
+
+                if (repair == null) {
+                    continue;
+                }
+
+                String status =
+                        repair.getStatus();
+
+                if (status == null) {
+                    continue;
+                }
+
+                status =
+                        status.trim()
+                                .toUpperCase();
+
+                // Pending
+                if (status.equals("SUBMITTED")) {
+
+                    pending++;
+                }
+
+                // In Progress
+                else if (
+                        status.equals("IN_PROGRESS")
+                ) {
+
+                    progress++;
+                }
+            }
+        }
+
+        // -----------------------------------------------------
+        // DISPLAY TOTAL
+        // -----------------------------------------------------
+
+        tvTotalRepairs.setText(
+                String.valueOf(total)
+        );
+
+        // -----------------------------------------------------
+        // DISPLAY PENDING
+        // -----------------------------------------------------
+
+        tvPendingRepairs.setText(
+                String.valueOf(pending)
+        );
+
+        // -----------------------------------------------------
+        // DISPLAY IN PROGRESS
+        // -----------------------------------------------------
+
+        tvProgressRepairs.setText(
+                String.valueOf(progress)
+        );
+
+        // -----------------------------------------------------
+        // DISPLAY REPAIR COUNT
+        // -----------------------------------------------------
+
+        if (total == 1) {
+
+            tvRepairCount.setText(
+                    "1 repair"
+            );
+
+        } else {
+
+            tvRepairCount.setText(
+                    total + " repairs"
+            );
+        }
+    }
+
+
+    // =========================================================
+    // REFRESH WHEN RETURNING FROM DETAILS SCREEN
+    // =========================================================
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        /*
+         * Reload Firebase data whenever
+         * the admin returns to this screen.
+         *
+         * This keeps:
+         *
+         * - Repair cards
+         * - Total count
+         * - Pending count
+         * - In Progress count
+         *
+         * up to date.
+         */
+
+        if (repairRepository != null) {
+
+            recyclerRepairs.post(
+                    this::loadRepairs
+            );
+        }
+    }
+
+
+    // =========================================================
     // SEARCH
+    // =========================================================
 
     private void setupSearch() {
 
@@ -132,11 +396,14 @@ public class RepairManagementActivity extends AppCompatActivity {
                 (v, actionId, event) -> {
 
                     String query =
-                            etSearchRepair.getText()
+                            etSearchRepair
+                                    .getText()
                                     .toString()
                                     .trim();
 
-                    repairAdapter.filter(query);
+                    repairAdapter.filter(
+                            query
+                    );
 
                     return false;
                 }
@@ -144,32 +411,63 @@ public class RepairManagementActivity extends AppCompatActivity {
     }
 
 
+    // =========================================================
     // FILTER BUTTONS
+    // =========================================================
 
     private void setupFilters() {
 
+        // -----------------------------------------------------
+        // ALL
+        // -----------------------------------------------------
+
         btnFilterAll.setOnClickListener(v -> {
 
-            repairAdapter.filterByStatus("ALL");
-
+            repairAdapter.filterByStatus(
+                    "ALL"
+            );
         });
+
+
+        // -----------------------------------------------------
+        // PENDING
+        // -----------------------------------------------------
 
         btnFilterPending.setOnClickListener(v -> {
 
-            repairAdapter.filterByStatus("SUBMITTED");
-
+            repairAdapter.filterByStatus(
+                    "SUBMITTED"
+            );
         });
+
+
+        // -----------------------------------------------------
+        // IN PROGRESS
+        // -----------------------------------------------------
 
         btnFilterProgress.setOnClickListener(v -> {
 
-            repairAdapter.filterByStatus("IN_PROGRESS");
-
+            repairAdapter.filterByStatus(
+                    "IN_PROGRESS"
+            );
         });
+
+
+        // -----------------------------------------------------
+        // COMPLETED
+        // -----------------------------------------------------
 
         btnFilterCompleted.setOnClickListener(v -> {
 
-            repairAdapter.filterByStatus("COMPLETED");
+            repairAdapter.filterByStatus(
+                    "COMPLETED"
+            );
+        });
+    }
+    private void setupBackButton() {
 
+        btnBackRepairManagement.setOnClickListener(v -> {
+            finish();
         });
     }
 }

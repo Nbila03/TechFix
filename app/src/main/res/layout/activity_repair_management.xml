@@ -19,11 +19,26 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <!-- BACK BUTTON -->
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBackRepairManagement"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="← Back"
+                android:textColor="@color/techfix_gold"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:background="@drawable/bg_techfix_outline_button"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+
             <!-- HEADER -->
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
                 android:text="Repair Management"
                 android:textColor="@color/techfix_white"
                 android:textSize="26sp"
@@ -37,7 +52,6 @@
                 android:textColor="@color/techfix_text_secondary"
                 android:textSize="14sp" />
 
-
             <!-- SUMMARY CARDS -->
 
             <LinearLayout
@@ -46,7 +60,7 @@
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
-                <!-- Total -->
+                <!-- TOTAL -->
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -62,7 +76,7 @@
                         android:id="@+id/tvTotalRepairs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12"
+                        android:text="0"
                         android:textColor="@color/techfix_gold"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -76,8 +90,7 @@
 
                 </LinearLayout>
 
-
-                <!-- Pending -->
+                <!-- PENDING -->
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -94,7 +107,7 @@
                         android:id="@+id/tvPendingRepairs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3"
+                        android:text="0"
                         android:textColor="@color/techfix_gold"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -108,8 +121,7 @@
 
                 </LinearLayout>
 
-
-                <!-- Progress -->
+                <!-- IN PROGRESS -->
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -125,7 +137,7 @@
                         android:id="@+id/tvProgressRepairs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5"
+                        android:text="0"
                         android:textColor="#42A5F5"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -140,7 +152,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
 
             <!-- SEARCH -->
 
@@ -161,8 +172,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <!-- FILTERS -->
+            <!-- FILTER TITLE -->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -172,6 +182,8 @@
                 android:textColor="@color/techfix_text_secondary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
+
+            <!-- FILTER BUTTONS -->
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -227,7 +239,6 @@
 
             </HorizontalScrollView>
 
-
             <!-- SECTION HEADER -->
 
             <LinearLayout
@@ -265,7 +276,7 @@
                     android:id="@+id/tvRepairCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12 repairs"
+                    android:text="0 repairs"
                     android:textColor="@color/techfix_gold"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -276,9 +287,7 @@
 
     </ScrollView>
 
-
     <!-- DYNAMIC REPAIR LIST -->
-    <!-- KEEPING THIS FOR THE EXISTING JAVA/ADAPTER -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerRepairs"
