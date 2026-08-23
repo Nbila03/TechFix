@@ -18,10 +18,6 @@ import java.util.List;
 public class TechnicianAdapter
         extends RecyclerView.Adapter<TechnicianAdapter.TechnicianViewHolder> {
 
-    // =========================================================
-    // LISTENERS
-    // =========================================================
-
     public interface OnTechnicianClickListener {
         void onTechnicianClick(Technician technician);
     }
@@ -34,22 +30,12 @@ public class TechnicianAdapter
         void onDeleteClick(Technician technician);
     }
 
-
-    // =========================================================
-    // VARIABLES
-    // =========================================================
-
-    private final List<Technician> technicianList;
-    private final List<Technician> allTechnicians;
+    private final List<Technician> technicianList = new ArrayList<>();
+    private final List<Technician> allTechnicians = new ArrayList<>();
 
     private final OnTechnicianClickListener clickListener;
     private final OnEditClickListener editListener;
     private final OnDeleteClickListener deleteListener;
-
-
-    // =========================================================
-    // CONSTRUCTOR
-    // =========================================================
 
     public TechnicianAdapter(
             List<Technician> technicianList,
@@ -57,20 +43,15 @@ public class TechnicianAdapter
             OnEditClickListener editListener,
             OnDeleteClickListener deleteListener) {
 
-        this.technicianList = technicianList;
-
-        this.allTechnicians =
-                new ArrayList<>(technicianList);
+        if (technicianList != null) {
+            this.technicianList.addAll(technicianList);
+            this.allTechnicians.addAll(technicianList);
+        }
 
         this.clickListener = clickListener;
         this.editListener = editListener;
         this.deleteListener = deleteListener;
     }
-
-
-    // =========================================================
-    // VIEW HOLDER
-    // =========================================================
 
     @NonNull
     @Override
@@ -78,117 +59,76 @@ public class TechnicianAdapter
             @NonNull ViewGroup parent,
             int viewType) {
 
-        View view =
-                LayoutInflater.from(parent.getContext())
-                        .inflate(
-                                R.layout.item_technician,
-                                parent,
-                                false
-                        );
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(
+                        R.layout.item_technician,
+                        parent,
+                        false
+                );
 
         return new TechnicianViewHolder(view);
     }
-
-
-    // =========================================================
-    // BIND DATA
-    // =========================================================
 
     @Override
     public void onBindViewHolder(
             @NonNull TechnicianViewHolder holder,
             int position) {
 
-        Technician technician =
-                technicianList.get(position);
-
-        holder.bind(technician);
+        holder.bind(
+                technicianList.get(position)
+        );
     }
-
-
-    // =========================================================
-    // ITEM COUNT
-    // =========================================================
 
     @Override
     public int getItemCount() {
-
         return technicianList.size();
     }
 
-
-    // =========================================================
-    // UPDATE LIST
-    // =========================================================
-
-    public void updateList(
-            List<Technician> technicians) {
+    public void updateList(List<Technician> technicians) {
 
         technicianList.clear();
-
-        if (technicians != null) {
-
-            technicianList.addAll(
-                    technicians
-            );
-        }
-
         allTechnicians.clear();
 
         if (technicians != null) {
-
-            allTechnicians.addAll(
-                    technicians
-            );
+            technicianList.addAll(technicians);
+            allTechnicians.addAll(technicians);
         }
 
         notifyDataSetChanged();
     }
 
-
-    // =========================================================
-    // SEARCH
-    // =========================================================
-
     public void filter(String query) {
 
-        String searchQuery =
-                query == null
-                        ? ""
-                        : query.trim().toLowerCase();
+        String searchQuery = query == null
+                ? ""
+                : query.trim().toLowerCase();
 
         technicianList.clear();
 
         if (searchQuery.isEmpty()) {
 
-            technicianList.addAll(
-                    allTechnicians
-            );
+            technicianList.addAll(allTechnicians);
 
         } else {
 
-            for (Technician technician :
-                    allTechnicians) {
+            for (Technician technician : allTechnicians) {
 
                 String name =
                         technician.getTechnicianName() == null
                                 ? ""
-                                : technician.getTechnicianName()
-                                .toLowerCase();
+                                : technician.getTechnicianName().toLowerCase();
 
                 String specialization =
                         technician.getSpecialization() == null
                                 ? ""
-                                : technician.getSpecialization()
-                                .toLowerCase();
+                                : technician.getSpecialization().toLowerCase();
 
                 String phone =
                         technician.getPhone() == null
                                 ? ""
-                                : technician.getPhone()
-                                .toLowerCase();
+                                : technician.getPhone().toLowerCase();
 
-                String technicianId =
+                String id =
                         String.valueOf(
                                 technician.getTechnicianId()
                         );
@@ -196,11 +136,9 @@ public class TechnicianAdapter
                 if (name.contains(searchQuery)
                         || specialization.contains(searchQuery)
                         || phone.contains(searchQuery)
-                        || technicianId.contains(searchQuery)) {
+                        || id.contains(searchQuery)) {
 
-                    technicianList.add(
-                            technician
-                    );
+                    technicianList.add(technician);
                 }
             }
         }
@@ -208,27 +146,20 @@ public class TechnicianAdapter
         notifyDataSetChanged();
     }
 
-
-    // =========================================================
-    // VIEW HOLDER CLASS
-    // =========================================================
-
     class TechnicianViewHolder
             extends RecyclerView.ViewHolder {
 
-        private final TextView tvInitial;
-        private final TextView tvTechnicianName;
-        private final TextView tvSpecialization;
-        private final TextView tvStatus;
-        private final TextView tvPhone;
-        private final TextView tvBranch;
-        private final MaterialButton btnEdit;
-        private final MaterialButton btnDelete;
+        TextView tvInitial;
+        TextView tvTechnicianName;
+        TextView tvSpecialization;
+        TextView tvStatus;
+        TextView tvPhone;
+        TextView tvBranch;
 
+        MaterialButton btnEdit;
+        MaterialButton btnDelete;
 
-        TechnicianViewHolder(
-                @NonNull View itemView) {
-
+        TechnicianViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvInitial =
@@ -272,51 +203,20 @@ public class TechnicianAdapter
                     );
         }
 
-
-        // =====================================================
-        // BIND TECHNICIAN
-        // =====================================================
-
-        void bind(
-                Technician technician) {
-
-            // -------------------------------------------------
-            // NAME
-            // -------------------------------------------------
+        void bind(Technician technician) {
 
             String name =
                     technician.getTechnicianName();
 
-            if (name == null) {
+            if (name == null || name.trim().isEmpty()) {
                 name = "Unknown Technician";
             }
 
-            tvTechnicianName.setText(
-                    name
+            tvTechnicianName.setText(name);
+
+            tvInitial.setText(
+                    name.substring(0, 1).toUpperCase()
             );
-
-
-            // -------------------------------------------------
-            // INITIAL
-            // -------------------------------------------------
-
-            if (!name.isEmpty()) {
-
-                tvInitial.setText(
-                        name.substring(0, 1)
-                                .toUpperCase()
-                );
-
-            } else {
-
-                tvInitial.setText("?");
-
-            }
-
-
-            // -------------------------------------------------
-            // SPECIALIZATION
-            // -------------------------------------------------
 
             String specialization =
                     technician.getSpecialization();
@@ -324,18 +224,12 @@ public class TechnicianAdapter
             if (specialization == null
                     || specialization.trim().isEmpty()) {
 
-                specialization =
-                        "General Technician";
+                specialization = "General Technician";
             }
 
             tvSpecialization.setText(
                     specialization
             );
-
-
-            // -------------------------------------------------
-            // PHONE
-            // -------------------------------------------------
 
             String phone =
                     technician.getPhone();
@@ -346,77 +240,43 @@ public class TechnicianAdapter
                 phone = "No phone number";
             }
 
-            tvPhone.setText(
-                    phone
-            );
-
-
-            // -------------------------------------------------
-            // BRANCH
-            // -------------------------------------------------
+            tvPhone.setText(phone);
 
             tvBranch.setText(
                     "Branch ID: "
                             + technician.getBranchId()
             );
 
-
-            // -------------------------------------------------
-            // AVAILABILITY
-            // -------------------------------------------------
-
             if (technician.isAvailable()) {
 
-                tvStatus.setText(
-                        "AVAILABLE"
-                );
+                tvStatus.setText("AVAILABLE");
 
             } else {
 
-                tvStatus.setText(
-                        "BUSY"
-                );
+                tvStatus.setText("BUSY");
             }
-
-
-            // -------------------------------------------------
-            // CARD CLICK
-            // -------------------------------------------------
 
             itemView.setOnClickListener(v -> {
 
                 if (clickListener != null) {
-
                     clickListener.onTechnicianClick(
                             technician
                     );
                 }
             });
 
-
-            // -------------------------------------------------
-            // EDIT
-            // -------------------------------------------------
-
             btnEdit.setOnClickListener(v -> {
 
                 if (editListener != null) {
-
                     editListener.onEditClick(
                             technician
                     );
                 }
             });
 
-
-            // -------------------------------------------------
-            // DELETE
-            // -------------------------------------------------
-
             btnDelete.setOnClickListener(v -> {
 
                 if (deleteListener != null) {
-
                     deleteListener.onDeleteClick(
                             technician
                     );

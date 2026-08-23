@@ -23,15 +23,34 @@ import java.util.List;
 
 public class TechnicianManagementActivity extends AppCompatActivity {
 
+    // =========================================================
+    // VIEWS
+    // =========================================================
+
     private RecyclerView recyclerTechnicians;
+
     private TextInputEditText etSearchTechnician;
+
     private MaterialButton btnAddTechnician;
+
+    private MaterialButton btnBackTechnicianManagement;
 
     private TextView tvTotalTechnicians;
     private TextView tvAvailableTechnicians;
 
+
+    // =========================================================
+    // REPOSITORY + ADAPTER
+    // =========================================================
+
     private TechRepository repository;
+
     private TechnicianAdapter adapter;
+
+
+    // =========================================================
+    // LIST
+    // =========================================================
 
     private final List<Technician> technicianList =
             new ArrayList<>();
@@ -49,13 +68,25 @@ public class TechnicianManagementActivity extends AppCompatActivity {
                 R.layout.activity_technician_management
         );
 
+
+        // Initialize repository
         repository = new TechRepository();
 
+
+        // Initialize views
         initializeViews();
+
+
+        // Setup RecyclerView
         setupRecyclerView();
+
+
+        // Setup buttons
         setupButtons();
+
+
+        // Setup search
         setupSearch();
-        loadTechnicians();
     }
 
 
@@ -66,19 +97,39 @@ public class TechnicianManagementActivity extends AppCompatActivity {
     private void initializeViews() {
 
         recyclerTechnicians =
-                findViewById(R.id.recyclerTechnicians);
+                findViewById(
+                        R.id.recyclerTechnicians
+                );
+
 
         etSearchTechnician =
-                findViewById(R.id.etSearchTechnician);
+                findViewById(
+                        R.id.etSearchTechnician
+                );
+
 
         btnAddTechnician =
-                findViewById(R.id.btnAddTechnician);
+                findViewById(
+                        R.id.btnAddTechnician
+                );
+
+
+        btnBackTechnicianManagement =
+                findViewById(
+                        R.id.btnBackTechnicianManagement
+                );
+
 
         tvTotalTechnicians =
-                findViewById(R.id.tvTotalTechnicians);
+                findViewById(
+                        R.id.tvTotalTechnicians
+                );
+
 
         tvAvailableTechnicians =
-                findViewById(R.id.tvAvailableTechnicians);
+                findViewById(
+                        R.id.tvAvailableTechnicians
+                );
     }
 
 
@@ -92,16 +143,19 @@ public class TechnicianManagementActivity extends AppCompatActivity {
                 new LinearLayoutManager(this)
         );
 
+
         adapter = new TechnicianAdapter(
 
                 technicianList,
+
 
                 // -------------------------------------------------
                 // CARD CLICK
                 // -------------------------------------------------
 
                 technician -> {
-                    // Nothing for now
+
+                    // No action required
                 },
 
 
@@ -117,40 +171,48 @@ public class TechnicianManagementActivity extends AppCompatActivity {
                                     TechnicianFormActivity.class
                             );
 
+
                     intent.putExtra(
                             "mode",
                             "edit"
                     );
+
 
                     intent.putExtra(
                             "technicianId",
                             technician.getTechnicianId()
                     );
 
+
                     intent.putExtra(
                             "branchId",
                             technician.getBranchId()
                     );
+
 
                     intent.putExtra(
                             "technicianName",
                             technician.getTechnicianName()
                     );
 
+
                     intent.putExtra(
                             "specialization",
                             technician.getSpecialization()
                     );
+
 
                     intent.putExtra(
                             "phone",
                             technician.getPhone()
                     );
 
+
                     intent.putExtra(
                             "available",
                             technician.isAvailable()
                     );
+
 
                     startActivity(intent);
                 },
@@ -168,6 +230,7 @@ public class TechnicianManagementActivity extends AppCompatActivity {
                 }
         );
 
+
         recyclerTechnicians.setAdapter(
                 adapter
         );
@@ -180,6 +243,20 @@ public class TechnicianManagementActivity extends AppCompatActivity {
 
     private void setupButtons() {
 
+        // -----------------------------------------------------
+        // BACK TO ADMIN DASHBOARD
+        // -----------------------------------------------------
+
+        btnBackTechnicianManagement.setOnClickListener(v -> {
+
+            finish();
+        });
+
+
+        // -----------------------------------------------------
+        // ADD TECHNICIAN
+        // -----------------------------------------------------
+
         btnAddTechnician.setOnClickListener(v -> {
 
             Intent intent =
@@ -188,10 +265,12 @@ public class TechnicianManagementActivity extends AppCompatActivity {
                             TechnicianFormActivity.class
                     );
 
+
             intent.putExtra(
                     "mode",
                     "add"
             );
+
 
             startActivity(intent);
         });
@@ -210,6 +289,7 @@ public class TechnicianManagementActivity extends AppCompatActivity {
 
                     technicianList.clear();
 
+
                     if (technicians != null) {
 
                         technicianList.addAll(
@@ -217,14 +297,17 @@ public class TechnicianManagementActivity extends AppCompatActivity {
                         );
                     }
 
+
                     adapter.updateList(
                             technicianList
                     );
+
 
                     updateSummary(
                             technicianList
                     );
                 },
+
 
                 error -> {
 
@@ -247,11 +330,15 @@ public class TechnicianManagementActivity extends AppCompatActivity {
             List<Technician> technicians) {
 
         int total = 0;
+
         int available = 0;
+
 
         if (technicians != null) {
 
-            total = technicians.size();
+            total =
+                    technicians.size();
+
 
             for (Technician technician :
                     technicians) {
@@ -264,9 +351,11 @@ public class TechnicianManagementActivity extends AppCompatActivity {
             }
         }
 
+
         tvTotalTechnicians.setText(
                 String.valueOf(total)
         );
+
 
         tvAvailableTechnicians.setText(
                 String.valueOf(available)
@@ -291,6 +380,7 @@ public class TechnicianManagementActivity extends AppCompatActivity {
                             int after) {
                     }
 
+
                     @Override
                     public void onTextChanged(
                             CharSequence s,
@@ -298,10 +388,14 @@ public class TechnicianManagementActivity extends AppCompatActivity {
                             int before,
                             int count) {
 
-                        adapter.filter(
-                                s.toString()
-                        );
+                        if (adapter != null) {
+
+                            adapter.filter(
+                                    s.toString()
+                            );
+                        }
                     }
+
 
                     @Override
                     public void afterTextChanged(
@@ -318,6 +412,18 @@ public class TechnicianManagementActivity extends AppCompatActivity {
 
     private void deleteTechnician(
             Technician technician) {
+
+        if (technician == null) {
+
+            Toast.makeText(
+                    this,
+                    "Invalid technician",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
 
         repository.getDocumentIdByTechnicianId(
 
@@ -336,6 +442,7 @@ public class TechnicianManagementActivity extends AppCompatActivity {
                         return;
                     }
 
+
                     repository.deleteTechnician(
 
                             documentId,
@@ -348,6 +455,7 @@ public class TechnicianManagementActivity extends AppCompatActivity {
                                         "Technician deleted successfully",
                                         Toast.LENGTH_SHORT
                                 ).show();
+
 
                                 loadTechnicians();
                             },
@@ -380,13 +488,14 @@ public class TechnicianManagementActivity extends AppCompatActivity {
 
 
     // =========================================================
-    // REFRESH
+    // REFRESH WHEN RETURNING
     // =========================================================
 
     @Override
     protected void onResume() {
 
         super.onResume();
+
 
         if (repository != null) {
 

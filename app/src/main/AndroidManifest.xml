@@ -104,6 +104,14 @@
             android:exported="false" />
 
         <activity
+            android:name=".management.TechnicianManagementActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".management.TechnicianFormActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
 
