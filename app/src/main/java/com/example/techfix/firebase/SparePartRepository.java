@@ -55,16 +55,13 @@ public class SparePartRepository {
 
     // UPDATE STOCK
 
-    public void updateStock(
-            int partId,
-            int newQuantity) {
+    public void updateSparePart(SparePart part) {
+
+        String id = String.valueOf(part.getPartId());
 
         db.collection("spareParts")
-                .document(String.valueOf(partId))
-                .update(
-                        "quantity",
-                        newQuantity
-                );
+                .document(id)
+                .set(part);
     }
 
 

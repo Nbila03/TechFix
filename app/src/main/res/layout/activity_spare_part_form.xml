@@ -1,0 +1,235 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/techfix_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- BACK -->
+
+        <Button
+            android:id="@+id/btnBackSparePart"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/techfix_surface"
+            android:text="← BACK"
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold" />
+
+        <!-- TITLE -->
+
+        <TextView
+            android:id="@+id/tvSparePartFormTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD SPARE PART"
+            android:textColor="@color/techfix_gold"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="24dp"
+            android:text="Add a new item to inventory"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="14sp" />
+
+        <!-- PART ID -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PART ID"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etPartId"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:hint="Enter part ID"
+            android:inputType="number"
+            android:padding="12dp"
+            android:textColor="@color/techfix_white"
+            android:textColorHint="@color/techfix_text_secondary" />
+
+        <!-- BRANCH ID -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="BRANCH ID"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etBranchId"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:hint="Enter branch ID"
+            android:inputType="number"
+            android:padding="12dp"
+            android:textColor="@color/techfix_white"
+            android:textColorHint="@color/techfix_text_secondary" />
+
+        <!-- PART NAME -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="PART NAME"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etPartName"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:hint="e.g. Brake Pads"
+            android:inputType="textCapSentences"
+            android:padding="12dp"
+            android:textColor="@color/techfix_white"
+            android:textColorHint="@color/techfix_text_secondary" />
+
+        <!-- COMPATIBLE DEVICE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="COMPATIBLE DEVICE"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etCompatibleDevice"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:hint="e.g. Toyota"
+            android:inputType="textCapSentences"
+            android:padding="12dp"
+            android:textColor="@color/techfix_white"
+            android:textColorHint="@color/techfix_text_secondary" />
+
+        <!-- QUANTITY -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="QUANTITY"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etQuantity"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:hint="Enter quantity"
+            android:inputType="number"
+            android:padding="12dp"
+            android:textColor="@color/techfix_white"
+            android:textColorHint="@color/techfix_text_secondary" />
+
+        <!-- UNIT PRICE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="UNIT PRICE"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etUnitPrice"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/techfix_surface"
+            android:hint="e.g. 8500"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:textColor="@color/techfix_white"
+            android:textColorHint="@color/techfix_text_secondary" />
+
+        <!-- AVAILABLE -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="AVAILABILITY"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/checkAvailable"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:checked="true"
+            android:text="Part is available"
+            android:textColor="@color/techfix_white"
+            android:textSize="14sp" />
+
+        <!-- SAVE -->
+
+        <Button
+            android:id="@+id/btnSaveSparePart"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="28dp"
+            android:backgroundTint="@color/techfix_gold"
+            android:text="SAVE SPARE PART"
+            android:textColor="@color/techfix_background"
+            android:textStyle="bold" />
+
+        <!-- DELETE -->
+
+        <Button
+            android:id="@+id/btnDeleteSparePart"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/techfix_surface"
+            android:text="DELETE SPARE PART"
+            android:textColor="@color/techfix_warning"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>
+
