@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:background="@color/techfix_surface"
+    android:orientation="vertical"
+    android:padding="18dp">
+
+    <ImageView
+        android:id="@+id/imgService"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:contentDescription="Service image"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/txtServiceItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Service Name"
+        android:textColor="@color/techfix_white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtServiceItemDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Service description"
+        android:textColor="@color/techfix_text_secondary"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txtServiceItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Starting from Rs. 0"
+        android:textColor="@color/techfix_gold"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
