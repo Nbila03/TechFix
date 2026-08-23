@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.techfix.R;
 import com.example.techfix.adapter.BranchAdapter;
-import com.example.techfix.database.TechFixDBHelper;
+import com.example.techfix.database.BranchLocalStore;
 import com.example.techfix.firebase.BranchRepository;
 import com.example.techfix.location.BranchAssignmentHelper;
 import com.example.techfix.location.LocationHelper;
@@ -25,7 +25,7 @@ public class BranchesActivity extends AppCompatActivity {
     private BranchAdapter adapter;
     private List<Branch> branchList = new ArrayList<>();
     private LocationHelper locationHelper;
-    private TechFixDBHelper dbHelper;
+    private BranchLocalStore branchLocalStore;
     private BranchRepository branchRepository;
 
     @Override
@@ -38,7 +38,7 @@ public class BranchesActivity extends AppCompatActivity {
         emptyView = findViewById(R.id.tvEmptyBranches);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        dbHelper = new TechFixDBHelper(this);
+        branchLocalStore = new BranchLocalStore(this);
         locationHelper = new LocationHelper(this);
         branchRepository = new BranchRepository();
 
@@ -61,17 +61,17 @@ public class BranchesActivity extends AppCompatActivity {
         if (NetworkUtils.isOnline(this)) {
             branchRepository.getAllBranches(
                     branches -> {
-                        dbHelper.replaceCachedBranches(branches);
+                        branchLocalStore.replaceCachedBranches(branches);
                         onBranchesReady(branches);
                     },
                     error -> {
                         Toast.makeText(this, "Failed to load branches: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        onBranchesReady(dbHelper.getCachedBranches());
+                        onBranchesReady(branchLocalStore.getCachedBranches());
                     }
             );
         } else {
             Toast.makeText(this, "Offline - showing last saved branches.", Toast.LENGTH_SHORT).show();
-            onBranchesReady(dbHelper.getCachedBranches());
+            onBranchesReady(branchLocalStore.getCachedBranches());
         }
     }
 
