@@ -10,7 +10,17 @@ import com.google.android.material.button.MaterialButton;
 
 import android.widget.TextView;
 
+// PayHere SDK
+import lk.payhere.androidsdk.PHConfigs;
+import lk.payhere.androidsdk.PHConstants;
+import lk.payhere.androidsdk.PHMainActivity;
+import lk.payhere.androidsdk.model.Customer;
+import lk.payhere.androidsdk.model.InitRequest;
+
 public class PaymentActivity extends AppCompatActivity {
+
+    // PayHere result request code
+    private static final int PAYHERE_REQUEST = 11001;
 
     // Payment details
     String repairId = "1024";
@@ -21,15 +31,14 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Connect this Java file to activity_payment.xml
+        // Connect Java to payment XML
         setContentView(R.layout.activity_payment);
 
-        // Find the TextViews from XML
+        // Find views
         TextView repairIdText = findViewById(R.id.tvPaymentRepairId);
         TextView serviceText = findViewById(R.id.tvPaymentService);
         TextView totalText = findViewById(R.id.tvPaymentTotal);
 
-        // Find the Pay Now button
         MaterialButton payButton = findViewById(R.id.btnPayNow);
 
         // Display repair information
@@ -37,29 +46,81 @@ public class PaymentActivity extends AppCompatActivity {
         serviceText.setText(serviceName);
 
         // Display amount
-        totalText.setText("LKR " + String.format("%.2f", amount));
+        totalText.setText(
+                "LKR " + String.format("%.2f", amount)
+        );
 
         // Display amount on button
         payButton.setText(
                 "PAY LKR " + String.format("%.2f", amount)
         );
 
-        // When user clicks Pay Now
-        payButton.setOnClickListener(view -> {
+        // Pay Now button
+        payButton.setOnClickListener(view -> startPayHerePayment());
+    }
 
-            // Open Payment Success screen
-            Intent intent = new Intent(
-                    PaymentActivity.this,
-                    PaymentSuccessActivity.class
-            );
+    private void startPayHerePayment() {
 
-            // Send payment information
-            intent.putExtra("repairId", repairId);
-            intent.putExtra("serviceName", serviceName);
-            intent.putExtra("amount", amount);
+        // Create PayHere payment request
+        InitRequest request = new InitRequest();
 
-            startActivity(intent);
-        });
+        // Use Sandbox
+        request.setSandBox(true);
+
+        // Your PayHere Sandbox Merchant ID
+        request.setMerchantId("1237662");
+
+        // Payment information
+        request.setOrderId("REPAIR-" + repairId);
+        request.setItemsDescription(serviceName);
+        request.setCurrency("LKR");
+        request.setAmount(amount);
+
+        // Customer information
+        Customer customer = new Customer();
+
+        customer.setFirstName("TechFix");
+        customer.setLastName("Customer");
+        customer.setEmail("customer@example.com");
+        customer.setPhone("0771234567");
+
+        request.setCustomer(customer);
+
+        // Tell PayHere to use Sandbox
+        PHConfigs.setBaseUrl(PHConfigs.SANDBOX_URL);
+
+        // Open PayHere
+        Intent intent = new Intent(
+                PaymentActivity.this,
+                PHMainActivity.class
+        );
+
+        // Send payment request to PayHere
+        intent.putExtra(
+                PHConstants.INTENT_EXTRA_DATA,
+                request
+        );
+
+        // Start PayHere
+        startActivityForResult(
+                intent,
+                PAYHERE_REQUEST
+        );
+    }
+
+    @Override
+    protected void onActivityResult(
+            int requestCode,
+            int resultCode,
+            Intent data
+    ) {
+        super.onActivityResult(
+                requestCode,
+                resultCode,
+                data
+        );
+
+        // Payment result will be handled
+        // in the next step.
     }
 }
-
