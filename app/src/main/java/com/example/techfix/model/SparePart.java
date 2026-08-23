@@ -10,6 +10,8 @@ public class SparePart {
     private double unitPrice;
     private boolean available;
 
+    private int minimumStock;
+
     //constructr
     public SparePart() {
 
@@ -49,5 +51,9 @@ public class SparePart {
     /** stock check: flag AND quantity both matter. */
     public boolean isInStock() {
         return available && quantity > 0;
+    }
+
+    public boolean isLowStock() {
+        return quantity <= minimumStock;
     }
 }
