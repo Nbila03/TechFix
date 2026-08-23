@@ -1,4 +1,3 @@
-
 package com.example.techfix.firebase;
 
 import com.example.techfix.model.SparePart;
@@ -9,8 +8,7 @@ import java.util.List;
 
 public class SparePartRepository {
 
-    // Firebase database
-    private FirebaseFirestore db;
+    private final FirebaseFirestore db;
 
     public SparePartRepository() {
         db = FirebaseFirestore.getInstance();
@@ -18,19 +16,33 @@ public class SparePartRepository {
 
     // ADD SPARE PART
 
-    public void addSparePart(SparePart part) {
+    public void addSparePart(
+            SparePart part,
+            OnSuccessCallback onSuccess,
+            OnErrorCallback onError) {
 
         String id = String.valueOf(part.getPartId());
 
         db.collection("spareParts")
                 .document(id)
-                .set(part);
+                .set(part)
+                .addOnSuccessListener(unused -> {
+
+                    onSuccess.onSuccess();
+
+                })
+                .addOnFailureListener(e -> {
+
+                    onError.onError(e);
+
+                });
     }
 
-    // GET ALL SPARE PARTS
+    // GET ALL SPARE PARTS=
 
     public void getSpareParts(
-            OnSparePartsLoaded listener) {
+            OnSparePartsLoaded onLoaded,
+            OnErrorCallback onError) {
 
         db.collection("spareParts")
                 .get()
@@ -49,34 +61,77 @@ public class SparePartRepository {
                         parts.add(part);
                     }
 
-                    listener.onLoaded(parts);
+                    onLoaded.onLoaded(parts);
+
+                })
+                .addOnFailureListener(e -> {
+
+                    onError.onError(e);
+
                 });
     }
 
-    // UPDATE STOCK
+    // UPDATE SPARE PART
 
-    public void updateSparePart(SparePart part) {
+    public void updateSparePart(
+            SparePart part,
+            OnSuccessCallback onSuccess,
+            OnErrorCallback onError) {
 
         String id = String.valueOf(part.getPartId());
 
         db.collection("spareParts")
                 .document(id)
-                .set(part);
+                .set(part)
+                .addOnSuccessListener(unused -> {
+
+                    onSuccess.onSuccess();
+
+                })
+                .addOnFailureListener(e -> {
+
+                    onError.onError(e);
+
+                });
     }
 
+    // DELETE SPARE PART
 
-// DELETE SPARE PART
-
-    public void deleteSparePart(int partId) {
+    public void deleteSparePart(
+            int partId,
+            OnSuccessCallback onSuccess,
+            OnErrorCallback onError) {
 
         db.collection("spareParts")
                 .document(String.valueOf(partId))
-                .delete();
+                .delete()
+                .addOnSuccessListener(unused -> {
+
+                    onSuccess.onSuccess();
+
+                })
+                .addOnFailureListener(e -> {
+
+                    onError.onError(e);
+
+                });
     }
 
+    // SUCCESS CALLBACK
 
+    public interface OnSuccessCallback {
 
-    // LISTENER
+        void onSuccess();
+    }
+
+    // ERROR CALLBACK
+
+    public interface OnErrorCallback {
+
+        void onError(Exception e);
+    }
+
+    // LOAD CALLBACK
 
     public interface OnSparePartsLoaded {
 
@@ -85,4 +140,3 @@ public class SparePartRepository {
         );
     }
 }
-

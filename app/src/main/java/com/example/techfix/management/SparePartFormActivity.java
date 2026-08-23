@@ -1,7 +1,7 @@
-
 package com.example.techfix.management;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -34,7 +34,6 @@ public class SparePartFormActivity extends AppCompatActivity {
 
     private SparePartRepository repository;
 
-    // Used to know whether we are adding or editing
     private boolean editMode = false;
 
     @Override
@@ -47,134 +46,110 @@ public class SparePartFormActivity extends AppCompatActivity {
 
         initializeViews();
 
-        repository =
-                new SparePartRepository();
+        repository = new SparePartRepository();
 
-        // Check whether an existing part was sent
-        int partId =
-                getIntent().getIntExtra(
-                        "partId",
-                        -1
-                );
+        int partId = getIntent().getIntExtra(
+                "partId",
+                -1
+        );
 
         if (partId != -1) {
 
-            // EDIT MODE
             editMode = true;
 
             loadPart(partId);
 
         } else {
 
-            // ADD MODE
             editMode = false;
 
-            tvTitle.setText(
-                    "ADD SPARE PART"
-            );
+            tvTitle.setText("ADD SPARE PART");
 
-            btnSave.setText(
-                    "SAVE SPARE PART"
-            );
+            btnSave.setText("SAVE SPARE PART");
 
-            // Delete is hidden when adding
-            btnDelete.setVisibility(
-                    android.view.View.GONE
-            );
+            btnDelete.setVisibility(View.GONE);
         }
 
         setupButtons();
     }
+
     // INITIALIZE VIEWS
 
     private void initializeViews() {
 
-        tvTitle =
-                findViewById(
-                        R.id.tvSparePartFormTitle
-                );
+        tvTitle = findViewById(
+                R.id.tvSparePartFormTitle
+        );
 
-        etPartId =
-                findViewById(
-                        R.id.etPartId
-                );
+        etPartId = findViewById(
+                R.id.etPartId
+        );
 
-        etBranchId =
-                findViewById(
-                        R.id.etBranchId
-                );
+        etBranchId = findViewById(
+                R.id.etBranchId
+        );
 
-        etPartName =
-                findViewById(
-                        R.id.etPartName
-                );
+        etPartName = findViewById(
+                R.id.etPartName
+        );
 
-        etCompatibleDevice =
-                findViewById(
-                        R.id.etCompatibleDevice
-                );
+        etCompatibleDevice = findViewById(
+                R.id.etCompatibleDevice
+        );
 
-        etQuantity =
-                findViewById(
-                        R.id.etQuantity
-                );
+        etQuantity = findViewById(
+                R.id.etQuantity
+        );
 
-        etUnitPrice =
-                findViewById(
-                        R.id.etUnitPrice
-                );
+        etUnitPrice = findViewById(
+                R.id.etUnitPrice
+        );
 
-        checkAvailable =
-                findViewById(
-                        R.id.checkAvailable
-                );
+        checkAvailable = findViewById(
+                R.id.checkAvailable
+        );
 
-        btnBack =
-                findViewById(
-                        R.id.btnBackSparePart
-                );
+        btnBack = findViewById(
+                R.id.btnBackSparePart
+        );
 
-        btnSave =
-                findViewById(
-                        R.id.btnSaveSparePart
-                );
+        btnSave = findViewById(
+                R.id.btnSaveSparePart
+        );
 
-        btnDelete =
-                findViewById(
-                        R.id.btnDeleteSparePart
-                );
+        btnDelete = findViewById(
+                R.id.btnDeleteSparePart
+        );
     }
 
     // BUTTONS
 
     private void setupButtons() {
 
-        // BACK
         btnBack.setOnClickListener(
                 v -> finish()
         );
 
-        // SAVE
         btnSave.setOnClickListener(
                 v -> saveSparePart()
         );
 
-        // DELETE
         btnDelete.setOnClickListener(
                 v -> confirmDelete()
         );
     }
 
-    // LOAD EXISTING PART
+    // LOAD PART
 
     private void loadPart(int partId) {
 
         repository.getSpareParts(
+
+                // SUCCESS
                 parts -> {
 
                     SparePart selectedPart = null;
 
-                    // Find the requested part
                     for (SparePart part : parts) {
 
                         if (part.getPartId() == partId) {
@@ -196,13 +171,23 @@ public class SparePartFormActivity extends AppCompatActivity {
                         return;
                     }
 
-                    // Put Firebase data into form
                     displayPart(selectedPart);
+                },
+
+                // ERROR
+                error -> {
+
+                    Toast.makeText(
+                            this,
+                            "Failed to load part: "
+                                    + error.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
                 }
         );
     }
 
-    // DISPLAY PART IN FORM
+    // DISPLAY PART
 
     private void displayPart(SparePart part) {
 
@@ -215,7 +200,7 @@ public class SparePartFormActivity extends AppCompatActivity {
         );
 
         btnDelete.setVisibility(
-                android.view.View.VISIBLE
+                View.VISIBLE
         );
 
         etPartId.setText(
@@ -254,8 +239,9 @@ public class SparePartFormActivity extends AppCompatActivity {
                 part.isAvailable()
         );
     }
+
     // SAVE
-    // CREATE OR UPDATE
+    // CREATE / UPDATE
 
     private void saveSparePart() {
 
@@ -292,82 +278,52 @@ public class SparePartFormActivity extends AppCompatActivity {
         // VALIDATION
 
         if (partIdText.isEmpty()) {
-
-            etPartId.setError(
-                    "Enter part ID"
-            );
-
+            etPartId.setError("Enter part ID");
             return;
         }
 
         if (branchIdText.isEmpty()) {
-
-            etBranchId.setError(
-                    "Enter branch ID"
-            );
-
+            etBranchId.setError("Enter branch ID");
             return;
         }
 
         if (partName.isEmpty()) {
-
-            etPartName.setError(
-                    "Enter part name"
-            );
-
+            etPartName.setError("Enter part name");
             return;
         }
 
         if (compatibleDevice.isEmpty()) {
-
             etCompatibleDevice.setError(
                     "Enter compatible device"
             );
-
             return;
         }
 
         if (quantityText.isEmpty()) {
-
-            etQuantity.setError(
-                    "Enter quantity"
-            );
-
+            etQuantity.setError("Enter quantity");
             return;
         }
 
         if (priceText.isEmpty()) {
-
             etUnitPrice.setError(
                     "Enter unit price"
             );
-
             return;
         }
-
-        // CONVERT VALUES
 
         try {
 
             int partId =
-                    Integer.parseInt(
-                            partIdText
-                    );
+                    Integer.parseInt(partIdText);
 
             int branchId =
-                    Integer.parseInt(
-                            branchIdText
-                    );
+                    Integer.parseInt(branchIdText);
 
             int quantity =
-                    Integer.parseInt(
-                            quantityText
-                    );
+                    Integer.parseInt(quantityText);
 
             double unitPrice =
-                    Double.parseDouble(
-                            priceText
-                    );
+                    Double.parseDouble(priceText);
 
             boolean available =
                     checkAvailable.isChecked();
@@ -385,39 +341,70 @@ public class SparePartFormActivity extends AppCompatActivity {
                             available
                     );
 
-            // CREATE
+            // ADD
 
             if (!editMode) {
 
-                repository.addSparePart(part);
+                repository.addSparePart(
+                        part,
 
-                Toast.makeText(
-                        this,
-                        "Spare part added",
-                        Toast.LENGTH_SHORT
-                ).show();
+                        // SUCCESS
+                        () -> {
 
-                finish();
+                            Toast.makeText(
+                                    this,
+                                    "Spare part added",
+                                    Toast.LENGTH_SHORT
+                            ).show();
 
+                            finish();
+                        },
+
+                        // ERROR
+                        error -> {
+
+                            Toast.makeText(
+                                    this,
+                                    "Failed to add spare part: "
+                                            + error.getMessage(),
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                );
             }
-
             // UPDATE
 
             else {
 
-                repository.updateSparePart(part);
+                repository.updateSparePart(
+                        part,
 
-                Toast.makeText(
-                        this,
-                        "Spare part updated",
-                        Toast.LENGTH_SHORT
-                ).show();
+                        // SUCCESS
+                        () -> {
 
-                finish();
+                            Toast.makeText(
+                                    this,
+                                    "Spare part updated",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+
+                            finish();
+                        },
+
+                        // ERROR
+                        error -> {
+
+                            Toast.makeText(
+                                    this,
+                                    "Failed to update spare part: "
+                                            + error.getMessage(),
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                );
             }
 
-        } catch (
-                NumberFormatException e) {
+        } catch (NumberFormatException e) {
 
             Toast.makeText(
                     this,
@@ -426,6 +413,7 @@ public class SparePartFormActivity extends AppCompatActivity {
             ).show();
         }
     }
+
     // DELETE CONFIRMATION
 
     private void confirmDelete() {
@@ -465,31 +453,62 @@ public class SparePartFormActivity extends AppCompatActivity {
 
                 .setPositiveButton(
                         "DELETE",
-                        (dialog, which) ->
-                                deleteSparePart(
+                        (dialog, which) -> {
+
+                            try {
+
+                                int partId =
                                         Integer.parseInt(
                                                 partIdText
-                                        )
-                                )
+                                        );
+
+                                deleteSparePart(partId);
+
+                            } catch (
+                                    NumberFormatException e) {
+
+                                Toast.makeText(
+                                        this,
+                                        "Invalid part ID",
+                                        Toast.LENGTH_SHORT
+                                ).show();
+                            }
+                        }
                 )
 
                 .show();
     }
+
     // DELETE
 
     private void deleteSparePart(
             int partId) {
 
         repository.deleteSparePart(
-                partId
+                partId,
+
+                // SUCCESS
+                () -> {
+
+                    Toast.makeText(
+                            this,
+                            "Spare part deleted",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+                    finish();
+                },
+
+                // ERROR
+                error -> {
+
+                    Toast.makeText(
+                            this,
+                            "Failed to delete spare part: "
+                                    + error.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
         );
-
-        Toast.makeText(
-                this,
-                "Spare part deleted",
-                Toast.LENGTH_SHORT
-        ).show();
-
-        finish();
     }
 }

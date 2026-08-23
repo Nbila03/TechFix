@@ -1,4 +1,3 @@
-
 package com.example.techfix.management;
 
 import android.content.Intent;
@@ -14,7 +13,8 @@ import com.example.techfix.model.SparePart;
 
 import java.util.List;
 
-public class SparePartsManagementActivity extends AppCompatActivity {
+public class SparePartsManagementActivity
+        extends AppCompatActivity {
 
     private SparePartRepository repository;
 
@@ -24,14 +24,19 @@ public class SparePartsManagementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Connect to our Spare Parts UI
-        setContentView(R.layout.activity_spare_parts_management);
+        // Connect Activity to Spare Parts UI
+        setContentView(
+                R.layout.activity_spare_parts_management
+        );
 
-        // Firebase repository
+        // Create Firebase repository
         repository = new SparePartRepository();
 
-        // Add button
-        btnAddPart = findViewById(R.id.btnAddPart);
+        // Find Add button
+        btnAddPart =
+                findViewById(R.id.btnAddPart);
+
+        // ADD SPARE PART
 
         btnAddPart.setOnClickListener(v -> {
 
@@ -43,7 +48,8 @@ public class SparePartsManagementActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Load existing parts
+        // LOAD DATA
+
         loadSpareParts();
     }
 
@@ -52,37 +58,68 @@ public class SparePartsManagementActivity extends AppCompatActivity {
     private void loadSpareParts() {
 
         repository.getSpareParts(
+
+                // SUCCESS
+
                 parts -> {
 
                     Toast.makeText(
                             this,
-                            "Loaded " + parts.size() + " spare parts",
+                            "Loaded "
+                                    + parts.size()
+                                    + " spare parts",
                             Toast.LENGTH_SHORT
                     ).show();
 
-                    // For now, print the Firebase data.
-                    // Later we will display it in RecyclerView.
+                    // Temporary testing
+                    // Print Firebase data
+
                     for (SparePart part : parts) {
 
                         System.out.println(
-                                part.getPartName()
-                                        + " | "
+                                "Part ID: "
+                                        + part.getPartId()
+                                        + " | Name: "
+                                        + part.getPartName()
+                                        + " | Device: "
+                                        + part.getCompatibleDevice()
+                                        + " | Quantity: "
                                         + part.getQuantity()
-                                        + " units | LKR "
+                                        + " | Price: LKR "
                                         + part.getUnitPrice()
+                                        + " | Available: "
+                                        + part.isAvailable()
                         );
                     }
+                },
+
+
+                // ERROR
+
+                error -> {
+
+                    Toast.makeText(
+                            this,
+                            "Failed to load spare parts: "
+                                    + error.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
                 }
         );
     }
 
+    // RELOAD DATA
+
+
     @Override
     protected void onResume() {
+
         super.onResume();
 
-        // Reload Firebase data when we return
-        // from the Add/Edit form.
+        // When we return from
+        // SparePartFormActivity,
+        // load Firebase data again.
+
         loadSpareParts();
     }
 }
-
