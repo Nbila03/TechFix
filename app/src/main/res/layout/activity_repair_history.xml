@@ -1,394 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/techfix_background"
-    android:fillViewport="true">
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    app:cardBackgroundColor="@color/techfix_surface"
+    app:cardCornerRadius="16dp"
+    app:strokeColor="@color/techfix_border"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
-
-        <!-- Header -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Repair History"
-            android:textColor="@color/techfix_text_secondary"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+        android:padding="16dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tvRepairTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="View your previous TechFix repairs"
-            android:textColor="@color/techfix_text_secondary"
-            android:textSize="14sp" />
+            android:textColor="@color/techfix_white"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            tools:text="iPhone 13 - Screen Replacement" />
 
-        <!-- Summary -->
+        <TextView
+            android:id="@+id/tvRepairBranch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/techfix_text_secondary"
+            android:textSize="13sp"
+            android:layout_marginTop="6dp"
+            tools:text="TechFix Colombo" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_techfix_card"
-            android:elevation="3dp"
-            android:gravity="center"
             android:orientation="horizontal"
-            android:padding="18dp">
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvRepairStatus"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:background="@drawable/bg_techfix_pill"
+                android:backgroundTint="@color/techfix_surface_light"
+                android:textColor="@color/techfix_info"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                tools:text="COMPLETED" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="3"
-                    android:textColor="@color/techfix_text_secondary"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total Repairs"
-                    android:textColor="@color/techfix_text_secondary"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="45dp"
-                android:background="#E0E0E0" />
-
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/tvRepairCost"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2"
-                    android:textColor="#2E7D32"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Completed"
-                    android:textColor="@color/techfix_text_secondary"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
+                android:textColor="@color/techfix_gold"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                tools:text="Rs. 25000.00" />
         </LinearLayout>
-
-        <!-- Most Recent -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Recent Repairs"
-            android:textColor="@color/techfix_text_secondary"
-            android:textSize="19sp"
-            android:textStyle="bold" />
-
-        <!-- Repair 1 -->
-        <LinearLayout
-            android:id="@+id/cardRepairOne"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_techfix_card"
-            android:clickable="true"
-            android:focusable="true"
-            android:elevation="3dp"
-            android:orientation="vertical"
-            android:padding="18dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="iPhone 13 Pro"
-                        android:textColor="@color/techfix_text_secondary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Screen Replacement"
-                        android:textColor="@color/techfix_text_secondary"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#E8F5E9"
-                    android:paddingStart="10dp"
-                    android:paddingTop="6dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="6dp"
-                    android:text="COMPLETED"
-                    android:textColor="#2E7D32"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="Repair ID: TF-2026-0981"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Completed: August 15, 2026"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="TechFix Colombo Branch"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/btnRepairOne"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_marginTop="14dp"
-                android:text="View Details"
-                android:textAllCaps="false"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <!-- Repair 2 -->
-        <LinearLayout
-            android:id="@+id/cardRepairTwo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_techfix_card"
-            android:clickable="true"
-            android:focusable="true"
-            android:elevation="3dp"
-            android:orientation="vertical"
-            android:padding="18dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Samsung Galaxy S22"
-                        android:textColor="@color/techfix_text_secondary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Battery Replacement"
-                        android:textColor="@color/techfix_text_secondary"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#E8F5E9"
-                    android:paddingStart="10dp"
-                    android:paddingTop="6dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="6dp"
-                    android:text="COMPLETED"
-                    android:textColor="#2E7D32"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="Repair ID: TF-2026-0917"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Completed: July 28, 2026"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="TechFix Galle Branch"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/btnRepairTwo"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_marginTop="14dp"
-                android:text="View Details"
-                android:textAllCaps="false"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <!-- Repair 3 - Current -->
-        <LinearLayout
-            android:id="@+id/cardRepairThree"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_techfix_card"
-            android:clickable="true"
-            android:focusable="true"
-            android:elevation="3dp"
-            android:orientation="vertical"
-            android:padding="18dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dell Inspiron 15"
-                        android:textColor="@color/techfix_text_secondary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Keyboard Repair"
-                        android:textColor="@color/techfix_text_secondary"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#EAF3FF"
-                    android:paddingStart="10dp"
-                    android:paddingTop="6dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="6dp"
-                    android:text="IN REPAIR"
-                    android:textColor="#1976D2"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="Repair ID: TF-2026-1045"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Started: August 21, 2026"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="TechFix Colombo Branch"
-                android:textColor="@color/techfix_text_secondary"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/btnRepairThree"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_marginTop="14dp"
-                android:text="Track Repair"
-                android:textAllCaps="false"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <!-- Bottom spacing -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="24dp" />
 
     </LinearLayout>
-
-</ScrollView>
+</com.google.android.material.card.MaterialCardView>
