@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
-    app:cardBackgroundColor="@color/techfix_surface"
+    app:cardBackgroundColor="@color/techfix_gold"
     app:cardCornerRadius="16dp"
     app:strokeColor="@color/techfix_border"
     app:strokeWidth="1dp">
@@ -20,7 +20,7 @@
             android:id="@+id/tvRepairTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/techfix_white"
+            android:textColor="@color/techfix_background"
             android:textStyle="bold"
             android:textSize="16sp"
             tools:text="iPhone 13 - Screen Replacement" />
@@ -29,7 +29,7 @@
             android:id="@+id/tvRepairBranch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/techfix_text_secondary"
+            android:textColor="#402200"
             android:textSize="13sp"
             android:layout_marginTop="6dp"
             tools:text="TechFix Colombo" />
@@ -47,9 +47,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/bg_techfix_pill"
-                android:backgroundTint="@color/techfix_surface_light"
-                android:textColor="@color/techfix_info"
-                android:textSize="11sp"
+                android:backgroundTint="@color/techfix_surface"
+                android:textColor="@color/techfix_gold_light"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 tools:text="COMPLETED" />
 
@@ -57,7 +57,7 @@
                 android:id="@+id/tvRepairCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/techfix_gold"
+                android:textColor="@color/techfix_background"
                 android:textStyle="bold"
                 android:textSize="15sp"
                 tools:text="Rs. 25000.00" />
