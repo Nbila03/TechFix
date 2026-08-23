@@ -15,7 +15,8 @@ import com.example.techfix.model.RepairStatus;
 import java.util.List;
 import java.util.Locale;
 
-public class RepairHistoryAdapter extends RecyclerView.Adapter<RepairHistoryAdapter.RepairViewHolder> {
+public class RepairHistoryAdapter
+        extends RecyclerView.Adapter<RepairHistoryAdapter.RepairViewHolder> {
 
     public interface OnRepairClickListener {
         void onRepairClick(RepairRequest repair);
@@ -24,32 +25,96 @@ public class RepairHistoryAdapter extends RecyclerView.Adapter<RepairHistoryAdap
     private final List<RepairRequest> repairs;
     private final OnRepairClickListener listener;
 
-    public RepairHistoryAdapter(List<RepairRequest> repairs, OnRepairClickListener listener) {
+    public RepairHistoryAdapter(
+            List<RepairRequest> repairs,
+            OnRepairClickListener listener) {
+
         this.repairs = repairs;
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public RepairViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RepairViewHolder onCreateViewHolder(
+            @NonNull ViewGroup parent,
+            int viewType) {
+
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_repair_history, parent, false);
+                .inflate(
+                        R.layout.item_repair_history,
+                        parent,
+                        false
+                );
+
         return new RepairViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RepairViewHolder holder, int position) {
-        RepairRequest repair = repairs.get(position);
-        holder.title.setText(String.format(Locale.getDefault(), "%s - %s",
-                repair.getDeviceName(), repair.getServiceName()));
-        holder.branch.setText(repair.getBranchName() != null ? repair.getBranchName() : "Not yet assigned");
-        holder.status.setText(RepairStatus.label(repair.getStatus()));
-        holder.cost.setText(repair.getFinalCost() > 0
-                ? String.format(Locale.getDefault(), "Rs. %.2f", repair.getFinalCost())
-                : String.format(Locale.getDefault(), "Est. Rs. %.2f", repair.getEstimatedCost()));
+    public void onBindViewHolder(
+            @NonNull RepairViewHolder holder,
+            int position) {
 
+        RepairRequest repair = repairs.get(position);
+
+        // Display device and service
+        String title = String.format(
+                Locale.getDefault(),
+                "%s - %s",
+                repair.getDeviceName(),
+                repair.getServiceName()
+        );
+
+        holder.title.setText(title);
+
+        // Display branch
+        if (repair.getBranchName() != null) {
+
+            holder.branch.setText(
+                    repair.getBranchName()
+            );
+
+        } else {
+
+            holder.branch.setText(
+                    "Not yet assigned"
+            );
+        }
+
+        // Display repair status
+        String status = RepairStatus.label(
+                repair.getStatus()
+        );
+
+        holder.status.setText(status);
+
+        // Display repair cost
+        if (repair.getFinalCost() > 0) {
+
+            String finalCost = String.format(
+                    Locale.getDefault(),
+                    "Rs. %.2f",
+                    repair.getFinalCost()
+            );
+
+            holder.cost.setText(finalCost);
+
+        } else {
+
+            String estimatedCost = String.format(
+                    Locale.getDefault(),
+                    "Est. Rs. %.2f",
+                    repair.getEstimatedCost()
+            );
+
+            holder.cost.setText(estimatedCost);
+        }
+
+        // Handle repair selection
         holder.itemView.setOnClickListener(v -> {
-            if (listener != null) listener.onRepairClick(repair);
+
+            if (listener != null) {
+                listener.onRepairClick(repair);
+            }
         });
     }
 
@@ -58,15 +123,33 @@ public class RepairHistoryAdapter extends RecyclerView.Adapter<RepairHistoryAdap
         return repairs.size();
     }
 
-    static class RepairViewHolder extends RecyclerView.ViewHolder {
-        TextView title, branch, status, cost;
+    static class RepairViewHolder
+            extends RecyclerView.ViewHolder {
+
+        TextView title;
+        TextView branch;
+        TextView status;
+        TextView cost;
 
         RepairViewHolder(@NonNull View itemView) {
+
             super(itemView);
-            title = itemView.findViewById(R.id.tvRepairTitle);
-            branch = itemView.findViewById(R.id.tvRepairBranch);
-            status = itemView.findViewById(R.id.tvRepairStatus);
-            cost = itemView.findViewById(R.id.tvRepairCost);
+
+            title = itemView.findViewById(
+                    R.id.tvRepairTitle
+            );
+
+            branch = itemView.findViewById(
+                    R.id.tvRepairBranch
+            );
+
+            status = itemView.findViewById(
+                    R.id.tvRepairStatus
+            );
+
+            cost = itemView.findViewById(
+                    R.id.tvRepairCost
+            );
         }
     }
 }

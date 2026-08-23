@@ -11,7 +11,9 @@ public class MapIntentHelper {
     // drop a pin on the branch locationS
     public static void openLocation(Context context, double latitude, double longitude, String label) {
         String uriString = "geo:" + latitude + "," + longitude
-                + "?q=" + latitude + "," + longitude + "(" + Uri.encode(label) + ")";
+                + "?q=" + latitude + "," + longitude
+                + "(" + Uri.encode(label) + ")";
+
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
         launch(context, intent);
     }

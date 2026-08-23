@@ -14,7 +14,8 @@ import com.example.techfix.model.RepairRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairViewHolder> {
+public class RepairAdapter
+        extends RecyclerView.Adapter<RepairAdapter.RepairViewHolder> {
 
     private List<RepairRequest> repairList;
     private final List<RepairRequest> originalList;
@@ -29,8 +30,14 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
             List<RepairRequest> repairList,
             OnRepairClickListener listener) {
 
-        this.repairList = repairList;
-        this.originalList = new ArrayList<>(repairList);
+        if (repairList != null) {
+            this.repairList = new ArrayList<>(repairList);
+            this.originalList = new ArrayList<>(repairList);
+        } else {
+            this.repairList = new ArrayList<>();
+            this.originalList = new ArrayList<>();
+        }
+
         this.listener = listener;
     }
 
@@ -61,7 +68,9 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
         // Device
         String deviceName = repair.getDeviceName();
 
-        if (deviceName == null || deviceName.trim().isEmpty()) {
+        if (deviceName == null
+                || deviceName.trim().isEmpty()) {
+
             deviceName = "Device #" + repair.getDeviceId();
         }
 
@@ -70,7 +79,9 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
         // Status
         String status = repair.getStatus();
 
-        if (status == null || status.trim().isEmpty()) {
+        if (status == null
+                || status.trim().isEmpty()) {
+
             status = "UNKNOWN";
         }
 
@@ -81,7 +92,9 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
         // Service
         String serviceName = repair.getServiceName();
 
-        if (serviceName == null || serviceName.trim().isEmpty()) {
+        if (serviceName == null
+                || serviceName.trim().isEmpty()) {
+
             serviceName = "Service #" + repair.getServiceId();
         }
 
@@ -91,7 +104,8 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
         if (repair.getTechnicianId() != null) {
 
             holder.tvTechnician.setText(
-                    "Technician ID: " + repair.getTechnicianId()
+                    "Technician ID: "
+                            + repair.getTechnicianId()
             );
 
         } else {
@@ -116,14 +130,20 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
         String date = repair.getAppointmentDate();
         String time = repair.getAppointmentTime();
 
-        if (date != null && !date.trim().isEmpty()
-                && time != null && !time.trim().isEmpty()) {
+        if (date != null
+                && !date.trim().isEmpty()
+                && time != null
+                && !time.trim().isEmpty()) {
 
             holder.tvAppointment.setText(
-                    "Appointment: " + date + " • " + time
+                    "Appointment: "
+                            + date
+                            + " • "
+                            + time
             );
 
-        } else if (date != null && !date.trim().isEmpty()) {
+        } else if (date != null
+                && !date.trim().isEmpty()) {
 
             holder.tvAppointment.setText(
                     "Appointment: " + date
@@ -142,7 +162,6 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
             if (listener != null) {
                 listener.onRepairClick(repair);
             }
-
         });
     }
 
@@ -151,25 +170,33 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
         return repairList.size();
     }
 
-    // UPDATE DATA
-
+    // Update the repair list
     public void updateList(List<RepairRequest> newList) {
 
-        repairList = new ArrayList<>(newList);
+        repairList.clear();
 
-        originalList.clear();
-        originalList.addAll(newList);
+        if (newList != null) {
+
+            repairList.addAll(newList);
+
+            originalList.clear();
+            originalList.addAll(newList);
+
+        } else {
+
+            originalList.clear();
+        }
 
         notifyDataSetChanged();
     }
 
-    // SEARCH
-
+    // Search repairs by ID, device or service
     public void filter(String query) {
 
         String searchText = query.toLowerCase().trim();
 
-        List<RepairRequest> filteredList = new ArrayList<>();
+        List<RepairRequest> filteredList =
+                new ArrayList<>();
 
         if (searchText.isEmpty()) {
 
@@ -182,15 +209,19 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
                 String repairId =
                         String.valueOf(repair.getRepairId());
 
-                String deviceName =
-                        repair.getDeviceName() == null
-                                ? ""
-                                : repair.getDeviceName().toLowerCase();
+                String deviceName = "";
 
-                String serviceName =
-                        repair.getServiceName() == null
-                                ? ""
-                                : repair.getServiceName().toLowerCase();
+                if (repair.getDeviceName() != null) {
+                    deviceName =
+                            repair.getDeviceName().toLowerCase();
+                }
+
+                String serviceName = "";
+
+                if (repair.getServiceName() != null) {
+                    serviceName =
+                            repair.getServiceName().toLowerCase();
+                }
 
                 if (repairId.contains(searchText)
                         || deviceName.contains(searchText)
@@ -206,24 +237,28 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
         notifyDataSetChanged();
     }
 
-    // FILTER BY STATUS
-
+    // Filter repairs by status
     public void filterByStatus(String status) {
 
         if (status.equalsIgnoreCase("ALL")) {
 
-            repairList = new ArrayList<>(originalList);
+            repairList =
+                    new ArrayList<>(originalList);
 
         } else {
 
-            List<RepairRequest> filteredList = new ArrayList<>();
+            List<RepairRequest> filteredList =
+                    new ArrayList<>();
 
             for (RepairRequest repair : originalList) {
 
-                if (repair.getStatus() != null
-                        && repair.getStatus().equalsIgnoreCase(status)) {
+                if (repair.getStatus() != null) {
 
-                    filteredList.add(repair);
+                    if (repair.getStatus()
+                            .equalsIgnoreCase(status)) {
+
+                        filteredList.add(repair);
+                    }
                 }
             }
 
@@ -233,8 +268,7 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
         notifyDataSetChanged();
     }
 
-    // VIEW HOLDER
-
+    // View Holder
     static class RepairViewHolder
             extends RecyclerView.ViewHolder {
 
@@ -246,7 +280,8 @@ public class RepairAdapter extends RecyclerView.Adapter<RepairAdapter.RepairView
         TextView tvRepairCost;
         TextView tvAppointment;
 
-        public RepairViewHolder(@NonNull View itemView) {
+        public RepairViewHolder(
+                @NonNull View itemView) {
 
             super(itemView);
 

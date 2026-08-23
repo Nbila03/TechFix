@@ -2,6 +2,7 @@ package com.example.techfix.branch;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,91 +19,143 @@ import java.util.ArrayList;
 import java.util.List;
 
 // "My Devices" -> tap a device -> this screen shows every repair
-// recorded against that specific id
+// recorded against that specific device.
 public class DeviceRepairHistoryActivity extends AppCompatActivity {
 
     private RepairRepository repairRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_repair_history);
 
-        int deviceId = getIntent().getIntExtra("device_id", -1);
-        String deviceName = getIntent().getStringExtra("device_name");
+        setContentView(
+                R.layout.activity_device_repair_history
+        );
 
-        // Set activity title
+        // Get the selected device information.
+        int deviceId =
+                getIntent().getIntExtra(
+                        "device_id",
+                        -1
+                );
+
+        String deviceName =
+                getIntent().getStringExtra(
+                        "device_name"
+                );
+
+        // Set the activity title.
         if (deviceName != null) {
+
             setTitle(deviceName);
+
         } else {
+
             setTitle("Device History");
         }
 
-        TextView tvHeader = findViewById(R.id.tvDeviceHeader);
+        // Find the header view.
+        TextView tvHeader =
+                findViewById(R.id.tvDeviceHeader);
 
-        // Set device header
+        // Display the device name.
         if (deviceName != null) {
+
             tvHeader.setText(deviceName);
+
         } else {
-            tvHeader.setText("Device #" + deviceId);
+
+            tvHeader.setText(
+                    "Device #" + deviceId
+            );
         }
 
-        RecyclerView recyclerView = findViewById(R.id.rvDeviceRepairs);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // Set up the repair list.
+        RecyclerView recyclerView =
+                findViewById(R.id.rvDeviceRepairs);
 
-        TextView emptyView = findViewById(R.id.tvEmptyDeviceRepairs);
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(this)
+        );
 
-        repairRepository = new RepairRepository();
+        // Message shown when no repairs are found.
+        TextView emptyView =
+                findViewById(R.id.tvEmptyDeviceRepairs);
 
+        repairRepository =
+                new RepairRepository();
+
+        // Get all repairs from the repository.
         repairRepository.getAllRepairs(
+
                 allRepairs -> {
 
-                    List<RepairRequest> filtered = new ArrayList<>();
+                    List<RepairRequest> filteredRepairs =
+                            new ArrayList<>();
 
-                    for (RepairRequest r : allRepairs) {
-                        if (r.getDeviceId() == deviceId) {
-                            filtered.add(r);
+                    // Keep only repairs belonging
+                    // to the selected device.
+                    for (RepairRequest repair : allRepairs) {
+
+                        if (repair.getDeviceId() == deviceId) {
+
+                            filteredRepairs.add(repair);
                         }
                     }
 
-                    RepairHistoryAdapter adapter = new RepairHistoryAdapter(
-                            filtered,
-                            repair -> {
+                    // Create the repair history adapter.
+                    RepairHistoryAdapter adapter =
+                            new RepairHistoryAdapter(
+                                    filteredRepairs,
+                                    repair -> {
 
-                                Intent intent = new Intent(
-                                        DeviceRepairHistoryActivity.this,
-                                        RepairTrackingActivity.class
-                                );
+                                        Intent intent =
+                                                new Intent(
+                                                        DeviceRepairHistoryActivity.this,
+                                                        RepairTrackingActivity.class
+                                                );
 
-                                intent.putExtra(
-                                        "repair_id",
-                                        repair.getRepairId()
-                                );
+                                        intent.putExtra(
+                                                "repair_id",
+                                                repair.getRepairId()
+                                        );
 
-                                intent.putExtra(
-                                        "current_status",
-                                        repair.getStatus()
-                                );
+                                        intent.putExtra(
+                                                "current_status",
+                                                repair.getStatus()
+                                        );
 
-                                startActivity(intent);
-                            }
-                    );
+                                        startActivity(intent);
+                                    }
+                            );
 
                     recyclerView.setAdapter(adapter);
 
-                    // Show empty message if there are no repairs
-                    if (filtered.isEmpty()) {
-                        emptyView.setVisibility(android.view.View.VISIBLE);
+                    // Show a message if there are no repairs.
+                    if (filteredRepairs.isEmpty()) {
+
+                        emptyView.setVisibility(
+                                View.VISIBLE
+                        );
+
                     } else {
-                        emptyView.setVisibility(android.view.View.GONE);
+
+                        emptyView.setVisibility(
+                                View.GONE
+                        );
                     }
                 },
 
-                error -> Toast.makeText(
-                        this,
-                        "Failed to load device history: " + error.getMessage(),
-                        Toast.LENGTH_SHORT
-                ).show()
+                error -> {
+
+                    Toast.makeText(
+                            this,
+                            "Failed to load device history: "
+                                    + error.getMessage(),
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
         );
     }
 }
