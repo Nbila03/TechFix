@@ -26,6 +26,8 @@ public class SparePartsManagementActivity extends AppCompatActivity {
     private SparePartRepository repository;
 
     private Button btnAddPart;
+
+    private Button btnBackSpareParts;
     private RecyclerView recyclerSpareParts;
 
     private TextView tvTotalParts;
@@ -63,6 +65,11 @@ public class SparePartsManagementActivity extends AppCompatActivity {
         etSearchParts =
                 findViewById(R.id.etSearchParts);
 
+        btnBackSpareParts =
+                findViewById(
+                        R.id.btnBackSpareParts
+                );
+
         // RecyclerView
         recyclerSpareParts.setLayoutManager(
                 new LinearLayoutManager(this)
@@ -74,6 +81,11 @@ public class SparePartsManagementActivity extends AppCompatActivity {
         );
 
         recyclerSpareParts.setAdapter(adapter);
+
+        btnBackSpareParts.setOnClickListener(
+                v -> finish()
+        );
+
 
         // Add Spare Part
         btnAddPart.setOnClickListener(v -> {
