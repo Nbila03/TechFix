@@ -1,69 +1,69 @@
 package com.example.techfix.model;
 
 public class Branch {
-     private int branchId;
-     private String branchName;
-     private String address;
-     private String city;
-     private double latitude;
-     private double longitude;
-     private String phone;
-     private boolean active;
 
-        // nott stored directly
-        // algorithm annotates a branch with computed info before showing results.
-        private float distanceKm = -1f;
-        private boolean technicianAvailable = false;
-        private boolean partAvailable = false;
+    private int branchId;
+    private String branchName;
+    private String address;
+    private String city;
+    private double latitude;
+    private double longitude;
+    private String phone;
+    private boolean active;
 
-        public Branch() { }
+    // not stored in the table directly, filled in by BranchAssignmentHelper
+    private float distanceKm = -1f;
+    private boolean technicianAvailable = false;
+    private boolean partAvailable = false;
 
-        public Branch(int branchId, String branchName, String address, String city,
-                      double latitude, double longitude, String phone, boolean active) {
-            this.branchId = branchId;
-            this.branchName = branchName;
-            this.address = address;
-            this.city = city;
-            this.latitude = latitude;
-            this.longitude = longitude;
-            this.phone = phone;
-            this.active = active;
-        }
+    public Branch() { }
 
-        public int getBranchId() { return branchId; }
-        public void setBranchId(int branchId) { this.branchId = branchId; }
+    public Branch(int branchId, String branchName, String address, String city,
+                  double latitude, double longitude, String phone, boolean active) {
+        this.branchId = branchId;
+        this.branchName = branchName;
+        this.address = address;
+        this.city = city;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.phone = phone;
+        this.active = active;
+    }
 
-        public String getBranchName() { return branchName; }
-        public void setBranchName(String branchName) { this.branchName = branchName; }
+    public int getBranchId() { return branchId; }
+    public void setBranchId(int branchId) { this.branchId = branchId; }
 
-        public String getAddress() { return address; }
-        public void setAddress(String address) { this.address = address; }
+    public String getBranchName() { return branchName; }
+    public void setBranchName(String branchName) { this.branchName = branchName; }
 
-        public String getCity() { return city; }
-        public void setCity(String city) { this.city = city; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-        public double getLatitude() { return latitude; }
-        public void setLatitude(double latitude) { this.latitude = latitude; }
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
 
-        public double getLongitude() { return longitude; }
-        public void setLongitude(double longitude) { this.longitude = longitude; }
+    public double getLatitude() { return latitude; }
+    public void setLatitude(double latitude) { this.latitude = latitude; }
 
-        public String getPhone() { return phone; }
-        public void setPhone(String phone) { this.phone = phone; }
+    public double getLongitude() { return longitude; }
+    public void setLongitude(double longitude) { this.longitude = longitude; }
 
-        public boolean isActive() { return active; }
-        public void setActive(boolean active) { this.active = active; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-        public float getDistanceKm() { return distanceKm; }
-        public void setDistanceKm(float distanceKm) { this.distanceKm = distanceKm; }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 
-        public boolean isTechnicianAvailable() { return technicianAvailable; }
-        public void setTechnicianAvailable(boolean technicianAvailable) { this.technicianAvailable = technicianAvailable; }
+    public float getDistanceKm() { return distanceKm; }
+    public void setDistanceKm(float distanceKm) { this.distanceKm = distanceKm; }
 
-        public boolean isPartAvailable() { return partAvailable; }
-        public void setPartAvailable(boolean partAvailable) { this.partAvailable = partAvailable; }
+    public boolean isTechnicianAvailable() { return technicianAvailable; }
+    public void setTechnicianAvailable(boolean technicianAvailable) { this.technicianAvailable = technicianAvailable; }
 
-    /** A branch recc -> all 3 conditions met */
+    public boolean isPartAvailable() { return partAvailable; }
+    public void setPartAvailable(boolean partAvailable) { this.partAvailable = partAvailable; }
+
+    // a branch only counts as eligible if it's active AND has a technician AND has the part
     public boolean isEligible() {
         return active && technicianAvailable && partAvailable;
     }
