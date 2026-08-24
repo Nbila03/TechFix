@@ -149,12 +149,7 @@ public class AddDeviceActivity extends AppCompatActivity {
         int categoryId =
                 getCategoryId(category);
 
-        /*
-         Temporary user ID = 1.
-
-         Later, when login is connected,
-         replace this with the actual logged-in user ID.
-        */
+       
         int userId = 1;
 
         Device device =
