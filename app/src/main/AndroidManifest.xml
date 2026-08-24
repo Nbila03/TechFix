@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -10,6 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TechFix">
+
+        <provider
+            android:name=".provider.TechFixContentProvider"
+            android:authorities="com.example.techfix.provider"
+            android:exported="false" />
 
         <activity
             android:name=".booking.AppointmentConfirmationActivity"
@@ -29,6 +38,77 @@
 
         <activity
             android:name=".booking.MyDevicesActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".management.RepairManagementActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".management.RepairDetailsManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".management.SparePartFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customer.SplashActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customer.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customer.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customer.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customer.ServicesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customer.ServiceDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".customer.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".branch.BranchesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".branch.BranchDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".branch.RepairTrackingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".branch.RepairHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".branch.DeviceRepairHistoryActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".management.SparePartsManagementActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".management.PaymentActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".management.PaymentSuccessActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".management.AdminDashboardActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".management.TechnicianManagementActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".management.TechnicianFormActivity"
             android:exported="false" />
 
         <activity

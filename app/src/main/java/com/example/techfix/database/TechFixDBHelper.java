@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.techfix.model.Branch;
 import com.example.techfix.model.Device;
 
 import java.util.ArrayList;
@@ -19,12 +20,15 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "techfix_local.db";
 
-    // Increased from 1 to 2 because we are adding a new table
+    /*
+     * Version 2 because repair_requests and the offline/cache
+     * tables are part of the merged database structure.
+     */
     private static final int DATABASE_VERSION = 2;
 
 
     // =====================================================
-    // DEVICE TABLE
+    // DEVICES TABLE
     // =====================================================
 
     private static final String TABLE_DEVICES = "devices";
@@ -39,7 +43,7 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
 
 
     // =====================================================
-    // REPAIR REQUEST TABLE
+    // LOCAL REPAIR REQUEST TABLE
     // =====================================================
 
     private static final String TABLE_REPAIR_REQUESTS =
@@ -71,11 +75,27 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
 
 
     // =====================================================
+    // OFFLINE / CACHE TABLES
+    // =====================================================
+
+    public static final String TABLE_CACHED_BRANCHES =
+            "cached_branches";
+
+    public static final String TABLE_CACHED_SERVICES =
+            "cached_services";
+
+    public static final String TABLE_LOCAL_DEVICES =
+            "local_devices";
+
+    public static final String TABLE_PENDING_REPAIRS =
+            "pending_repairs";
+
+
+    // =====================================================
     // CONSTRUCTOR
     // =====================================================
 
     public TechFixDBHelper(Context context) {
-
         super(
                 context,
                 DATABASE_NAME,
@@ -86,15 +106,15 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
 
 
     // =====================================================
-    // CREATE DATABASE TABLES
+    // CREATE TABLES
     // =====================================================
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        // -----------------------------
-        // Create Devices table
-        // -----------------------------
+        // ---------------------------------------------
+        // Devices table
+        // ---------------------------------------------
 
         String createDeviceTable =
                 "CREATE TABLE " + TABLE_DEVICES + " (" +
@@ -124,9 +144,9 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
         db.execSQL(createDeviceTable);
 
 
-        // -----------------------------
-        // Create Repair Requests table
-        // -----------------------------
+        // ---------------------------------------------
+        // Repair Requests table
+        // ---------------------------------------------
 
         String createRepairRequestTable =
                 "CREATE TABLE "
@@ -160,6 +180,73 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
                         ")";
 
         db.execSQL(createRepairRequestTable);
+
+
+        // ---------------------------------------------
+        // Cached branches
+        // ---------------------------------------------
+
+        db.execSQL(
+                "CREATE TABLE " + TABLE_CACHED_BRANCHES + " (" +
+                        "branch_id INTEGER PRIMARY KEY, " +
+                        "branch_name TEXT, " +
+                        "address TEXT, " +
+                        "city TEXT, " +
+                        "latitude REAL, " +
+                        "longitude REAL, " +
+                        "phone TEXT, " +
+                        "is_active INTEGER DEFAULT 1" +
+                        ")"
+        );
+
+
+        // ---------------------------------------------
+        // Cached services
+        // ---------------------------------------------
+
+        db.execSQL(
+                "CREATE TABLE " + TABLE_CACHED_SERVICES + " (" +
+                        "service_id INTEGER PRIMARY KEY, " +
+                        "service_name TEXT, " +
+                        "base_price REAL, " +
+                        "estimated_days INTEGER" +
+                        ")"
+        );
+
+
+        // ---------------------------------------------
+        // Local devices for offline sync
+        // ---------------------------------------------
+
+        db.execSQL(
+                "CREATE TABLE " + TABLE_LOCAL_DEVICES + " (" +
+                        "local_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "device_name TEXT, " +
+                        "brand TEXT, " +
+                        "model TEXT, " +
+                        "synced INTEGER DEFAULT 0" +
+                        ")"
+        );
+
+
+        // ---------------------------------------------
+        // Pending repair requests for offline sync
+        // ---------------------------------------------
+
+        db.execSQL(
+                "CREATE TABLE " + TABLE_PENDING_REPAIRS + " (" +
+                        "pending_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "device_name TEXT, " +
+                        "service_id INTEGER, " +
+                        "problem_description TEXT, " +
+                        "appointment_date TEXT, " +
+                        "appointment_time TEXT, " +
+                        "customer_lat REAL, " +
+                        "customer_lng REAL, " +
+                        "created_at TEXT DEFAULT CURRENT_TIMESTAMP, " +
+                        "synced INTEGER DEFAULT 0" +
+                        ")"
+        );
     }
 
 
@@ -174,13 +261,6 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
             int newVersion
     ) {
 
-        /*
-         For this coursework version, we recreate local tables
-         when the schema changes.
-
-         This is okay for development/testing.
-        */
-
         db.execSQL(
                 "DROP TABLE IF EXISTS "
                         + TABLE_REPAIR_REQUESTS
@@ -189,6 +269,26 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
         db.execSQL(
                 "DROP TABLE IF EXISTS "
                         + TABLE_DEVICES
+        );
+
+        db.execSQL(
+                "DROP TABLE IF EXISTS "
+                        + TABLE_CACHED_BRANCHES
+        );
+
+        db.execSQL(
+                "DROP TABLE IF EXISTS "
+                        + TABLE_CACHED_SERVICES
+        );
+
+        db.execSQL(
+                "DROP TABLE IF EXISTS "
+                        + TABLE_LOCAL_DEVICES
+        );
+
+        db.execSQL(
+                "DROP TABLE IF EXISTS "
+                        + TABLE_PENDING_REPAIRS
         );
 
         onCreate(db);
@@ -237,16 +337,11 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
                 device.getSerialNumber()
         );
 
-        long result =
-                db.insert(
-                        TABLE_DEVICES,
-                        null,
-                        values
-                );
-
-        db.close();
-
-        return result;
+        return db.insert(
+                TABLE_DEVICES,
+                null,
+                values
+        );
     }
 
 
@@ -343,7 +438,6 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        db.close();
 
         return deviceList;
     }
@@ -358,23 +452,18 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db =
                 this.getWritableDatabase();
 
-        int result =
-                db.delete(
-                        TABLE_DEVICES,
-                        COLUMN_DEVICE_ID + " = ?",
-                        new String[]{
-                                String.valueOf(deviceId)
-                        }
-                );
-
-        db.close();
-
-        return result;
+        return db.delete(
+                TABLE_DEVICES,
+                COLUMN_DEVICE_ID + " = ?",
+                new String[]{
+                        String.valueOf(deviceId)
+                }
+        );
     }
 
 
     // =====================================================
-    // INSERT REPAIR REQUEST
+    // INSERT LOCAL REPAIR REQUEST
     // =====================================================
 
     public long insertRepairRequest(
@@ -427,15 +516,313 @@ public class TechFixDBHelper extends SQLiteOpenHelper {
                 "SUBMITTED"
         );
 
-        long result =
-                db.insert(
-                        TABLE_REPAIR_REQUESTS,
-                        null,
-                        values
+        return db.insert(
+                TABLE_REPAIR_REQUESTS,
+                null,
+                values
+        );
+    }
+
+
+    // =====================================================
+    // REPLACE CACHED BRANCHES
+    // =====================================================
+
+    public void replaceCachedBranches(
+            List<Branch> branches
+    ) {
+
+        SQLiteDatabase db =
+                getWritableDatabase();
+
+        db.beginTransaction();
+
+        try {
+
+            db.delete(
+                    TABLE_CACHED_BRANCHES,
+                    null,
+                    null
+            );
+
+            for (Branch branch : branches) {
+
+                ContentValues values =
+                        new ContentValues();
+
+                values.put(
+                        "branch_id",
+                        branch.getBranchId()
                 );
 
-        db.close();
+                values.put(
+                        "branch_name",
+                        branch.getBranchName()
+                );
 
-        return result;
+                values.put(
+                        "address",
+                        branch.getAddress()
+                );
+
+                values.put(
+                        "city",
+                        branch.getCity()
+                );
+
+                values.put(
+                        "latitude",
+                        branch.getLatitude()
+                );
+
+                values.put(
+                        "longitude",
+                        branch.getLongitude()
+                );
+
+                values.put(
+                        "phone",
+                        branch.getPhone()
+                );
+
+                values.put(
+                        "is_active",
+                        branch.isActive() ? 1 : 0
+                );
+
+                db.insertWithOnConflict(
+                        TABLE_CACHED_BRANCHES,
+                        null,
+                        values,
+                        SQLiteDatabase.CONFLICT_REPLACE
+                );
+            }
+
+            db.setTransactionSuccessful();
+
+        } finally {
+
+            db.endTransaction();
+        }
+    }
+
+
+    // =====================================================
+    // GET CACHED BRANCHES
+    // =====================================================
+
+    public List<Branch> getCachedBranches() {
+
+        List<Branch> branchList =
+                new ArrayList<>();
+
+        SQLiteDatabase db =
+                getReadableDatabase();
+
+        Cursor cursor =
+                db.query(
+                        TABLE_CACHED_BRANCHES,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "branch_name ASC"
+                );
+
+        while (cursor.moveToNext()) {
+
+            Branch branch =
+                    new Branch();
+
+            branch.setBranchId(
+                    cursor.getInt(
+                            cursor.getColumnIndexOrThrow(
+                                    "branch_id"
+                            )
+                    )
+            );
+
+            branch.setBranchName(
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow(
+                                    "branch_name"
+                            )
+                    )
+            );
+
+            branch.setAddress(
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow(
+                                    "address"
+                            )
+                    )
+            );
+
+            branch.setCity(
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow(
+                                    "city"
+                            )
+                    )
+            );
+
+            branch.setLatitude(
+                    cursor.getDouble(
+                            cursor.getColumnIndexOrThrow(
+                                    "latitude"
+                            )
+                    )
+            );
+
+            branch.setLongitude(
+                    cursor.getDouble(
+                            cursor.getColumnIndexOrThrow(
+                                    "longitude"
+                            )
+                    )
+            );
+
+            branch.setPhone(
+                    cursor.getString(
+                            cursor.getColumnIndexOrThrow(
+                                    "phone"
+                            )
+                    )
+            );
+
+            branch.setActive(
+                    cursor.getInt(
+                            cursor.getColumnIndexOrThrow(
+                                    "is_active"
+                            )
+                    ) == 1
+            );
+
+            branchList.add(branch);
+        }
+
+        cursor.close();
+
+        return branchList;
+    }
+
+
+    // =====================================================
+    // QUEUE PENDING REPAIR
+    // =====================================================
+
+    public long queuePendingRepair(
+            String deviceName,
+            int serviceId,
+            String problem,
+            String date,
+            String time,
+            double lat,
+            double lng
+    ) {
+
+        SQLiteDatabase db =
+                getWritableDatabase();
+
+        ContentValues values =
+                new ContentValues();
+
+        values.put(
+                "device_name",
+                deviceName
+        );
+
+        values.put(
+                "service_id",
+                serviceId
+        );
+
+        values.put(
+                "problem_description",
+                problem
+        );
+
+        values.put(
+                "appointment_date",
+                date
+        );
+
+        values.put(
+                "appointment_time",
+                time
+        );
+
+        values.put(
+                "customer_lat",
+                lat
+        );
+
+        values.put(
+                "customer_lng",
+                lng
+        );
+
+        values.put(
+                "synced",
+                0
+        );
+
+        return db.insert(
+                TABLE_PENDING_REPAIRS,
+                null,
+                values
+        );
+    }
+
+
+    // =====================================================
+    // GET UNSYNCED REPAIRS
+    // =====================================================
+
+    public Cursor getUnsyncedPendingRepairs() {
+
+        SQLiteDatabase db =
+                getReadableDatabase();
+
+        return db.query(
+                TABLE_PENDING_REPAIRS,
+                null,
+                "synced = 0",
+                null,
+                null,
+                null,
+                "created_at ASC"
+        );
+    }
+
+
+    // =====================================================
+    // MARK REPAIR AS SYNCED
+    // =====================================================
+
+    public void markPendingRepairSynced(
+            long pendingId
+    ) {
+
+        SQLiteDatabase db =
+                getWritableDatabase();
+
+        ContentValues values =
+                new ContentValues();
+
+        values.put(
+                "synced",
+                1
+        );
+
+        db.update(
+                TABLE_PENDING_REPAIRS,
+                values,
+                "pending_id = ?",
+                new String[]{
+                        String.valueOf(pendingId)
+                }
+        );
     }
 }

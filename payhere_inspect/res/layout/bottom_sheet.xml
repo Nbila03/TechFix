@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    app:layout_behavior="lk.payhere.androidsdk.util.WebViewBottomSheetbehaviour">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/bottom_sheet_background"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/frame_main_fragment_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_hedder" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_sheet_hedder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="21dp"
+            android:paddingTop="17dp"
+            android:paddingEnd="21dp"
+            android:paddingBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/bottom_sheet_back_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/left"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/title_text_color" />
+
+            <TextView
+                android:id="@+id/pay_with_text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_bold"
+                android:text="@string/pay_with_text"
+                android:textColor="@color/title_text_color"
+                android:textSize="@dimen/title_text_size"
+                app:layout_constraintBottom_toBottomOf="@id/bottom_sheet_back_icon"
+                app:layout_constraintStart_toEndOf="@id/bottom_sheet_back_icon"
+                app:layout_constraintTop_toTopOf="@id/bottom_sheet_back_icon" />
+
+            <ImageView
+                android:id="@+id/payhere_secure_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/payhere_secure_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/debug_value"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/sandbox_background"
+                android:fontFamily="@font/product_sans_regular"
+                android:paddingStart="8dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="2dp"
+                android:text="Sandbox"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/payhere_secure_image"
+                app:layout_constraintStart_toStartOf="@id/payhere_secure_image"
+                app:layout_constraintTop_toBottomOf="@id/payhere_secure_image" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:id="@+id/bottom_sheet_header"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignParentTop="true"-->
+        <!--            android:background="@color/bottom_sheet_title_back"-->
+        <!--            android:paddingStart="8dp"-->
+        <!--            android:paddingLeft="8dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent">-->
+
+        <!--            <ImageView-->
+        <!--                android:id="@+id/img_main_back"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="0dp"-->
+        <!--                android:paddingLeft="-10dp"-->
+        <!--                app:layout_goneMarginLeft="20dp"-->
+        <!--                android:src="@drawable/left"-->
+        <!--                app:layout_constraintBottom_toBottomOf="@+id/txt_main_title"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="@+id/txt_main_title" />-->
+
+        <!--            <ImageView-->
+        <!--                android:id="@+id/img_main_payhere"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="0dp"-->
+        <!--                android:layout_marginEnd="8dp"-->
+        <!--                android:layout_marginRight="8dp"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintDimensionRatio="1:.5"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="@+id/guide_vertical"-->
+        <!--                app:layout_constraintTop_toTopOf="parent"-->
+        <!--                app:srcCompat="@drawable/payhere_noback" />-->
+
+        <!--            <View-->
+        <!--                android:id="@+id/view_click_area"-->
+        <!--                android:layout_width="80dp"-->
+        <!--                android:layout_height="0dp"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--            <androidx.constraintlayout.widget.Guideline-->
+        <!--                android:id="@+id/guide_vertical"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:orientation="vertical"-->
+        <!--                app:layout_constraintGuide_percent=".78" />-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/txt_main_title"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="0dp"-->
+        <!--                android:layout_marginTop="8dp"-->
+        <!--                android:layout_marginEnd="24dp"-->
+        <!--                android:layout_marginRight="24dp"-->
+        <!--                android:layout_marginBottom="8dp"-->
+        <!--                android:gravity="center_vertical"-->
+        <!--                android:lines="1"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:text="@string/payment_method_title"-->
+        <!--                android:textColor="@color/text_bottom_sheet_title"-->
+        <!--                android:textSize="@dimen/text_bottom_sheet_title"-->
+        <!--                app:autoSizeMaxTextSize="@dimen/text_bottom_sheet_title"-->
+        <!--                app:autoSizeMinTextSize="4sp"-->
+        <!--                app:autoSizeTextType="uniform"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toStartOf="@+id/img_main_lock"-->
+        <!--                app:layout_constraintHorizontal_bias="0.0"-->
+        <!--                app:layout_constraintStart_toEndOf="@+id/img_main_back"-->
+        <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/txt_main_secure"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_centerVertical="true"-->
+        <!--                android:layout_marginEnd="4dp"-->
+        <!--                android:layout_marginRight="4dp"-->
+        <!--                android:gravity="center"-->
+        <!--                android:paddingTop="5dp"-->
+        <!--                android:paddingBottom="5dp"-->
+        <!--                android:text="Secured by"-->
+        <!--                android:textColor="@color/text_bottom_sheet_secured"-->
+        <!--                android:textSize="@dimen/text_bottom_sheet_title"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toStartOf="@+id/img_main_payhere"-->
+        <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--            <ImageView-->
+        <!--                android:id="@+id/img_main_lock"-->
+        <!--                android:layout_width="15dp"-->
+        <!--                android:layout_height="0dp"-->
+        <!--                android:layout_marginEnd="2dp"-->
+        <!--                android:layout_marginRight="2dp"-->
+        <!--                android:src="@drawable/lock"-->
+        <!--                app:layout_constraintBottom_toBottomOf="@+id/txt_main_secure"-->
+        <!--                app:layout_constraintEnd_toStartOf="@+id/txt_main_secure"-->
+        <!--                app:layout_constraintTop_toTopOf="@+id/txt_main_secure" />-->
+
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

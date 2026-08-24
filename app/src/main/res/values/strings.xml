@@ -1,3 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">TechFix</string>
+
+    <string name="welcome_back">Welcome Back</string>
+    <string name="login_subtitle">Login to continue to TechFix</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="create_account_prompt">New user? Create an account</string>
+
+
+
+        <!-- PayHere Sandbox -->
+        <string name="payhere_merchant_id">1237662</string>
+        <string name="payhere_merchant_secret">MjA1NTExOTQ4ODE5NjY5OTkyOTYzNzA2MDU2MDc3Mjg1ODQ0MDA1</string>
+
+
 </resources>

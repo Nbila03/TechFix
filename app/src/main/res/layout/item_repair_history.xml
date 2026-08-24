@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    app:cardBackgroundColor="@color/techfix_gold"
+    app:cardCornerRadius="16dp"
+    app:strokeColor="@color/techfix_border"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvRepairTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/techfix_background"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            tools:text="iPhone 13 - Screen Replacement" />
+
+        <TextView
+            android:id="@+id/tvRepairBranch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#402200"
+            android:textSize="13sp"
+            android:layout_marginTop="6dp"
+            tools:text="TechFix Colombo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tvRepairStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_techfix_pill"
+                android:backgroundTint="@color/techfix_surface"
+                android:textColor="@color/techfix_gold_light"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                tools:text="COMPLETED" />
+
+            <TextView
+                android:id="@+id/tvRepairCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/techfix_background"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                tools:text="Rs. 25000.00" />
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
