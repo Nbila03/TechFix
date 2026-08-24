@@ -96,10 +96,7 @@ public class MyDevicesActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        /*
-         Reload devices whenever we return from Add Device.
-         This makes a newly saved device appear immediately.
-        */
+       
         loadDevices();
     }
 
