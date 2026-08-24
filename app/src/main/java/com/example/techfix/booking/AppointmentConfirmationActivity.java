@@ -86,14 +86,15 @@ public class AppointmentConfirmationActivity extends AppCompatActivity {
         }
 
         // back close this screen
-        btnBackConfirmation.setOnClickListener(new View.OnClickListener() {
+
+         btnBackConfirmation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        //
+        
         btnConfirmBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,7 +240,6 @@ public class AppointmentConfirmationActivity extends AppCompatActivity {
         finish();
     }
 
-    // called automatically by Android after the user answers the location permission popup
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
